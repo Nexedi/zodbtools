@@ -27,6 +27,7 @@ setup(
     # zodb dump ...
     entry_points= {'console_scripts': [
                         'zodbcmp    = zodbtool.zodbcmp:main',
+                        'zodbdump   = zodbtool.zodbdump:main',
                       ]
                   },
 

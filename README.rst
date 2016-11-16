@@ -9,3 +9,4 @@ scripts anymore. So we are here:
 __ https://github.com/zopefoundation/ZODB/pull/128#issuecomment-260970932
 
 - `zodbcmp` - compare content of two ZODB databases bit-to-bit.
+- `zodbdump` - dump content of a ZODB database.

@@ -2,8 +2,15 @@
 # Copyright (C) 2016  Nexedi SA and Contributors.
 #                     Kirill Smelkov <kirr@nexedi.com>
 
+import hashlib
+
 def ashex(s):
     return s.encode('hex')
+
+def sha1(data):
+    m = hashlib.sha1()
+    m.update(data)
+    return m.digest()
 
 # something that is greater than everything else
 class Inf:
