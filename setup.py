@@ -8,10 +8,10 @@ def readfile(path):
 
 setup(
     name        = 'zodbtools',
-    version     = '0.0.0.dev1',
+    version     = '0.0.0.dev2',
     description = 'ZODB-related utilities',
     long_description = readfile('README.rst'),
-    url         = 'https://lab.nexedi.com/kirr/zodbtools',
+    url         = 'https://lab.nexedi.com/nexedi/zodbtools',
     license     = 'GPLv2+',
     author      = 'Kirill Smelkov',
     author_email= 'kirr@nexedi.com',
