@@ -13,7 +13,7 @@ setup(
     long_description = readfile('README.rst'),
     url         = 'https://lab.nexedi.com/nexedi/zodbtools',
     license     = 'GPLv2+',
-    author      = 'Kirill Smelkov',
+    author      = 'Nexedi + Community',
     author_email= 'kirr@nexedi.com',
 
     keywords    = 'zodb utility tool',
