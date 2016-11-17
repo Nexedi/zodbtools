@@ -18,7 +18,6 @@ setup(
 
     keywords    = 'zodb utility tool',
 
-    package_dir = {'wendelin': ''},
     packages    = find_packages(),
     install_requires = ['ZODB'],
 
