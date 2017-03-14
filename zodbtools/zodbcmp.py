@@ -16,7 +16,7 @@ Exit status is 0 if inputs are the same, 1 if different, 2 if error.
 """
 
 from __future__ import print_function
-from zodbtool.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid
+from zodbtools.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid
 from time import time
 
 # compare two storage transactions

@@ -17,7 +17,7 @@ txn ...
 """
 
 from __future__ import print_function
-from zodbtool.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid
+from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid
 
 
 def zodbdump(stor, tidmin, tidmax, hashonly=False):
