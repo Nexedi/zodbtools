@@ -12,8 +12,8 @@ setup(
     description = 'ZODB-related utilities',
     long_description = readfile('README.rst'),
     url         = 'https://lab.nexedi.com/nexedi/zodbtools',
-    license     = 'GPLv2+',
-    author      = 'Nexedi + Community',
+    license     = 'GPLv3+ with wide exception for Open-Source; ZPL 2.1',
+    author      = 'Nexedi + Zope Foundation + Community',
     author_email= 'kirr@nexedi.com',
 
     keywords    = 'zodb utility tool',

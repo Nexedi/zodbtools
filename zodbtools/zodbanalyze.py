@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Copyright (C) 2002-2017 Zope Foundation + Nexedi + Contributors
+# See LICENSE-ZPL.txt for full licensing terms.
 
 # Based on a transaction analyzer by Matt Kromer.
 
