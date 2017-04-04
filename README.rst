@@ -8,6 +8,7 @@ scripts anymore. So we are here:
 
 __ https://github.com/zopefoundation/ZODB/pull/128#issuecomment-260970932
 
-- `zodbanalyze` - analyze FileStorage or repozo deltafs usage.
-- `zodbcmp` - compare content of two ZODB databases bit-to-bit.
-- `zodbdump` - dump content of a ZODB database.
+- `zodb analyze` - analyze FileStorage or repozo deltafs usage.
+- `zodb cmp` - compare content of two ZODB databases bit-to-bit.
+- `zodb dump` - dump content of a ZODB database.
+- `zodb info` - print general information about a ZODB database.

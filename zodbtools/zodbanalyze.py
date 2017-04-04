@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright (C) 2002-2017 Zope Foundation + Nexedi + Contributors
 # See LICENSE-ZPL.txt for full licensing terms.
 
@@ -237,17 +236,18 @@ Note:
   Input deltafs file should be uncompressed.
 """
 
+summary = "analyze FileStorage or repozo deltafs usage"
+
 def usage(stream, msg=None):
     if msg:
         print >>stream, msg
         print >>stream
-    program = os.path.basename(sys.argv[0])
-    print >>stream, __doc__ % {"program": program}
+    print >>stream, __doc__ % {"program": "zodb analyze"}
 
 
-def main():
+def main(argv):
     try:
-        opts, args = getopt.getopt(sys.argv[1:],
+        opts, args = getopt.getopt(argv[1:],
                                    'hcd', ['help', 'csv', 'dbm'])
         path = args[0]
     except (getopt.GetoptError, IndexError), msg:
@@ -275,6 +275,3 @@ def main():
             return h
         FileStorageFormatter._read_data_header = _read_data_header
     report(analyze(path, use_dbm, delta_fs), csv)
-
-if __name__ == "__main__":
-    main()

@@ -17,6 +17,8 @@
 # See COPYING file for full licensing terms.
 
 import hashlib
+import zodburi
+from six.moves.urllib_parse import urlsplit, urlunsplit
 
 def ashex(s):
     return s.encode('hex')
@@ -72,3 +74,29 @@ def parse_tidrange(tidrange):
     # empty tid means -inf / +inf respectively
     # ( which is None in IStorage.iterator() )
     return (tidmin or None, tidmax or None)
+
+
+# storageFromURL opens a ZODB-storage specified by url
+# read_only specifies read or read/write mode for requested access:
+# - None: use default mode specified by url
+# - True/False: explicitly request read-only / read-write mode
+def storageFromURL(url, read_only=None):
+    # no schema -> file://
+    if "://" not in url:
+        url = "file://" + url
+
+    # read_only -> url
+    if read_only is not None:
+        scheme, netloc, path, query, fragment = urlsplit(url)
+        # XXX this won't have effect with zconfig:// but for file:// neo://
+        #     zeo:// etc ... it works
+        if scheme != "zconfig":
+            if len(query) > 0:
+                query += "&"
+            query += "read_only=%s" % read_only
+            url = urlunsplit((scheme, netloc, path, query, fragment))
+
+    stor_factory, dbkw = zodburi.resolve_uri(url)
+    stor = stor_factory()
+
+    return stor

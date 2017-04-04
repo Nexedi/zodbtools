@@ -19,17 +19,9 @@ setup(
     keywords    = 'zodb utility tool',
 
     packages    = find_packages(),
-    install_requires = ['ZODB'],
+    install_requires = ['ZODB', 'zodburi', 'six'],
 
-    # TODO have only one console program "zodb" and then it is
-    # zodb cmd ...
-    # zodb dump ...
-    entry_points= {'console_scripts': [
-                        'zodbanalyze = zodbtools.zodbanalyze:main',
-                        'zodbcmp     = zodbtools.zodbcmp:main',
-                        'zodbdump    = zodbtools.zodbdump:main',
-                      ]
-                  },
+    entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
 
     classifiers = [_.strip() for _ in """\
         Development Status :: 3 - Alpha
