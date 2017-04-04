@@ -20,3 +20,33 @@ from collections import OrderedDict
 
 # topic_name -> (topic_summary, topic_help)
 topic_dict = OrderedDict()
+
+help_zurl = """\
+Almost every zodb command works with a database.
+A database can be specified by way of providing URL for its storage.
+
+The most general way to specify a storage is via preparing file with
+ZConfig-based storage definition, e.g.
+
+    %import neo.client
+    <NEOStorage>
+        master_nodes    ...
+        name            ...
+    </NEOStorage>
+
+and using path to that file with zconfig:// schema:
+
+    zconfig://<path-to-zconfig-storage-definition>
+
+There are also following simpler ways:
+
+- neo://<db>@<master>   for a NEO database
+- zeo://<host>:<port>   for a ZEO database
+- /path/to/file         for a FileStorage database
+
+Please see zodburi documentation for full details:
+
+http://docs.pylonsproject.org/projects/zodburi/
+"""
+
+topic_dict['zurl'] = "specifying database URL", help_zurl

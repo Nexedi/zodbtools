@@ -19,7 +19,7 @@ setup(
     keywords    = 'zodb utility tool',
 
     packages    = find_packages(),
-    install_requires = ['ZODB'],
+    install_requires = ['ZODB', 'zodburi'],
 
     entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
 

@@ -30,8 +30,8 @@ txn ...
 """
 
 from __future__ import print_function
-from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid
-
+from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
+        storageFromURL
 
 def zodbdump(stor, tidmin, tidmax, hashonly=False):
     first = True
@@ -67,7 +67,6 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False):
 
 
 # ----------------------------------------
-import ZODB.config
 import sys, getopt
 
 summary = "dump content of a ZODB database"
@@ -77,13 +76,7 @@ def usage(out):
 Usage: zodb dump [OPTIONS] <storage> [tidmin..tidmax]
 Dump content of a ZODB database.
 
-<storage> is a file with ZConfig-based storage definition, e.g.
-
-    %import neo.client
-    <NEOStorage>
-        master_nodes    ...
-        name            ...
-    </NEOStorage>
+<storage> is an URL (see 'zodb help zurl') of a ZODB-storage.
 
 Options:
 
@@ -109,7 +102,7 @@ def main(argv):
             hashonly = True
 
     try:
-        storconf = argv[0]
+        storurl = argv[0]
     except IndexError:
         usage(sys.stderr)
         sys.exit(2)
@@ -123,6 +116,6 @@ def main(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor = ZODB.config.storageFromFile(open(storconf, 'r'))
+    stor = storageFromURL(storurl)
 
     zodbdump(stor, tidmin, tidmax, hashonly)

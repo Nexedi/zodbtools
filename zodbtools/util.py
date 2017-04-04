@@ -17,6 +17,7 @@
 # See COPYING file for full licensing terms.
 
 import hashlib
+import zodburi
 
 def ashex(s):
     return s.encode('hex')
@@ -72,3 +73,15 @@ def parse_tidrange(tidrange):
     # empty tid means -inf / +inf respectively
     # ( which is None in IStorage.iterator() )
     return (tidmin or None, tidmax or None)
+
+
+# storageFromURL opens a ZODB-storage specified by url
+def storageFromURL(url):
+    # no schema -> file://
+    if "://" not in url:
+        url = "file://" + url
+
+    stor_factory, dbkw = zodburi.resolve_uri(url)
+    stor = stor_factory()
+
+    return stor

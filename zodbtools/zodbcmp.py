@@ -29,7 +29,8 @@ Exit status is 0 if inputs are the same, 1 if different, 2 if error.
 """
 
 from __future__ import print_function
-from zodbtools.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid
+from zodbtools.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid,  \
+        storageFromURL
 from time import time
 
 # compare two storage transactions
@@ -106,7 +107,6 @@ def storcmp(stor1, stor2, tidmin, tidmax, verbose=False):
 
 
 # ----------------------------------------
-import ZODB.config
 import sys, getopt
 import traceback
 
@@ -117,13 +117,7 @@ def usage(out):
 Usage: zodb cmp [OPTIONS] <storage1> <storage2> [tidmin..tidmax]
 Compare two ZODB databases.
 
-<storageX> is a file with ZConfig-based storage definition, e.g.
-
-    %import neo.client
-    <NEOStorage>
-        master_nodes    ...
-        name            ...
-    </NEOStorage>
+<storageX> is an URL (see 'zodb help zurl') of a ZODB-storage.
 
 Options:
 
@@ -149,7 +143,7 @@ def main2(argv):
             verbose = True
 
     try:
-        storconf1, storconf2 = argv[0:2]
+        storurl1, storurl2 = argv[0:2]
     except ValueError:
         usage(sys.stderr)
         sys.exit(2)
@@ -163,8 +157,8 @@ def main2(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor1 = ZODB.config.storageFromFile(open(storconf1, 'r'))
-    stor2 = ZODB.config.storageFromFile(open(storconf2, 'r'))
+    stor1 = storageFromURL(storurl1)
+    stor2 = storageFromURL(storurl2)
 
     zcmp = storcmp(stor1, stor2, tidmin, tidmax, verbose)
     sys.exit(1 if zcmp else 0)
