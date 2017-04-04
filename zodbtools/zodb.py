@@ -33,7 +33,7 @@ def register_command(cmdname):
     command_module = importlib.import_module('zodbtools.zodb' + cmdname)
     command_dict[cmdname] = command_module
 
-for _ in ('analyze', 'cmp', 'dump'):
+for _ in ('analyze', 'cmp', 'dump', 'info'):
     register_command(_)
 
 
