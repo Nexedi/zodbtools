@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (C) 2016-2017  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
@@ -111,9 +110,11 @@ import ZODB.config
 import sys, getopt
 import traceback
 
+summary = "compare two ZODB databases"
+
 def usage(out):
     print("""\
-Usage: zodbcmp [OPTIONS] <storage1> <storage2> [tidmin..tidmax]
+Usage: zodb cmp [OPTIONS] <storage1> <storage2> [tidmin..tidmax]
 Compare two ZODB databases.
 
 <storageX> is a file with ZConfig-based storage definition, e.g.
@@ -130,11 +131,11 @@ Options:
     -h  --help      show this help
 """, file=out)
 
-def main2():
+def main2(argv):
     verbose = False
 
     try:
-        optv, argv = getopt.getopt(sys.argv[1:], "hv", ["help", "verbose"])
+        optv, argv = getopt.getopt(argv[1:], "hv", ["help", "verbose"])
     except getopt.GetoptError as e:
         print(e, file=sys.stderr)
         usage(sys.stderr)
@@ -168,14 +169,11 @@ def main2():
     zcmp = storcmp(stor1, stor2, tidmin, tidmax, verbose)
     sys.exit(1 if zcmp else 0)
 
-def main():
+def main(argv):
     try:
-        main2()
+        main2(argv)
     except SystemExit:
         raise   # this was sys.exit() call, not an error
     except:
         traceback.print_exc()
         sys.exit(2)
-
-if __name__ == '__main__':
-    main()

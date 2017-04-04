@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright (C) 2016-2017  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
@@ -71,9 +70,11 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False):
 import ZODB.config
 import sys, getopt
 
+summary = "dump content of a ZODB database"
+
 def usage(out):
     print("""\
-Usage: zodbdump [OPTIONS] <storage> [tidmin..tidmax]
+Usage: zodb dump [OPTIONS] <storage> [tidmin..tidmax]
 Dump content of a ZODB database.
 
 <storage> is a file with ZConfig-based storage definition, e.g.
@@ -90,11 +91,11 @@ Options:
     -h  --help      show this help
 """, file=out)
 
-def main():
+def main(argv):
     hashonly = False
 
     try:
-        optv, argv = getopt.getopt(sys.argv[1:], "h", ["help", "hashonly"])
+        optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly"])
     except getopt.GetoptError as e:
         print(e, file=sys.stderr)
         usage(sys.stderr)
@@ -125,6 +126,3 @@ def main():
     stor = ZODB.config.storageFromFile(open(storconf, 'r'))
 
     zodbdump(stor, tidmin, tidmax, hashonly)
-
-if __name__ == '__main__':
-    main()
