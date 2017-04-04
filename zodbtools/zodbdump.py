@@ -116,6 +116,6 @@ def main(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor = storageFromURL(storurl)
+    stor = storageFromURL(storurl, read_only=True)
 
     zodbdump(stor, tidmin, tidmax, hashonly)

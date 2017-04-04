@@ -157,8 +157,8 @@ def main2(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor1 = storageFromURL(storurl1)
-    stor2 = storageFromURL(storurl2)
+    stor1 = storageFromURL(storurl1, read_only=True)
+    stor2 = storageFromURL(storurl2, read_only=True)
 
     zcmp = storcmp(stor1, stor2, tidmin, tidmax, verbose)
     sys.exit(1 if zcmp else 0)
