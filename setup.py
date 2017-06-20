@@ -21,7 +21,7 @@ setup(
     packages    = find_packages(),
     install_requires = ['ZODB', 'zodburi', 'six'],
 
-    entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
+    entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main', 'incpozo = zodbtools.incpozo:main']},
 
     classifiers = [_.strip() for _ in """\
         Development Status :: 3 - Alpha
