@@ -18,55 +18,188 @@
 # See https://www.nexedi.com/licensing for rationale and options.
 """Zodbdump - Tool to dump content of a ZODB database
 
-TODO format     (WARNING dump format is not yet stable)
+This program dumps content of a ZODB database.
+It uses ZODB Storage iteration API to get list of transactions and for every
+transaction prints transaction's header and information about changed objects.
 
-txn <tid> (<status>)
-user <user|encode?>
-description <description|encode?>
-extension <extension|encode?>
-obj <oid> (delete | from <tid> | <sha1> <size> (LF <content>)?) LF     XXX do we really need back <tid>
----- // ----
-LF
-txn ...
+The information dumped is complete raw information as stored in ZODB storage
+and should be suitable for restoring the database from the dump file bit-to-bit
+identical to its original(*). It is dumped in semi text-binary format where
+object data is output as raw binary and everything else is text.
 
+There is also shortened mode activated via --hashonly where only hash of object
+data is printed without content.
+
+Dump format:
+
+    txn <tid> <status|quote>
+    user <user|quote>
+    description <description|quote>
+    extension <raw_extension|quote>
+    obj <oid> (delete | from <tid> | <size> <hashfunc>:<hash> (-|LF <raw-content>)) LF
+    obj ...
+    ...
+    obj ...
+    LF
+    txn ...
+
+quote:      quote string with " with non-printable and control characters \-escaped
+hashfunc:   one of sha1, sha256, sha512 ...
+
+(*) On best-effort basis as it is not generally possible to obtain transaction
+    metadata in raw form.
+
+TODO also protect txn record by hash.
 """
 
 from __future__ import print_function
 from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL
+        storageFromURL, escapeqq
+from ZODB._compat import loads, _protocol, BytesIO
+from zodbpickle.slowpickle import Pickler as pyPickler
+#import pickletools
 
-def zodbdump(stor, tidmin, tidmax, hashonly=False):
+import sys
+import logging
+
+# zodbdump dumps content of a ZODB storage to a file.
+# please see module doc-string for dump format and details
+def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
     first = True
 
     for txn in stor.iterator(tidmin, tidmax):
-        if not first:
-            print()
-        first = False
+        vskip = "\n"
+        if first:
+            vskip = ""
+            first = False
 
-        print('txn %s (%s)' % (ashex(txn.tid), txn.status))
-        print('user: %r' % (txn.user,))                    # XXX encode
-        print('description:', txn.description)      # XXX encode
-        print('extension:', txn.extension)          # XXX dict, encode
+        # XXX .status not covered by IStorageTransactionInformation
+        # XXX but covered by BaseStorage.TransactionRecord
+        out.write("%stxn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
+            vskip, ashex(txn.tid), escapeqq(txn.status),
+            escapeqq(txn.user),
+            escapeqq(txn.description),
+            escapeqq(serializeext(txn.extension)) ))
 
         objv = txnobjv(txn)
 
         for obj in objv:
-            entry = 'obj %s ' % ashex(obj.oid)
+            entry = "obj %s " % ashex(obj.oid)
+            write_data = False
+
             if obj.data is None:
-                entry += 'delete'
+                entry += "delete"
 
             # was undo and data taken from obj.data_txn
             elif obj.data_txn is not None:
-                entry += 'from %s' % ashex(obj.data_txn)
+                entry += "from %s" % ashex(obj.data_txn)
 
             else:
-                entry += '%s %i' % (ashex(sha1(obj.data)), len(obj.data))
-                if not hashonly:
-                    entry += '\n'
-                    entry += obj.data
+                # XXX sha1 is hardcoded for now. Dump format allows other hashes.
+                entry += "%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
+                write_data = True
 
-            print(entry)
+            out.write(entry)
 
+            if write_data:
+                if hashonly:
+                    out.write(" -")
+                else:
+                    out.write("\n")
+                    out.write(obj.data)
+
+            out.write("\n")
+
+# ----------------------------------------
+# XPickler is Pickler that tries to save objects stably
+# in other words dicts/sets/... are pickled with items emitted always in the same order.
+#
+# NOTE we order objects by regular python objects "<", and in general case
+# python fallbacks to comparing objects by their addresses, so comparision
+# result is not in general stable from run to run. The following program
+# prints True/False randomly with p. 50%:
+# ---- 8< ----
+# from random import choice
+# class A: pass
+# class B: pass
+# if choice([True, False]):
+#     a = A()
+#     b = B()
+# else:
+#     b = B()
+#     a = A()
+# print a < b
+# ---- 8< ----
+#
+# ( related reference: https://pythonhosted.org/BTrees/#total-ordering-and-persistence )
+#
+# We are ok with this semi-working solution(*) because it is only a fallback:
+# for proper zodbdump usage it is adviced for storage to provide
+# IStorageTransactionInformationRaw with all raw metadata directly accessible.
+#
+# (*) but 100% working e.g. for keys = only strings or integers
+#
+# NOTE cannot use C pickler because hooking into internal machinery is not possible there.
+class XPickler(pyPickler):
+
+    dispatch = pyPickler.dispatch.copy()
+
+    def save_dict(self, obj):
+        # original pickler emits items taken from obj.iteritems()
+        # let's prepare something with .iteritems() but emits those objs items ordered
+
+        items = obj.items()
+        items.sort()   # sorts by key
+        xitems = asiteritems(items)
+
+        super(self, XPickler).save_dict(xitems)
+
+    def save_set(self, obj):
+        # set's reduce always return 3 values
+        # https://github.com/python/cpython/blob/309fb90f/Objects/setobject.c#L1954
+        typ, keyv, dict_ = obj.__reduce_ex__(self.proto)
+        keyv.sort()
+
+        rv = (typ, keyv, dict_)
+        self.save_reduce(obj=obj, *rv)
+
+    dispatch[set] = save_set
+
+# asiteritems creates object that emits prepared items via .iteritems()
+# see save_dict() above for why/where it is needed.
+class asiteritems(object):
+
+    def __init__(self, items):
+        self._items = items
+
+    def iteritems(self):
+        return iter(self._items)
+
+
+# serializeext canonically serializes transaction's metadata "extension" dict
+def serializeext(ext):
+    # ZODB iteration API gives us depickled extensions and only that.
+    # So for dumping in raw form we need to pickle it back hopefully getting
+    # something close to original raw data.
+
+    if not ext:
+        # ZODB usually does this: encode {} as empty "", not as "}."
+        # https://github.com/zopefoundation/ZODB/blob/2490ae09/src/ZODB/BaseStorage.py#L194
+        #
+        # and here are decoders:
+        # https://github.com/zopefoundation/ZODB/blob/2490ae09/src/ZODB/FileStorage/FileStorage.py#L1145
+        # https://github.com/zopefoundation/ZODB/blob/2490ae09/src/ZODB/FileStorage/FileStorage.py#L1990
+        # https://github.com/zopefoundation/ZODB/blob/2490ae09/src/ZODB/fstools.py#L66
+        # ...
+        return b""
+
+    buf = BytesIO()
+    p = XPickler(buf, _protocol)
+    p.dump(ext)
+    out = buf.getvalue()
+    #out = pickletools.optimize(out) # remove unneeded PUT opcodes
+    assert loads(out) == ext
+    return out
 
 # ----------------------------------------
 import sys, getopt
