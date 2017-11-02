@@ -46,8 +46,8 @@ Dump format:
 quote:      quote string with " with non-printable and control characters \-escaped
 hashfunc:   one of sha1, sha256, sha512 ...
 
-(*) On best-effort basis as it is not generally possible to obtain transaction
-    metadata in raw form.
+(*) It is possible to obtain transaction metadata in raw form only in recent ZODB.
+    See https://github.com/zopefoundation/ZODB/pull/183 for details.
 
 TODO also protect txn record by hash.
 """
@@ -61,6 +61,27 @@ from zodbpickle.slowpickle import Pickler as pyPickler
 
 import sys
 import logging
+
+# txn_raw_extension returns raw extension from txn metadata
+def txn_raw_extension(stor, txn):
+    # if txn provides ZODB.interfaces.IStorageTransactionInformationRaw - use it directly
+    raw_extension = getattr(txn, "extension_bytes", None)
+    if raw_extension is not None:
+        return raw_extension
+
+    # otherwise do best effort to generate raw_extension from txn.extension
+    # in a rational way
+    stor_name = "(%s, %s)" % (type(stor).__name__, stor.getName())
+    if stor_name not in _already_warned_notxnraw:
+        logging.warn("%s: storage does not provide IStorageTransactionInformationRaw ...", stor_name)
+        logging.warn("... will do best-effort to dump pickles in stable order but this cannot be done 100% correctly")
+        logging.warn("... please upgrade your ZODB & storage: see https://github.com/zopefoundation/ZODB/pull/183 for details.")
+        _already_warned_notxnraw.add(stor_name)
+
+    return serializeext(txn.extension)
+
+# set of storage names already warned for not providing IStorageTransactionInformationRaw
+_already_warned_notxnraw = set()
 
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
@@ -79,7 +100,7 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
             vskip, ashex(txn.tid), escapeqq(txn.status),
             escapeqq(txn.user),
             escapeqq(txn.description),
-            escapeqq(serializeext(txn.extension)) ))
+            escapeqq(txn_raw_extension(stor, txn)) ))
 
         objv = txnobjv(txn)
 
