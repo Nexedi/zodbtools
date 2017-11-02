@@ -21,6 +21,10 @@ setup(
     packages    = find_packages(),
     install_requires = ['ZODB', 'zodburi', 'six'],
 
+    extras_require = {
+                  'test': ['pytest'],
+    },
+
     entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
 
     classifiers = [_.strip() for _ in """\
