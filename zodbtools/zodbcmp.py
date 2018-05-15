@@ -34,6 +34,7 @@ from __future__ import print_function
 from zodbtools.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid,  \
         storageFromURL
 from time import time
+from ZODB.FileStorage import FileIterator
 
 # compare two storage transactions
 # 0 - equal, 1 - non-equal
@@ -63,10 +64,7 @@ def txncmp(txn1, txn2):
 
 # compare two storages
 # 0 - equal, 1 - non-equal
-def storcmp(stor1, stor2, tidmin, tidmax, verbose=False):
-    iter1 = stor1.iterator(tidmin, tidmax)
-    iter2 = stor2.iterator(tidmin, tidmax)
-
+def storcmp(iter1, iter2, verbose=False):
     Tprev = time()
     txncount = 0
     while 1:
@@ -116,10 +114,13 @@ summary = "compare two ZODB databases"
 
 def usage(out):
     print("""\
-Usage: zodb cmp [OPTIONS] <storage1> <storage2> [tidmin..tidmax]
+Usage: zodb cmp [OPTIONS] <storage1>[@<pos>] <storage2>[@<pos>] [tidmin..tidmax]
 Compare two ZODB databases.
 
 <storageX> is an URL (see 'zodb help zurl') of a ZODB-storage.
+It can also be the path of a FileStorage DB, in which case an optional <pos>
+specifies a file offset from where iteration starts. <pos> must point to the
+beginning of a transaction.
 
 Options:
 
@@ -144,12 +145,6 @@ def main2(argv):
         if opt in ("-v", "--verbose"):
             verbose = True
 
-    try:
-        storurl1, storurl2 = argv[0:2]
-    except ValueError:
-        usage(sys.stderr)
-        sys.exit(2)
-
     # parse tidmin..tidmax
     tidmin = tidmax = None
     if len(argv) > 2:
@@ -159,10 +154,28 @@ def main2(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor1 = storageFromURL(storurl1, read_only=True)
-    stor2 = storageFromURL(storurl2, read_only=True)
+    elif len(argv) < 2:
+        usage(sys.stderr)
+        sys.exit(2)
 
-    zcmp = storcmp(stor1, stor2, tidmin, tidmax, verbose)
+    istor = []
+    for url in argv[:2]:
+        if "://" in url:
+            istor.append(storageFromURL(url, read_only=True).iterator(
+                    tidmin, tidmax))
+            continue
+        url = url.rsplit('@', 1)
+        if len(url) > 1:
+            try:
+                args = int(url[1]),
+            except ValueError:
+                print("E: invalid file offset: %s" % url[1], file=sys.stderr)
+                sys.exit(2)
+        else:
+            args = ()
+        istor.append(FileIterator(url[0], tidmin, tidmax, *args))
+
+    zcmp = storcmp(istor[0], istor[1], verbose)
     sys.exit(1 if zcmp else 0)
 
 def main(argv):
