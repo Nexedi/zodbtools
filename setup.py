@@ -19,7 +19,7 @@ setup(
     keywords    = 'zodb utility tool',
 
     packages    = find_packages(),
-    install_requires = ['ZODB', 'zodburi', 'six'],
+    install_requires = ['ZODB', 'zodburi', 'pygolang >= 0.0.0.dev3', 'six'],
 
     extras_require = {
                   'test': ['pytest'],

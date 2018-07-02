@@ -36,24 +36,6 @@ class Inf:
         return +1
 inf = Inf()
 
-# escapeqq escapes string into valid "..." string always quoted with ".
-#
-# (python's automatic escape uses smartquotes quoting with either ' or ")
-#
-# TODO also accept unicode as input.
-# TODO output printable UTF-8 characters as-is, but escape non-printable UTF-8 and invalid UTF-8 bytes.
-def escapeqq(s):
-    outv = []
-    # we don't want ' to be escaped
-    for _ in s.split("'"):
-        # this escape almost everything except " character
-        # NOTE string_escape does not do smartquotes and always uses ' for quoting
-        # (repr(str) is the same except it does smartquoting picking ' or " automatically)
-        q = _.encode("string_escape")
-        q = q.replace('"', r'\"')
-        outv.append(q)
-    return '"' + "'".join(outv) + '"'
-
 # get next item from iter -> (item, !stop)
 def nextitem(it):
     try:

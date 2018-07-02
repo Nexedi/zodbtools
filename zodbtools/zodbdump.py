@@ -54,13 +54,14 @@ TODO also protect txn record by hash.
 
 from __future__ import print_function
 from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL, escapeqq
+        storageFromURL
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
 #import pickletools
 
 import sys
 import logging
+from golang.gcompat import qq
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -97,10 +98,10 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
         out.write("%stxn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
-            vskip, ashex(txn.tid), escapeqq(txn.status),
-            escapeqq(txn.user),
-            escapeqq(txn.description),
-            escapeqq(txn_raw_extension(stor, txn)) ))
+            vskip, ashex(txn.tid), qq(txn.status),
+            qq(txn.user),
+            qq(txn.description),
+            qq(txn_raw_extension(stor, txn)) ))
 
         objv = txnobjv(txn)
 
