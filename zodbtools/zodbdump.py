@@ -87,18 +87,11 @@ _already_warned_notxnraw = set()
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
 def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
-    first = True
-
     for txn in stor.iterator(tidmin, tidmax):
-        vskip = "\n"
-        if first:
-            vskip = ""
-            first = False
-
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
-        out.write("%stxn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
-            vskip, ashex(txn.tid), qq(txn.status),
+        out.write("txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
+            ashex(txn.tid), qq(txn.status),
             qq(txn.user),
             qq(txn.description),
             qq(txn_raw_extension(stor, txn)) ))
@@ -131,6 +124,8 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
                     out.write(obj.data)
 
             out.write("\n")
+
+        out.write("\n")
 
 # ----------------------------------------
 # XPickler is Pickler that tries to save objects stably
