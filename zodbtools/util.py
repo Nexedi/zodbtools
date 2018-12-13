@@ -1,5 +1,5 @@
 # zodbtools - various utility routines
-# Copyright (C) 2016-2017  Nexedi SA and Contributors.
+# Copyright (C) 2016-2018  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -18,9 +18,10 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib
+import hashlib, struct
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
+from zlib import crc32, adler32
 
 def ashex(s):
     return s.encode('hex')
@@ -101,3 +102,63 @@ def storageFromURL(url, read_only=None):
     stor = stor_factory()
 
     return stor
+
+# ---- hashing ----
+
+# hasher that discards data
+class NullHasher:
+    name = "null"
+    digest_size = 1
+
+    def update(self, data):
+        pass
+
+    def digest(self):
+        return b'\0'
+
+    def hexdigest(self):
+        return "00"
+
+# adler32 in hashlib interface
+class Adler32Hasher:
+    name = "adler32"
+    digest_size = 4
+
+    def __init__(self):
+        self._h = adler32('')
+
+    def update(self, data):
+        self._h = adler32(data, self._h)
+
+    def digest(self):
+        return struct.pack('>I', self._h & 0xffffffff)
+
+    def hexdigest(self):
+        return '%08x' % (self._h & 0xffffffff)
+
+# crc32 in hashlib interface
+class CRC32Hasher:
+    name = "crc32"
+    digest_size = 4
+
+    def __init__(self):
+        self._h = crc32('')
+
+    def update(self, data):
+        self._h = crc32(data, self._h)
+
+    def digest(self):
+        return struct.pack('>I', self._h & 0xffffffff)
+
+    def hexdigest(self):
+        return '%08x' % (self._h & 0xffffffff)
+
+# {} name -> hasher
+hashRegistry = {
+    "null":     NullHasher,
+    "adler32":  Adler32Hasher,
+    "crc32":    CRC32Hasher,
+    "sha1":     hashlib.sha1,
+    "sha256":   hashlib.sha256,
+    "sha512":   hashlib.sha512,
+}
