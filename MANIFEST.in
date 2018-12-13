@@ -1,0 +1,1 @@
+recursive-include zodbtools/test/testdata *.fs *.index *.ok
