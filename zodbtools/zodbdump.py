@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2017  Nexedi SA and Contributors.
+# Copyright (C) 2016-2018  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -53,15 +53,19 @@ TODO also protect txn record by hash.
 """
 
 from __future__ import print_function
-from zodbtools.util import ashex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL
+from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
+        storageFromURL, hashRegistry
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
 #import pickletools
+from ZODB.interfaces import IStorageTransactionMetaData
+from zope.interface import implementer
 
 import sys
 import logging
+import re
 from golang.gcompat import qq
+from golang import strconv
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -271,3 +275,244 @@ def main(argv):
     stor = storageFromURL(storurl, read_only=True)
 
     zodbdump(stor, tidmin, tidmax, hashonly)
+
+
+# ----------------------------------------
+# dump reading/parsing
+
+_txn_re = re.compile(b'^txn (?P<tid>[0-9a-f]{16}) "(?P<status>.)"$')
+_obj_re = re.compile(b'^obj (?P<oid>[0-9a-f]{16}) ((?P<delete>delete)|from (?P<from>[0-9a-f]{16})|(?P<size>[0-9]+) (?P<hashfunc>\w+):(?P<hash>[0-9a-f]+)(?P<hashonly> -)?)')
+
+# _ioname returns name of the reader r, if it has one.
+# if there is no name - '' is returned.
+def _ioname(r):
+    return getattr(r, 'name', '')
+
+
+# DumpReader wraps IO reader to read transactions from zodbdump stream.
+#
+# The reader must provide .readline() and .read() methods.
+# The reader must be opened in binary mode.
+class DumpReader(object):
+    # .lineno   - line number position in read stream
+
+    def __init__(self, r):
+        self._r         = r
+        self._line      = None  # last read line
+        self.lineno     = 0
+
+    def _readline(self):
+        l = self._r.readline()
+        if l == '':
+            self._line = None
+            return None # EOF
+
+        l = l.rstrip(b'\n')
+        self.lineno += 1
+        self._line = l
+        return l
+
+    # report a problem found around currently-read line
+    def _badline(self, msg):
+        raise RuntimeError("%s+%d: invalid line: %s (%r)" % (_ioname(self._r), self.lineno, msg, self._line))
+
+    # readtxn reads one transaction record from input stream and returns
+    # Transaction instance or None at EOF.
+    def readtxn(self):
+        # header
+        l = self._readline()
+        if l is None:
+            return None
+        m = _txn_re.match(l)
+        if m is None:
+            self._badline('no txn start')
+        tid = fromhex(m.group('tid'))
+        status = m.group('status')
+
+        def get(name):
+            l = self._readline()
+            if l is None or not l.startswith(b'%s ' % name):
+                self._badline('no %s' % name)
+
+            return strconv.unquote(l[len(name) + 1:])
+
+        user          = get(b'user')
+        description   = get(b'description')
+        extension     = get(b'extension')
+
+        # objects
+        objv = []
+        while 1:
+            l = self._readline()
+            if l == '':
+                break   # empty line - end of transaction
+
+            if l is None or not l.startswith(b'obj '):
+                self._badline('no obj')
+
+            m = _obj_re.match(l)
+            if m is None:
+                self._badline('invalid obj entry')
+
+            obj = None # will be Object*
+            oid = fromhex(m.group('oid'))
+
+            from_ = m.group('from')
+
+            if m.group('delete'):
+                obj = ObjectDelete(oid)
+
+            elif from_:
+                copy_from = fromhex(from_)
+                obj = ObjectCopy(oid, copy_from)
+
+            else:
+                size     = int(m.group('size'))
+                hashfunc = m.group('hashfunc')
+                hashok   = fromhex(m.group('hash'))
+                hashonly = m.group('hashonly') is not None
+                data     = None # see vvv
+
+                hcls = hashRegistry.get(hashfunc)
+                if hcls is None:
+                    self._badline('unknown hash function %s' % qq(hashfunc))
+
+                if hashonly:
+                    data = HashOnly(size)
+                else:
+                    # XXX -> io.readfull
+                    n = size+1  # data LF
+                    data = b''
+                    while n > 0:
+                        chunk = self._r.read(n)
+                        data += chunk
+                        n -= len(chunk)
+                    self.lineno += data.count('\n')
+                    self._line = None
+                    if data[-1:] != b'\n':
+                        raise RuntimeError('%s+%d: no LF after obj data' % (_ioname(self._r), self.lineno))
+                    data = data[:-1]
+
+                    # verify data integrity
+                    # TODO option to allow reading corrupted data
+                    h = hcls()
+                    h.update(data)
+                    hash_ = h.digest()
+                    if hash_ != hashok:
+                        raise RuntimeError('%s+%d: data corrupt: %s = %s, expected %s' % (
+                            _ioname(self._r), self.lineno, h.name, ashex(hash_), ashex(hashok)))
+
+                obj = ObjectData(oid, data, hashfunc, hashok)
+
+            objv.append(obj)
+
+        return Transaction(tid, status, user, description, extension, objv)
+
+
+# Transaction represents one transaction record in zodbdump stream.
+@implementer(IStorageTransactionMetaData)
+class Transaction(object):
+    # .tid              p64         transaction ID
+    # .status           char        status of the transaction
+    # .user             bytes       transaction author
+    # .description      bytes       transaction description
+    # .extension_bytes  bytes       transaction extension
+    # .objv             []Object*   objects changed by transaction
+    def __init__(self, tid, status, user, description, extension, objv):
+        self.tid                = tid
+        self.status             = status
+        self.user               = user
+        self.description        = description
+        self.extension_bytes    = extension
+        self.objv               = objv
+
+    # ZODB wants to work with extension as {} - try to convert it on the fly.
+    #
+    # The conversion can fail for arbitrary .extension_bytes input.
+    # The conversion should become not needed once
+    #
+    #   https://github.com/zopefoundation/ZODB/pull/183, or
+    #   https://github.com/zopefoundation/ZODB/pull/207
+    #
+    # is in ZODB.
+    @property
+    def extension(self):
+        if not self.extension_bytes:
+            return {}
+        return loads(self.extension_bytes)
+
+    # zdump returns text representation of a record in zodbdump format.
+    def zdump(self):
+        z  = 'txn %s %s\n' % (ashex(self.tid), qq(self.status))
+        z += 'user %s\n' % qq(self.user)
+        z += 'description %s\n' % qq(self.description)
+        z += 'extension %s\n' % qq(self.extension_bytes)
+        for obj in self.objv:
+            z += obj.zdump()
+        z += '\n'
+        return z
+
+
+# Object is base class for object records in zodbdump stream.
+class Object(object):
+    # .oid          p64         object ID
+    def __init__(self, oid):
+        self.oid = oid
+
+# ObjectDelete represents objects deletion.
+class ObjectDelete(Object):
+
+    def __init__(self, oid):
+        super(ObjectDelete, self).__init__(oid)
+
+    def zdump(self):
+        return 'obj %s delete\n' % (ashex(self.oid))
+
+# ObjectCopy represents object data copy.
+class ObjectCopy(Object):
+    # .copy_from    tid         copy object data from object's revision tid
+    def __init__(self, oid, copy_from):
+        super(ObjectCopy, self).__init__(oid)
+        self.copy_from = copy_from
+
+    def zdump(self):
+        return 'obj %s from %s\n' % (ashex(self.oid), ashex(self.copy_from))
+
+# ObjectData represents record with object data.
+class ObjectData(Object):
+    # .data         HashOnly | bytes
+    # .hashfunc     str             hash function used for integrity
+    # .hash_        bytes           hash of the object's data
+    def __init__(self, oid, data, hashfunc, hash_):
+        super(ObjectData, self).__init__(oid)
+        self.data       = data
+        self.hashfunc   = hashfunc
+        self.hash_      = hash_
+
+    def zdump(self):
+        data = self.data
+        hashonly = isinstance(data, HashOnly)
+        if hashonly:
+            size = data.size
+        else:
+            size = len(data)
+        z = 'obj %s %d %s:%s' % (ashex(self.oid), size, self.hashfunc, ashex(self.hash_))
+        if hashonly:
+            z += ' -'
+        else:
+            z += '\n'
+            z += data
+        z += '\n'
+        return z
+
+# HashOnly indicated that this ObjectData record contains only hash and does not contain object data.
+class HashOnly(object):
+    # .size         int
+    def __init__(self, size):
+        self.size = size
+
+    def __repr__(self):
+        return 'HashOnly(%d)' % self.size
+
+    def __eq__(a, b):
+        return isinstance(b, HashOnly) and a.size == b.size

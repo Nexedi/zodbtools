@@ -18,13 +18,16 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib, struct
+import hashlib, struct, codecs
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 
 def ashex(s):
     return s.encode('hex')
+
+def fromhex(s):
+    return codecs.decode(s, 'hex')
 
 def sha1(data):
     m = hashlib.sha1()
