@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Copyright (C) 2017  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# Copyright (C) 2017-2018  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -35,7 +35,7 @@ def register_command(cmdname):
     command_module = importlib.import_module('zodbtools.zodb' + cmdname)
     command_dict[cmdname] = command_module
 
-for _ in ('analyze', 'cmp', 'dump', 'info'):
+for _ in ('analyze', 'cmp', 'commit', 'dump', 'info'):
     register_command(_)
 
 
