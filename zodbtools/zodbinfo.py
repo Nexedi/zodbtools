@@ -22,6 +22,7 @@
 from __future__ import print_function
 from zodbtools.util import ashex, storageFromURL
 from collections import OrderedDict
+from golang import func, defer
 import sys
 
 # {} parameter_name -> get_parameter(stor)
@@ -71,6 +72,7 @@ Options:
     -h  --help      show this help
 """, file=out)
 
+@func
 def main(argv):
     try:
         optv, argv = getopt.getopt(argv[1:], "h", ["help"])
@@ -91,5 +93,6 @@ def main(argv):
         sys.exit(2)
 
     stor = storageFromURL(storurl, read_only=True)
+    defer(stor.close)
 
     zodbinfo(stor, argv[1:])
