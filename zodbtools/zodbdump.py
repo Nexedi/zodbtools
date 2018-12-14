@@ -65,7 +65,7 @@ import sys
 import logging
 import re
 from golang.gcompat import qq
-from golang import strconv
+from golang import func, defer, strconv
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -240,6 +240,7 @@ Options:
     -h  --help      show this help
 """, file=out)
 
+@func
 def main(argv):
     hashonly = False
 
@@ -273,6 +274,7 @@ def main(argv):
             sys.exit(2)
 
     stor = storageFromURL(storurl, read_only=True)
+    defer(stor.close)
 
     zodbdump(stor, tidmin, tidmax, hashonly)
 

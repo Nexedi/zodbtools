@@ -12,6 +12,7 @@ import shutil
 from ZODB.FileStorage import FileIterator, FileStorage, packed_version
 from ZODB.FileStorage.format import FileStorageFormatter
 from ZODB.utils import get_pickle_metadata
+from golang import func, defer
 
 class DeltaFileStorage(
     FileStorageFormatter,
@@ -21,6 +22,9 @@ class DeltaFileStorage(
 
     def iterator(self, start=None, stop=None):
         return DeltaFileIterator(self._file_name, start, stop)
+
+    def close(self):
+        pass
 
 class DeltaFileIterator(FileIterator):
     def __init__(self, filename, start=None, stop=None, pos=0L):
@@ -157,11 +161,13 @@ def report(rep, csv=False):
                           rep.FBYTES * 100.0 / rep.DBYTES,
                           rep.FBYTES * 1.0 / rep.FOIDS)
 
+@func
 def analyze(path, use_dbm, delta_fs):
     if delta_fs:
         fs = DeltaFileStorage(path, read_only=1)
     else:
         fs = FileStorage(path, read_only=1)
+    defer(fs.close)
     fsi = fs.iterator()
     report = Report(use_dbm, delta_fs)
     for txn in fsi:

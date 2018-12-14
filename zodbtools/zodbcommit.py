@@ -44,7 +44,7 @@ from zodbtools.util import ashex, storageFromURL
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
 from ZODB._compat import BytesIO
-from golang import panic
+from golang import func, defer, panic
 
 
 # zodbcommit commits new transaction into ZODB storage with data specified by
@@ -135,6 +135,7 @@ Options:
     -h  --help      show this help
 """, file=out)
 
+@func
 def main(argv):
     try:
         optv, argv = getopt.getopt(argv[1:], "h", ["help"])
@@ -156,6 +157,7 @@ def main(argv):
     at = argv[1].decode('hex')
 
     stor = storageFromURL(storurl)
+    defer(stor.close)
 
     zin = 'txn 0000000000000000 " "\n'  # artificial transaction header
     zin += sys.stdin.read()

@@ -34,6 +34,7 @@ from __future__ import print_function
 from zodbtools.util import ashex, inf, nextitem, txnobjv, parse_tidrange, TidRangeInvalid,  \
         storageFromURL
 from time import time
+from golang import func, defer
 
 # compare two storage transactions
 # 0 - equal, 1 - non-equal
@@ -127,6 +128,7 @@ Options:
     -h  --help      show this help
 """, file=out)
 
+@func
 def main2(argv):
     verbose = False
 
@@ -159,8 +161,8 @@ def main2(argv):
             print("E: invalid tidrange: %s" % e, file=sys.stderr)
             sys.exit(2)
 
-    stor1 = storageFromURL(storurl1, read_only=True)
-    stor2 = storageFromURL(storurl2, read_only=True)
+    stor1 = storageFromURL(storurl1, read_only=True);   defer(stor1.close)
+    stor2 = storageFromURL(storurl2, read_only=True);   defer(stor2.close)
 
     zcmp = storcmp(stor1, stor2, tidmin, tidmax, verbose)
     sys.exit(1 if zcmp else 0)
