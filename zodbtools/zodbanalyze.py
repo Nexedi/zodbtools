@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2002-2017 Zope Foundation + Nexedi + Contributors
 # See LICENSE-ZPL.txt for full licensing terms.
 
@@ -12,7 +13,7 @@ import shutil
 from ZODB.FileStorage import FileIterator, packed_version
 from ZODB.FileStorage.format import FileStorageFormatter
 from ZODB.utils import get_pickle_metadata
-from zodbtools.util import storageFromURL
+from zodbtools.util import storageFromURL, parse_tidrange, ashex
 from golang import func, defer
 
 class DeltaFileStorage(
@@ -73,6 +74,8 @@ class Report:
         self.CBYTESMAP = {}
         self.FOIDSMAP = {}
         self.FBYTESMAP = {}
+        self.tidmin = None  # first scanned transaction
+        self.tidmax = None  # last  ----//----
 
 def shorten(s, n):
     l = len(s)
@@ -91,6 +94,10 @@ def shorten(s, n):
 def report(rep, csv=False):
     delta_fs = rep.delta_fs
     if not csv:
+        if rep.TIDS == 0:
+            print "# ø"
+        else:
+            print "# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax))
         print "Processed %d records in %d transactions" % (rep.OIDS, rep.TIDS)
         print "Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS)
         print ("Average transaction size is %7.2f bytes" %
@@ -163,13 +170,13 @@ def report(rep, csv=False):
                           rep.FBYTES * 1.0 / rep.FOIDS)
 
 @func
-def analyze(path, use_dbm, delta_fs):
+def analyze(path, use_dbm, delta_fs, tidmin, tidmax):
     if delta_fs:
         fs = DeltaFileStorage(path, read_only=1)
     else:
         fs = storageFromURL(path, read_only=1)
     defer(fs.close)
-    fsi = fs.iterator()
+    fsi = fs.iterator(tidmin, tidmax)
     report = Report(use_dbm, delta_fs)
     for txn in fsi:
         analyze_trans(report, txn)
@@ -179,6 +186,10 @@ def analyze(path, use_dbm, delta_fs):
 
 def analyze_trans(report, txn):
     report.TIDS += 1
+    if report.tidmin is None:
+        # first seen transaction
+        report.tidmin = txn.tid
+    report.tidmax = txn.tid
     for rec in txn:
         analyze_rec(report, rec)
 
@@ -232,7 +243,7 @@ def analyze_rec(report, record):
 
 __doc__ = """%(program)s: Analyzer for ZODB data or repozo deltafs
 
-usage: %(program)s [options] <storage>
+usage: %(program)s [options] <storage> [tidmin..tidmax]
 
 <storage> is an URL (see `zodb help zurl`) or /path/to/file.deltafs(*)
 
@@ -262,6 +273,12 @@ def main(argv):
     except (getopt.GetoptError, IndexError), msg:
         usage(sys.stderr, msg)
         sys.exit(2)
+
+    # parse tidmin..tidmax
+    tidmin = tidmax = None
+    if len(args) > 1:
+        tidmin, tidmax = parse_tidrange(args[1])
+
     csv = False
     use_dbm = False
     for opt, args in opts:
@@ -284,4 +301,4 @@ def main(argv):
                 h.tloc = self._tpos
                 return h
             FileStorageFormatter._read_data_header = _read_data_header
-    report(analyze(path, use_dbm, delta_fs), csv)
+    report(analyze(path, use_dbm, delta_fs, tidmin, tidmax), csv)
