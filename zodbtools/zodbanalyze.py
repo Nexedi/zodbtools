@@ -9,9 +9,10 @@ import getopt
 import anydbm as dbm
 import tempfile
 import shutil
-from ZODB.FileStorage import FileIterator, FileStorage, packed_version
+from ZODB.FileStorage import FileIterator, packed_version
 from ZODB.FileStorage.format import FileStorageFormatter
 from ZODB.utils import get_pickle_metadata
+from zodbtools.util import storageFromURL
 from golang import func, defer
 
 class DeltaFileStorage(
@@ -166,7 +167,7 @@ def analyze(path, use_dbm, delta_fs):
     if delta_fs:
         fs = DeltaFileStorage(path, read_only=1)
     else:
-        fs = FileStorage(path, read_only=1)
+        fs = storageFromURL(path, read_only=1)
     defer(fs.close)
     fsi = fs.iterator()
     report = Report(use_dbm, delta_fs)
@@ -229,20 +230,22 @@ def analyze_rec(report, record):
     except Exception, err:
         print err
 
-__doc__ = """%(program)s: Analyzer for FileStorage data or repozo deltafs
+__doc__ = """%(program)s: Analyzer for ZODB data or repozo deltafs
 
-usage: %(program)s [options] /path/to/Data.fs (or /path/to/file.deltafs)
+usage: %(program)s [options] <storage>
+
+<storage> is an URL (see 'zodb help zurl') or /path/to/file.deltafs(*)
 
 Options:
   -h, --help                 this help screen
   -c, --csv                  output CSV
   -d, --dbm                  use DBM as temporary storage to limit memory usage
                              (no meaning for deltafs case)
-Note:
+(*) Note:
   Input deltafs file should be uncompressed.
 """
 
-summary = "analyze FileStorage or repozo deltafs usage"
+summary = "analyze ZODB database or repozo deltafs usage"
 
 def usage(stream, msg=None):
     if msg:
@@ -269,15 +272,16 @@ def main(argv):
         if opt in ('-h', '--help'):
             usage(sys.stdout)
             sys.exit()
-    header = open(path, 'rb').read(4)
-    if header == packed_version:
-        delta_fs = False
-    else:
-        delta_fs = True
-        _orig_read_data_header = FileStorageFormatter._read_data_header
-        def _read_data_header(self, pos, oid=None):
-            h = _orig_read_data_header(self, pos, oid=oid)
-            h.tloc = self._tpos
-            return h
-        FileStorageFormatter._read_data_header = _read_data_header
+    # try to see whether it is zurl or a path to file.deltafs
+    delta_fs = False
+    if os.path.exists(path):
+        header = open(path, 'rb').read(4)
+        if header != packed_version:
+            delta_fs = True
+            _orig_read_data_header = FileStorageFormatter._read_data_header
+            def _read_data_header(self, pos, oid=None):
+                h = _orig_read_data_header(self, pos, oid=oid)
+                h.tloc = self._tpos
+                return h
+            FileStorageFormatter._read_data_header = _read_data_header
     report(analyze(path, use_dbm, delta_fs), csv)
