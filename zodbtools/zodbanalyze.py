@@ -243,9 +243,10 @@ def analyze_rec(report, record):
 
 __doc__ = """%(program)s: Analyzer for ZODB data or repozo deltafs
 
-usage: %(program)s [options] <storage> [tidmin..tidmax]
+usage: %(program)s [options] <storage> [<tidrange>]
 
 <storage> is an URL (see 'zodb help zurl') or /path/to/file.deltafs(*)
+<tidrange> is a history range (see 'zodb help tidrange') to analyze.
 
 Options:
   -h, --help                 this help screen
