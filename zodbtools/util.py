@@ -64,6 +64,9 @@ def txnobjv(txn):
 class TidRangeInvalid(Exception):
     pass
 
+# parse_tidrange parses a string into (tidmin, tidmax).
+#
+# see `zodb help tidrange` for accepted tidrange syntax.
 def parse_tidrange(tidrange):
     try:
         tidmin, tidmax = tidrange.split("..")

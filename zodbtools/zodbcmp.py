@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2017  Nexedi SA and Contributors.
+# Copyright (C) 2016-2018  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -20,7 +20,7 @@
 """Zodbcmp - Tool to compare two ZODB databases
 
 Zodbcmp compares two ZODB databases in between tidmin..tidmax transaction range
-with default range being -∞..+∞ - (whole database).
+with default range being 0..+∞ - (whole database).
 
 For comparison both databases are scanned at storage layer and every
 transaction content is compared bit-to-bit between the two. The program stops
@@ -121,6 +121,7 @@ Usage: zodb cmp [OPTIONS] <storage1> <storage2> [tidmin..tidmax]
 Compare two ZODB databases.
 
 <storageX> is an URL (see 'zodb help zurl') of a ZODB-storage.
+<tidrange> is a history range (see 'zodb help tidrange') to compare.
 
 Options:
 

@@ -229,10 +229,11 @@ summary = "dump content of a ZODB database"
 
 def usage(out):
     print("""\
-Usage: zodb dump [OPTIONS] <storage> [tidmin..tidmax]
+Usage: zodb dump [OPTIONS] <storage> [<tidrange>]
 Dump content of a ZODB database.
 
 <storage> is an URL (see 'zodb help zurl') of a ZODB-storage.
+<tidrange> is a history range (see 'zodb help tidrange') to dump.
 
 Options:
 
