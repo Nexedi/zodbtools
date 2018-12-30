@@ -8,9 +8,10 @@ def readfile(path):
 
 setup(
     name        = 'zodbtools',
-    version     = '0.0.0.dev5',
+    version     = '0.0.0.dev6',
     description = 'ZODB-related utilities',
-    long_description = readfile('README.rst'),
+    long_description = '%s\n----\n\n%s' % (
+                            readfile('README.rst'), readfile('CHANGELOG.rst')),
     url         = 'https://lab.nexedi.com/nexedi/zodbtools',
     license     = 'GPLv3+ with wide exception for Open-Source; ZPL 2.1',
     author      = 'Nexedi + Zope Foundation + Community',
