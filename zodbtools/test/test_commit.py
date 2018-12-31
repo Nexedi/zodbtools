@@ -20,7 +20,7 @@
 from zodbtools.zodbcommit import zodbcommit
 from zodbtools.zodbdump import zodbdump, Transaction, ObjectData, ObjectDelete, ObjectCopy
 from zodbtools.util import storageFromURL, sha1
-from ZODB.utils import p64, u64, z64, maxtid
+from ZODB.utils import p64, u64, z64
 from ZODB._compat import BytesIO, dumps, _protocol   # XXX can't yet commit with arbitrary ext.bytes
 
 from tempfile import mkdtemp
@@ -53,7 +53,7 @@ def test_zodbcommit(zext):
 
 
     buf = BytesIO()
-    zodbdump(stor, p64(u64(head)+1), maxtid, out=buf)
+    zodbdump(stor, p64(u64(head)+1), None, out=buf)
     dumped = buf.getvalue()
 
     assert dumped == ''.join([_.zdump() for _ in (t1, t2)])
