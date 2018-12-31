@@ -58,7 +58,7 @@ from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRan
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
 #import pickletools
-from ZODB.interfaces import IStorageTransactionMetaData
+from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
 import sys
@@ -413,7 +413,7 @@ class DumpReader(object):
 
 
 # Transaction represents one transaction record in zodbdump stream.
-@implementer(IStorageTransactionMetaData)
+@implementer(IStorageTransactionInformation)    # TODO -> IStorageTransactionMetaData after switch to ZODB >= 5
 class Transaction(object):
     # .tid              p64         transaction ID
     # .status           char        status of the transaction
