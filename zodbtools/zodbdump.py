@@ -444,6 +444,11 @@ class Transaction(object):
             return {}
         return loads(self.extension_bytes)
 
+    # ZODB < 5 wants ._extension
+    @property
+    def _extension(self):
+        return self.extension
+
     # zdump returns text representation of a record in zodbdump format.
     def zdump(self):
         z  = 'txn %s %s\n' % (ashex(self.tid), qq(self.status))
