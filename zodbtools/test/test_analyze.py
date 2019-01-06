@@ -31,3 +31,16 @@ def test_zodbanalyze(capsys):
     captured = capsys.readouterr()
     assert "Processed 68 records in 59 transactions" in captured.out
     assert captured.err == ""
+
+    # empty range
+    report(
+        analyze(
+            os.path.join(os.path.dirname(__file__), 'testdata', '1.fs'),
+            use_dbm=False,
+            delta_fs=False,
+            tidmin='ffffffffffffffff',
+            tidmax=None),
+        csv=False)
+    captured = capsys.readouterr()
+    assert "Processed 0 records in 0 transactions" in captured.out
+    assert captured.err == ""
