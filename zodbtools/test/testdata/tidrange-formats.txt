@@ -1,0 +1,103 @@
+# This is the supported time formats for zodbutils <tidrange>
+# Format of this file is:
+#   <reference time> <tid in hex format> <time input format>
+#
+# These must be run with current time: 2009-08-30T19:20:00Z
+# in Europe/Paris timezone.
+# ( as a timestamp: 1251660000 )
+
+
+# some absolute date formats:
+# RFC3339
+2018-01-01T10:30:00Z 03c4857600000000 2018-01-01T10:30:00Z
+1985-04-12T23:20:50.520000Z 02b914f8d78d4fdf 1985-04-12T23:20:50.52Z
+1996-12-20T00:39:57Z 03189927f3333333 1996-12-19T16:39:57-08:00
+2018-01-01T05:30:00Z 03c4844a00000000 2018-01-01T10:30:00+05:00
+
+# RFC822
+1976-08-26T14:29:00Z 02728aa500000000 26 Aug 76 14:29 GMT
+1976-08-26T12:29:00Z 02728a2d00000000 26 Aug 76 14:29 +02:00
+
+
+# RFC850 -> not supported (by go implementation)
+#2006-01-02T22:04:05Z 036277cc15555555 Monday, 02-Jan-06 15:04:05 MST
+
+# RFC1123 -> not supported (by go implementation)
+#2006-01-02T22:04:05Z 036277cc15555555 Mon, 02 Jan 2006 15:04:05 MST
+#2006-01-02T22:04:05Z 036277cc15555555 Mon, 02 Jan 2006 23:04:05 GMT+1
+
+# explicit UTC timezone
+2018-01-01T10:30:00Z 03c4857600000000 2018-01-01 10:30:00 UTC
+2018-01-02T00:00:00Z 03c488a000000000 2018-01-02 UTC
+
+
+# Relative formats, based on git's test for approxidate
+# (adapted for timezone Europe/Paris and extended a bit)
+2009-08-30T19:20:00Z 03805ec800000000 now
+2009-08-30T19:19:55Z 03805ec7eaaaaaaa 5 seconds ago
+2009-08-30T19:19:55Z 03805ec7eaaaaaaa 5.seconds.ago
+2009-08-30T19:10:00Z 03805ebe00000000 10.minutes.ago
+2009-08-29T19:20:00Z 0380592800000000 yesterday
+2009-08-27T19:20:00Z 03804de800000000 3.days.ago
+2009-08-09T19:20:00Z 037fe8a800000000 3.weeks.ago
+2009-05-30T19:20:00Z 037e53a800000000 3.months.ago
+2009-08-30T19:19:00Z 03805ec700000000 1 minute ago
+2009-08-29T19:20:00Z 0380592800000000 1 day ago
+2009-07-30T19:20:00Z 037fb06800000000 1 month ago
+
+# go's when does not support "chaining" like this
+#2007-05-30T19:20:00Z 036dfaa800000000 2.years.3.months.ago
+
+2009-08-29T04:00:00Z 0380559000000000 6am yesterday
+2009-08-29T16:00:00Z 0380586000000000 6pm yesterday
+
+2009-08-30T01:00:00Z 03805a7c00000000 3:00
+2009-08-30T13:00:00Z 03805d4c00000000 15:00
+2009-08-30T10:00:00Z 03805c9800000000 noon today
+2009-08-29T10:00:00Z 038056f800000000 noon yesterday
+
+# this input is a bit weird also, what does "noon pm" mean?
+# it seems to trigger a bug in python's parser
+#  TypeError: can't compare offset-naive and offset-aware datetimes
+#2009-01-05T12:00:00Z 037b0bd000000000 January 5th noon pm
+
+# this input is "ambiguous"
+#2009-08-29T12:00:00Z 0380577000000000 10am noon
+
+# not supported by date parser
+#2009-08-25T19:20:00Z 038042a800000000 last tuesday
+# non consistent behavior ( go keep current hour:minutes - python use midnight )
+#  this also TypeError on python
+#2009-07-05T00:00:00Z 037f1f4000000000 July 5th
+
+# parsed as month/day (at least for me ... it might depend on some locale settings other than $TZ ?)
+#2009-05-06T00:00:00Z 037dc82000000000 06.05.2009
+
+# go parser is wrong on this one
+#2009-06-06T05:00:00Z 037e77ac00000000 Jun 6, 5AM
+# go parser is wrong on this one
+#2009-06-06T05:00:00Z 037e77ac00000000 5AM Jun 6
+
+2009-06-07T04:00:00Z 037e7d1000000000 6AM, June 7, 2009
+
+# python and go disagree on these two, go see them as 00:00 UTC
+#2008-11-30T23:00:00Z 037a3e4400000000 2008-12-01
+#2009-11-30T23:00:00Z 03826ac400000000 2009-12-01
+#2009-06-04T22:00:00Z 037e706800000000 06/05/2009
+# ( end of tests from git )
+
+# more tests
+
+### works with python implementation, but not supported:
+#2018-01-01T09:30:00Z 03c4853a00000000 le 1er janvier 2018 à 10h30
+#2018-01-01T23:00:00Z 03c4886400000000 2018年1月2日
+
+### some invalid formats that "looks OK"
+# wrong format on timezone (should be 2009-06-01T22:00:00+09:00)
+#2009-06-01T01:00:00Z 037e5a9c00000000 2009-06-01T10:00:00:+09:00
+# day is 34
+# ERROR XXX 2009-06-34T22:00:00Z
+# one digits hour minutes
+# ERROR XXX 2009-06-01T1:2:3
+# month use a captital o instead of O
+# ERROR XXX 2009-O6-01T22:00:00Z
