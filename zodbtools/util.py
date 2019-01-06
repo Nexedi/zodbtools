@@ -74,6 +74,16 @@ def tid_from_date(date_string):
     """
     if not date_string:
         return date_string
+
+    # If it "looks like a TID", don't try to parse it as date,
+    # because parsing as date is slow.
+    if len(date_string) == 16:
+        try:
+            fromhex(date_string)
+            return date_string
+        except TypeError:
+            pass
+
     date = dateparser.parse(
         date_string,
         settings={
