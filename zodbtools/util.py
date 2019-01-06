@@ -22,6 +22,8 @@ import hashlib, struct, codecs
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
+from ZODB.TimeStamp import TimeStamp
+import dateparser
 
 def ashex(s):
     return s.encode('hex')
@@ -61,8 +63,59 @@ def txnobjv(txn):
     return objv
 
 # "tidmin..tidmax" -> (tidmin, tidmax)
-class TidRangeInvalid(Exception):
+class TidInvalid(ValueError):
     pass
+
+
+class TidRangeInvalid(ValueError):
+    pass
+
+
+def parse_tid(tid_string, raw_only=False):
+    """Try to parse `tid_string` as a time and returns the
+    corresponding raw TID.
+    If `tid_string` cannot be parsed as a time, assume it was
+    already a TID.
+    This function also raise TidRangeInvalid when `tid_string`
+    is invalid.
+    """
+    assert isinstance(tid_string, (str, bytes))
+
+    # If it "looks like a TID", don't try to parse it as time,
+    # because parsing is slow.
+    if len(tid_string) == 16:
+        try:
+            return fromhex(tid_string)
+        except ValueError:
+            pass
+
+    if raw_only:
+        # either it was not 16-char string or hex decoding failed
+        raise TidInvalid(tid_string)
+
+    # preprocess to support `1.day.ago` style formats like git log does.
+    if "ago" in tid_string:
+        tid_string = tid_string.replace(".", " ").replace("_", " ")
+    parsed_time = dateparser.parse(
+        tid_string,
+        settings={
+            'TO_TIMEZONE': 'UTC',
+            'RETURN_AS_TIMEZONE_AWARE': True
+        })
+
+    if not parsed_time:
+        # parsing as date failed
+        raise TidInvalid(tid_string)
+
+    # build a ZODB.TimeStamp to convert as a TID
+    return TimeStamp(
+            parsed_time.year,
+            parsed_time.month,
+            parsed_time.day,
+            parsed_time.hour,
+            parsed_time.minute,
+            parsed_time.second + parsed_time.microsecond / 1000000.).raw()
+
 
 # parse_tidrange parses a string into (tidmin, tidmax).
 #
@@ -73,11 +126,10 @@ def parse_tidrange(tidrange):
     except ValueError:  # not exactly 2 parts in between ".."
         raise TidRangeInvalid(tidrange)
 
-    try:
-        tidmin = tidmin.decode("hex")
-        tidmax = tidmax.decode("hex")
-    except TypeError:   # hex decoding error
-        raise TidRangeInvalid(tidrange)
+    if tidmin:
+        tidmin = parse_tid(tidmin)
+    if tidmax:
+        tidmax = parse_tid(tidmax)
 
     # empty tid means -inf / +inf respectively
     # ( which is None in IStorage.iterator() )
