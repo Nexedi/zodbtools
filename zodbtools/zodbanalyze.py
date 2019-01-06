@@ -99,9 +99,11 @@ def report(rep, csv=False):
         else:
             print "# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax))
         print "Processed %d records in %d transactions" % (rep.OIDS, rep.TIDS)
-        print "Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS)
-        print ("Average transaction size is %7.2f bytes" %
-               (rep.DBYTES * 1.0 / rep.TIDS))
+        if rep.OIDS:
+            print "Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS)
+        if rep.TIDS:
+            print ("Average transaction size is %7.2f bytes" %
+                   (rep.DBYTES * 1.0 / rep.TIDS))
 
         print "Types used:"
     if delta_fs:
@@ -156,14 +158,17 @@ def report(rep, csv=False):
                       rep.DBYTES * 1.0 / rep.OIDS)
     else:
         print fmt % ('='*46, '='*7, '='*9, '='*5, '='*7, '='*7, '='*9, '='*7, '='*9)
-        print "%46s %7d %9s %6s %6.2fk" % ('Total Transactions', rep.TIDS, ' ',
-            ' ', rep.DBYTES * 1.0 / rep.TIDS / 1024.0)
-        print fmts % ('Total Records', rep.OIDS, rep.DBYTES / 1024.0, cumpct,
-                      rep.DBYTES * 1.0 / rep.OIDS)
+        if rep.TIDS:
+            print "%46s %7d %9s %6s %6.2fk" % ('Total Transactions', rep.TIDS, ' ',
+                ' ', rep.DBYTES * 1.0 / rep.TIDS / 1024.0)
+        if rep.OIDS:
+            print fmts % ('Total Records', rep.OIDS, rep.DBYTES / 1024.0, cumpct,
+                          rep.DBYTES * 1.0 / rep.OIDS)
 
-        print fmts % ('Current Objects', rep.COIDS, rep.CBYTES / 1024.0,
-                      rep.CBYTES * 100.0 / rep.DBYTES,
-                      rep.CBYTES * 1.0 / rep.COIDS)
+        if rep.COIDS:
+            print fmts % ('Current Objects', rep.COIDS, rep.CBYTES / 1024.0,
+                          rep.CBYTES * 100.0 / rep.DBYTES,
+                          rep.CBYTES * 1.0 / rep.COIDS)
         if rep.FOIDS:
             print fmts % ('Old Objects', rep.FOIDS, rep.FBYTES / 1024.0,
                           rep.FBYTES * 100.0 / rep.DBYTES,
