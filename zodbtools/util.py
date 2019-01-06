@@ -22,6 +22,8 @@ import hashlib, struct, codecs
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
+from ZODB.TimeStamp import TimeStamp
+import dateparser
 
 def ashex(s):
     return s.encode('hex')
@@ -64,6 +66,31 @@ def txnobjv(txn):
 class TidRangeInvalid(Exception):
     pass
 
+def tid_from_date(date_string):
+    """Try to parse `date_string` as a date and returns the
+    corresponding TID.
+    If `date_string` cannot be parsed as a date, assume it was
+    already a TID.
+    """
+    if not date_string:
+        return date_string
+    date = dateparser.parse(
+        date_string,
+        settings={
+          'TO_TIMEZONE': 'UTC'})
+    if not date:
+        # parsing failed
+        return date_string
+    # build a ZODB.TimeStamp to convert as a TID
+    return ashex(
+        TimeStamp(
+            date.year,
+            date.month,
+            date.day,
+            date.hour,
+            date.minute,
+            date.second + date.microsecond / 1000000.).raw())
+
 # parse_tidrange parses a string into (tidmin, tidmax).
 #
 # see `zodb help tidrange` for accepted tidrange syntax.
@@ -72,6 +99,9 @@ def parse_tidrange(tidrange):
         tidmin, tidmax = tidrange.split("..")
     except ValueError:  # not exactly 2 parts in between ".."
         raise TidRangeInvalid(tidrange)
+
+    tidmin = tid_from_date(tidmin)
+    tidmax = tid_from_date(tidmax)
 
     try:
         tidmin = tidmin.decode("hex")

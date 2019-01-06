@@ -67,18 +67,24 @@ inclusive. Both tidmin and tidmax are optional and default to
 If a tid (tidmin or tidmax) is given, it has to be specified as follows:
 
     - a 16-digit hex number specifying transaction ID, e.g. 0285cbac258bf266
+    - absolute date,
+    - relative date, e.g. yesterday, 1 week ago
 
-    TODO (recheck what git does and use dateparser):
-
-    - absolute timestamp,
-    - relative timestamp, e.g. yesterday, 1.week.ago
+Dates are parsed using https://dateparser.readthedocs.io/en/latest/ please refer
+to this documentation for the more details on supported syntax.
 
 Example tid ranges:
 
-    ..                                  whole database history
-    000000000000aaaa..                  transactions starting from 000000000000aaaa till latest
-    ..000000000000bbbb                  transactions starting from database beginning till 000000000000bbbb
-    000000000000aaaa..000000000000bbbb  transactions starting from 000000000000aaaa till 000000000000bbbb
+    ..                                        whole database history
+    000000000000aaaa..                        transactions starting from 000000000000aaaa
+                                              till latest
+    ..000000000000bbbb                        transactions starting from database beginning
+                                              till 000000000000bbbb
+    000000000000aaaa..000000000000bbbb        transactions starting from 000000000000aaaa
+                                              till 000000000000bbbb
+    2018-01-01 01:23:45.6789..2018-01-02 UTC  transactions between 2018-01-01 at 1:23:45.6789
+                                              in machine timezone and 2018-01-02 at 00:00:00.0000 UTC
+    1 week ago..yesterday                     transactions from one week ago until yesterday.
 
 In commands <tidrange> is optional - if it is not given at all, it defaults to
 0..+∞, i.e. to whole database history.
