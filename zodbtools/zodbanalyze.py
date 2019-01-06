@@ -4,6 +4,8 @@
 
 # Based on a transaction analyzer by Matt Kromer.
 
+from __future__ import print_function
+
 import sys
 import os
 import getopt
@@ -95,17 +97,17 @@ def report(rep, csv=False):
     delta_fs = rep.delta_fs
     if not csv:
         if rep.TIDS == 0:
-            print "# ø"
+            print ("# ø")
         else:
-            print "# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax))
-        print "Processed %d records in %d transactions" % (rep.OIDS, rep.TIDS)
+            print ("# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax)))
+        print ("Processed %d records in %d transactions" % (rep.OIDS, rep.TIDS))
         if rep.OIDS:
-            print "Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS)
+            print ("Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS))
         if rep.TIDS:
             print ("Average transaction size is %7.2f bytes" %
                    (rep.DBYTES * 1.0 / rep.TIDS))
 
-        print "Types used:"
+        print ("Types used:")
     if delta_fs:
         if csv:
             fmt = "%s,%s,%s,%s,%s"
@@ -113,9 +115,9 @@ def report(rep, csv=False):
         else:
             fmt = "%-46s %7s %9s %6s %7s"
             fmtp = "%-46s %7d %9d %5.1f%% %7.2f" # per-class format
-        print fmt % ("Class Name", "T.Count", "T.Bytes", "Pct", "AvgSize")
+        print (fmt % ("Class Name", "T.Count", "T.Bytes", "Pct", "AvgSize"))
         if not csv:
-            print fmt % ('-'*46, '-'*7, '-'*9, '-'*5, '-'*7)
+            print (fmt % ('-'*46, '-'*7, '-'*9, '-'*5, '-'*7))
     else:
         if csv:
             fmt = "%s,%s,%s,%s,%s,%s,%s,%s,%s"
@@ -123,10 +125,10 @@ def report(rep, csv=False):
         else:
             fmt = "%-46s %7s %9s %6s %7s %7s %9s %7s %9s"
             fmtp = "%-46s %7d %9d %5.1f%% %7.2f %7d %9d %7d %9d" # per-class format
-        print fmt % ("Class Name", "T.Count", "T.Bytes", "Pct", "AvgSize",
-                     "C.Count", "C.Bytes", "O.Count", "O.Bytes")
+        print (fmt % ("Class Name", "T.Count", "T.Bytes", "Pct", "AvgSize",
+                     "C.Count", "C.Bytes", "O.Count", "O.Bytes"))
         if not csv:
-            print fmt % ('-'*46, '-'*7, '-'*9, '-'*5, '-'*7, '-'*7, '-'*9, '-'*7, '-'*9)
+            print (fmt % ('-'*46, '-'*7, '-'*9, '-'*5, '-'*7, '-'*7, '-'*9, '-'*7, '-'*9))
     fmts = "%46s %7d %8dk %5.1f%% %7.2f" # summary format
     typemap = rep.TYPEMAP.keys()
     typemap.sort(key=lambda a:rep.TYPESIZE[a])
@@ -139,40 +141,40 @@ def report(rep, csv=False):
         else:
             t_display = shorten(t, 46)
         if delta_fs:
-            print fmtp % (t_display, rep.TYPEMAP[t], rep.TYPESIZE[t],
-                          pct, rep.TYPESIZE[t] * 1.0 / rep.TYPEMAP[t])
+            print (fmtp % (t_display, rep.TYPEMAP[t], rep.TYPESIZE[t],
+                          pct, rep.TYPESIZE[t] * 1.0 / rep.TYPEMAP[t]))
         else:
-            print fmtp % (t_display, rep.TYPEMAP[t], rep.TYPESIZE[t],
+            print (fmtp % (t_display, rep.TYPEMAP[t], rep.TYPESIZE[t],
                           pct, rep.TYPESIZE[t] * 1.0 / rep.TYPEMAP[t],
                           rep.COIDSMAP[t], rep.CBYTESMAP[t],
-                          rep.FOIDSMAP.get(t, 0), rep.FBYTESMAP.get(t, 0))
+                          rep.FOIDSMAP.get(t, 0), rep.FBYTESMAP.get(t, 0)))
 
     if csv:
         return
 
     if delta_fs:
-        print fmt % ('='*46, '='*7, '='*9, '='*5, '='*7)
-        print "%46s %7d %9s %6s %6.2f" % ('Total Transactions', rep.TIDS, ' ',
-                                          ' ', rep.DBYTES * 1.0 / rep.TIDS)
-        print fmts % ('Total Records', rep.OIDS, rep.DBYTES, cumpct,
-                      rep.DBYTES * 1.0 / rep.OIDS)
+        print (fmt % ('='*46, '='*7, '='*9, '='*5, '='*7))
+        print ("%46s %7d %9s %6s %6.2f" % ('Total Transactions', rep.TIDS, ' ',
+                                          ' ', rep.DBYTES * 1.0 / rep.TIDS))
+        print (fmts % ('Total Records', rep.OIDS, rep.DBYTES, cumpct,
+                      rep.DBYTES * 1.0 / rep.OIDS))
     else:
-        print fmt % ('='*46, '='*7, '='*9, '='*5, '='*7, '='*7, '='*9, '='*7, '='*9)
+        print (fmt % ('='*46, '='*7, '='*9, '='*5, '='*7, '='*7, '='*9, '='*7, '='*9))
         if rep.TIDS:
-            print "%46s %7d %9s %6s %6.2fk" % ('Total Transactions', rep.TIDS, ' ',
-                ' ', rep.DBYTES * 1.0 / rep.TIDS / 1024.0)
+            print ("%46s %7d %9s %6s %6.2fk" % ('Total Transactions', rep.TIDS, ' ',
+                ' ', rep.DBYTES * 1.0 / rep.TIDS / 1024.0))
         if rep.OIDS:
-            print fmts % ('Total Records', rep.OIDS, rep.DBYTES / 1024.0, cumpct,
-                          rep.DBYTES * 1.0 / rep.OIDS)
+            print (fmts % ('Total Records', rep.OIDS, rep.DBYTES / 1024.0, cumpct,
+                          rep.DBYTES * 1.0 / rep.OIDS))
 
         if rep.COIDS:
-            print fmts % ('Current Objects', rep.COIDS, rep.CBYTES / 1024.0,
+            print (fmts % ('Current Objects', rep.COIDS, rep.CBYTES / 1024.0,
                           rep.CBYTES * 100.0 / rep.DBYTES,
-                          rep.CBYTES * 1.0 / rep.COIDS)
+                          rep.CBYTES * 1.0 / rep.COIDS))
         if rep.FOIDS:
-            print fmts % ('Old Objects', rep.FOIDS, rep.FBYTES / 1024.0,
+            print( fmts % ('Old Objects', rep.FOIDS, rep.FBYTES / 1024.0,
                           rep.FBYTES * 100.0 / rep.DBYTES,
-                          rep.FBYTES * 1.0 / rep.FOIDS)
+                          rep.FBYTES * 1.0 / rep.FOIDS))
 
 @func
 def analyze(path, use_dbm, delta_fs, tidmin, tidmax):
@@ -243,8 +245,8 @@ def analyze_rec(report, record):
                 report.CBYTESMAP[type] = report.CBYTESMAP.get(type, 0) + size - fsize
             report.TYPEMAP[type] = report.TYPEMAP.get(type, 0) + 1
             report.TYPESIZE[type] = report.TYPESIZE.get(type, 0) + size
-    except Exception, err:
-        print err
+    except Exception as err:
+        print (err, file=sys.stderr)
 
 __doc__ = """%(program)s: Analyzer for ZODB data or repozo deltafs
 
@@ -266,9 +268,9 @@ summary = "analyze ZODB database or repozo deltafs usage"
 
 def usage(stream, msg=None):
     if msg:
-        print >>stream, msg
-        print >>stream
-    print >>stream, __doc__ % {"program": "zodb analyze"}
+        print (msg, file=stream)
+        print (file=stream)
+    print (__doc__ % {"program": "zodb analyze"}, file=stream)
 
 
 def main(argv):
