@@ -129,10 +129,8 @@ def report(rep, csv=False):
         if not csv:
             print (fmt % ('-'*46, '-'*7, '-'*9, '-'*5, '-'*7, '-'*7, '-'*9, '-'*7, '-'*9))
     fmts = "%46s %7d %8dk %5.1f%% %7.2f" # summary format
-    typemap = rep.TYPEMAP.keys()
-    typemap.sort(key=lambda a:rep.TYPESIZE[a])
     cumpct = 0.0
-    for t in typemap:
+    for t in sorted(rep.TYPEMAP.keys(), key=lambda a:rep.TYPESIZE[a]):
         pct = rep.TYPESIZE[t] * 100.0 / rep.DBYTES
         cumpct += pct
         if csv:
