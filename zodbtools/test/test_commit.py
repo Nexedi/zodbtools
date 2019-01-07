@@ -20,7 +20,7 @@
 from zodbtools.zodbcommit import zodbcommit
 from zodbtools.zodbdump import zodbdump, Transaction, ObjectData, ObjectDelete, ObjectCopy
 from zodbtools.util import storageFromURL, sha1
-from ZODB.utils import p64, u64, z64, maxtid
+from ZODB.utils import p64, u64, z64
 from ZODB._compat import BytesIO, dumps, _protocol   # XXX can't yet commit with arbitrary ext.bytes
 
 from tempfile import mkdtemp
@@ -29,7 +29,7 @@ from golang import func, defer
 
 # verify zodbcommit.
 @func
-def test_zodbcommit():
+def test_zodbcommit(zext):
     tmpd = mkdtemp('', 'zodbcommit.')
     defer(lambda: rmtree(tmpd))
 
@@ -40,7 +40,7 @@ def test_zodbcommit():
 
     # commit some transactions via zodbcommit and verify if storage dump gives
     # what is expected.
-    t1 = Transaction(z64, ' ', b'user name', b'description ...', dumps({'a': 'b'}, _protocol), [
+    t1 = Transaction(z64, ' ', b'user name', b'description ...', zext(dumps({'a': 'b'}, _protocol)), [
         ObjectData(p64(1), b'data1', 'sha1', sha1('data1')),
         ObjectData(p64(2), b'data2', 'sha1', sha1('data2'))])
 
@@ -53,7 +53,7 @@ def test_zodbcommit():
 
 
     buf = BytesIO()
-    zodbdump(stor, p64(u64(head)+1), maxtid, out=buf)
+    zodbdump(stor, p64(u64(head)+1), None, out=buf)
     dumped = buf.getvalue()
 
     assert dumped == ''.join([_.zdump() for _ in (t1, t2)])
