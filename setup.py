@@ -28,15 +28,13 @@ setup(
 
     entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
 
+    # FIXME restore py3 support
     classifiers = [_.strip() for _ in """\
         Development Status :: 3 - Alpha
         Intended Audience :: Developers
         Operating System :: POSIX :: Linux
         Programming Language :: Python :: 2
         Programming Language :: Python :: 2.7
-        Programming Language :: Python :: 3
-        Programming Language :: Python :: 3.4
-        Programming Language :: Python :: 3.5
         Topic :: Database
         Topic :: Utilities
         Framework :: ZODB\
