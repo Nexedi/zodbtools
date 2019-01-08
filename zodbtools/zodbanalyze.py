@@ -31,7 +31,7 @@ class DeltaFileStorage(
         pass
 
 class DeltaFileIterator(FileIterator):
-    def __init__(self, filename, start=None, stop=None, pos=0L):
+    def __init__(self, filename, start=None, stop=None, pos=0):
         assert isinstance(filename, str)
         file = open(filename, 'rb')
         self._file = file
@@ -241,7 +241,7 @@ def analyze_rec(report, record):
                 report.CBYTESMAP[type] = report.CBYTESMAP.get(type, 0) + size - fsize
             report.TYPEMAP[type] = report.TYPEMAP.get(type, 0) + 1
             report.TYPESIZE[type] = report.TYPESIZE.get(type, 0) + size
-    except Exception, err:
+    except Exception as err:
         print (err, file=sys.stderr)
 
 __doc__ = """%(program)s: Analyzer for ZODB data or repozo deltafs
@@ -274,7 +274,7 @@ def main(argv):
         opts, args = getopt.getopt(argv[1:],
                                    'hcd', ['help', 'csv', 'dbm'])
         path = args[0]
-    except (getopt.GetoptError, IndexError), msg:
+    except (getopt.GetoptError, IndexError) as msg:
         usage(sys.stderr, msg)
         sys.exit(2)
 
