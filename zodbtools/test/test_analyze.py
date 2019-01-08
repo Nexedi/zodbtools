@@ -56,3 +56,18 @@ __main__.Object,56,1880,54.366686%,33.571429,9,303,47,1577
         == captured.out
     )
     assert captured.err == ""
+
+    # empty range
+    report(
+        analyze(
+            os.path.join(os.path.dirname(__file__), "testdata", "1.fs"),
+            use_dbm=False,
+            delta_fs=False,
+            tidmin="ffffffffffffffff",
+            tidmax=None,
+        ),
+        csv=False,
+    )
+    captured = capsys.readouterr()
+    assert "No transactions processed\n" == captured.out
+    assert captured.err == ""

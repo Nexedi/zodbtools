@@ -95,9 +95,10 @@ def report(rep, csv=False):
     delta_fs = rep.delta_fs
     if not csv:
         if rep.TIDS == 0:
-            print "# ø"
-        else:
-            print "# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax))
+            print "No transactions processed"
+            return
+
+        print "# %s..%s" % (ashex(rep.tidmin), ashex(rep.tidmax))
         print "Processed %d records in %d transactions" % (rep.OIDS, rep.TIDS)
         print "Average record size is %7.2f bytes" % (rep.DBYTES * 1.0 / rep.OIDS)
         print ("Average transaction size is %7.2f bytes" %
