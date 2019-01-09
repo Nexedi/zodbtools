@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2019 Nexedi SA and Contributors.
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -69,5 +70,5 @@ __main__.Object,56,1880,54.366686%,33.571429,9,303,47,1577
         csv=False,
     )
     captured = capsys.readouterr()
-    assert "No transactions processed\n" == captured.out
+    assert "# ø\nNo transactions processed\n" == captured.out.encode('utf-8')
     assert captured.err == ""

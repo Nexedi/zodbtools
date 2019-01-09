@@ -97,6 +97,7 @@ def report(rep, csv=False):
     delta_fs = rep.delta_fs
     if not csv:
         if rep.TIDS == 0:
+            print ("# ø")
             print ("No transactions processed")
             return
 
