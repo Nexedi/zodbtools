@@ -30,8 +30,9 @@ from os.path import dirname
 from pytest import raises
 
 # verify zodbdump output against golden
-def test_zodbdump():
+def test_zodbdump(zext):
     tdir = dirname(__file__)
+    # XXX use zext in 1.fs name
     stor = FileStorage('%s/testdata/1.fs' % tdir, read_only=True)
 
     with open('%s/testdata/1.zdump.ok' % tdir) as f:
