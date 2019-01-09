@@ -29,7 +29,7 @@ from golang import func, defer
 
 # verify zodbcommit.
 @func
-def test_zodbcommit():
+def test_zodbcommit(zext):
     tmpd = mkdtemp('', 'zodbcommit.')
     defer(lambda: rmtree(tmpd))
 
@@ -40,7 +40,7 @@ def test_zodbcommit():
 
     # commit some transactions via zodbcommit and verify if storage dump gives
     # what is expected.
-    t1 = Transaction(z64, ' ', b'user name', b'description ...', dumps({'a': 'b'}, _protocol), [
+    t1 = Transaction(z64, ' ', b'user name', b'description ...', zext(dumps({'a': 'b'}, _protocol)), [
         ObjectData(p64(1), b'data1', 'sha1', sha1('data1')),
         ObjectData(p64(2), b'data2', 'sha1', sha1('data2'))])
 

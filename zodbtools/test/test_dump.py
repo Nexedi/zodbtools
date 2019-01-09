@@ -27,20 +27,28 @@ from cStringIO import StringIO
 
 from os.path import dirname
 
-from pytest import raises
+from zodbtools.test.testutil import zext_supported
+from pytest import raises, xfail
 
 # verify zodbdump output against golden
-def test_zodbdump():
-    tdir = dirname(__file__)
-    stor = FileStorage('%s/testdata/1.fs' % tdir, read_only=True)
+def test_zodbdump(zext):
+    tdir  = dirname(__file__)
+    zkind = '_!zext' if zext.disabled else ''
+    stor  = FileStorage('%s/testdata/1%s.fs' % (tdir, zkind), read_only=True)
 
-    with open('%s/testdata/1.zdump.ok' % tdir) as f:
+    with open('%s/testdata/1%s.zdump.ok' % (tdir, zkind)) as f:
         dumpok = f.read()
 
     out = StringIO()
     zodbdump(stor, None, None, out=out)
 
-    assert out.getvalue() == dumpok
+    try:
+        assert out.getvalue() == dumpok
+    except AssertionError:
+        if not zext.disabled and not zext_supported():
+            xfail('zodbdump cannot read raw extension without ZODB txn.extension_bytes support')
+        raise
+
 
 
 # verify zodbdump.DumpReader
