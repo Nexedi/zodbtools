@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# Copyright (C) 2017-2019  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -115,8 +115,14 @@ def ext(subj):
 
     return ext
 
-# gen_testdb generates test FileStorage database @ outfs_path
-def gen_testdb(outfs_path):
+# gen_testdb generates test FileStorage database @ outfs_path.
+#
+# zext indicates whether or not to include non-empty extension into transactions.
+def gen_testdb(outfs_path, zext=True):
+    ext = globals()['ext']
+    if not zext:
+        def ext(subj): return {}
+
     logging.basicConfig()
 
     # generate random changes to objects hooked to top-level root by a/b/c/... key
@@ -198,11 +204,16 @@ def gen_testdb(outfs_path):
 from zodbtools.zodbdump import zodbdump
 
 def main():
+    # XXX check that ZODB supports .extension_bytes; refuse to work if not
     out = "testdata/1"
-    gen_testdb("%s.fs" % out)
-    stor = FileStorage("%s.fs" % out, read_only=True)
-    with open("%s.zdump.ok" % out, "w") as f:
-        zodbdump(stor, None, None, out=f)
+    for zext in [True, False]:
+        dbname = out
+        if not zext:
+            dbname += "_!zext"
+        gen_testdb("%s.fs" % dbname, zext=zext)
+        stor = FileStorage("%s.fs" % dbname, read_only=True)
+        with open("%s.zdump.ok" % dbname, "w") as f:
+            zodbdump(stor, None, None, out=f)
 
 if __name__ == '__main__':
     main()
