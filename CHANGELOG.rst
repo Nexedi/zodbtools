@@ -1,6 +1,34 @@
 Zodbtools change history
 ========================
 
+0.0.0.dev7 (2019-01-11)
+-----------------------
+
+- Fix zodbtools to work with all ZODB3, ZODB4 and ZODB5 (`commit 1`__, 2__,
+  3__, 4__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/425e6656
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/0e5d2f81
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7a94e312
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/8ff7020c
+
+- Fix `zodb analyze` for the case when history range is empty (`commit 1`__,
+  2__, 3__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/b4824ad5
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/d37746c6
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/474a0559
+
+- Zodbtools is not yet Python3-ready (commit__), but we started to fix it
+  step-by-step (`commit 1`__, 2__, 3__, 4__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7c5bb0b5
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7d24147b
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/55853615
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/79aa0c45
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/5e2ed5e7
+
+
 0.0.0.dev6 (2018-12-30)
 -----------------------
 
