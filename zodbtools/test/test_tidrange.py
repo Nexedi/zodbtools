@@ -79,8 +79,9 @@ def test_tidrange_date():
 
 test_parameters = []
 with open(
-    os.path.join(os.path.dirname(__file__), "testdata", "tidrange-formats.txt")
-) as f:
+        os.path.join(
+            os.path.dirname(__file__), "testdata",
+            "tid-time-format.txt")) as f:
     for line in f:
         line = line.strip()
         if line and not line.startswith("#"):
