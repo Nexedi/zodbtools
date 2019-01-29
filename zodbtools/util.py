@@ -63,7 +63,11 @@ def txnobjv(txn):
     return objv
 
 # "tidmin..tidmax" -> (tidmin, tidmax)
-class TidRangeInvalid(Exception):
+class TidInvalid(ValueError):
+    pass
+
+
+class TidRangeInvalid(ValueError):
     pass
 
 
@@ -76,7 +80,7 @@ def parse_tid(tid_string, raw_only=False):
     is invalid.
     """
     if not tid_string:
-        return tid_string
+        raise TidInvalid(tid_string)
 
     # If it "looks like a TID", don't try to parse it as time,
     # because parsing is slow.
@@ -101,7 +105,7 @@ def parse_tid(tid_string, raw_only=False):
         try:
             return fromhex(tid_string)
         except TypeError:
-            raise TidRangeInvalid(tid_string)
+            raise TidInvalid(tid_string)
 
     # build a ZODB.TimeStamp to convert as a TID
     return TimeStamp(

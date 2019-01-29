@@ -26,7 +26,7 @@ import pytz
 from freezegun import freeze_time
 
 from ZODB.TimeStamp import TimeStamp
-from zodbtools.util import TidRangeInvalid, ashex, parse_tid, parse_tidrange
+from zodbtools.util import TidRangeInvalid, TidInvalid, ashex, parse_tid, parse_tidrange
 
 
 @pytest.fixture
@@ -64,8 +64,13 @@ def test_tidrange_tid():
     assert (None, None) == parse_tidrange("..")
 
     with pytest.raises(TidRangeInvalid) as exc:
-        parse_tidrange("invalid")
-    assert exc.value.args == ("invalid",)
+        parse_tidrange("inv.alid")
+    assert exc.value.args == ("inv.alid", )
+
+    # range is correct, but a TID is invalid
+    with pytest.raises(TidInvalid) as exc:
+        parse_tidrange("invalid..")
+    assert exc.value.args == ("invalid", )
 
 
 def test_tidrange_date():
@@ -76,6 +81,16 @@ def test_tidrange_date():
         "2018-01-01T10:30:00Z..2018-01-02T00:00:00.000000+00:00")
 
 
+def test_parse_tid():
+    assert b"\x00\x00\x00\x00\x00\x00\xbb\xbb" == parse_tid("000000000000bbbb")
+
+    with pytest.raises(TidInvalid) as exc:
+        parse_tid("invalid")
+    assert exc.value.args == ("invalid", )
+
+    with pytest.raises(TidInvalid) as exc:
+        parse_tid('')
+    assert exc.value.args == ('', )
 
 
 test_parameters = []
