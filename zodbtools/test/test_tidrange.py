@@ -109,3 +109,6 @@ with open(
 def test_parse_tid_time_format(fake_time, reference_time, reference_tid,
                                input_time):
     assert reference_tid == ashex(parse_tid(input_time))
+    # check that the reference_tid matches the reference time, mainly
+    # to check that input is defined correctly.
+    assert reference_tid == ashex(parse_tid(reference_time))
