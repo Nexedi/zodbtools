@@ -38,9 +38,9 @@ def fake_time():
     os.environ["TZ"] = "Europe/Paris"
     time.tzset()
 
-    reference_time = datetime.datetime(2009, 8, 30, 19, 20, 0, 0, pytz.utc).astimezone(
-        pytz.timezone("Europe/Paris")
-    )
+    reference_time = datetime.datetime(2009, 8, 30, 19, 20, 0, 0,
+                                       pytz.utc).astimezone(
+                                           pytz.timezone("Europe/Paris"))
     with freeze_time(reference_time):
         yield
     del os.environ["TZ"]
@@ -55,13 +55,11 @@ def test_tidrange_tid():
         b"\x00\x00\x00\x00\x00\x00\xbb\xbb",
     ) == parse_tidrange("000000000000aaaa..000000000000bbbb")
 
-    assert (b"\x00\x00\x00\x00\x00\x00\xaa\xaa", None) == parse_tidrange(
-        "000000000000aaaa.."
-    )
+    assert (b"\x00\x00\x00\x00\x00\x00\xaa\xaa",
+            None) == parse_tidrange("000000000000aaaa..")
 
-    assert (None, b"\x00\x00\x00\x00\x00\x00\xbb\xbb") == parse_tidrange(
-        "..000000000000bbbb"
-    )
+    assert (None, b"\x00\x00\x00\x00\x00\x00\xbb\xbb"
+            ) == parse_tidrange("..000000000000bbbb")
 
     assert (None, None) == parse_tidrange("..")
 
@@ -74,7 +72,10 @@ def test_tidrange_date():
     assert (
         b"\x03\xc4\x85v\x00\x00\x00\x00",
         b"\x03\xc4\x88\xa0\x00\x00\x00\x00",
-    ) == parse_tidrange("2018-01-01T10:30:00Z..2018-01-02T00:00:00.000000+00:00")
+    ) == parse_tidrange(
+        "2018-01-01T10:30:00Z..2018-01-02T00:00:00.000000+00:00")
+
+
 
 
 test_parameters = []
@@ -88,6 +89,8 @@ with open(
             test_parameters.append(line.split(" ", 2))
 
 
-@pytest.mark.parametrize("reference_time,reference_tid,input_time", test_parameters)
-def test_parse_tid_time_format(fake_time, reference_time, reference_tid, input_time):
+@pytest.mark.parametrize("reference_time,reference_tid,input_time",
+                         test_parameters)
+def test_parse_tid_time_format(fake_time, reference_time, reference_tid,
+                               input_time):
     assert reference_tid == ashex(parse_tid(input_time))
