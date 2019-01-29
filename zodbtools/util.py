@@ -79,33 +79,33 @@ def parse_tid(tid_string, raw_only=False):
     This function also raise TidRangeInvalid when `tid_string`
     is invalid.
     """
-    if not tid_string:
-        raise TidInvalid(tid_string)
+    assert isinstance(tid_string, (str, bytes))
 
     # If it "looks like a TID", don't try to parse it as time,
     # because parsing is slow.
     if len(tid_string) == 16:
         try:
             return fromhex(tid_string)
-        except TypeError:
+        except ValueError:
             pass
-    parsed_time = None
-    if not raw_only:
-        # preprocess to support `1.day.ago` style formats like git log does.
-        if "ago" in tid_string:
-            tid_string = tid_string.replace(".", " ").replace("_", " ")
-        parsed_time = dateparser.parse(
-            tid_string,
-            settings={
-                'TO_TIMEZONE': 'UTC',
-                'RETURN_AS_TIMEZONE_AWARE': True
-            })
+
+    if raw_only:
+        # either it was not 16-char string or hex decoding failed
+        raise TidInvalid(tid_string)
+
+    # preprocess to support `1.day.ago` style formats like git log does.
+    if "ago" in tid_string:
+        tid_string = tid_string.replace(".", " ").replace("_", " ")
+    parsed_time = dateparser.parse(
+        tid_string,
+        settings={
+            'TO_TIMEZONE': 'UTC',
+            'RETURN_AS_TIMEZONE_AWARE': True
+        })
+
     if not parsed_time:
-        # parsing failed
-        try:
-            return fromhex(tid_string)
-        except TypeError:
-            raise TidInvalid(tid_string)
+        # parsing as date failed
+        raise TidInvalid(tid_string)
 
     # build a ZODB.TimeStamp to convert as a TID
     return TimeStamp(
