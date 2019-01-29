@@ -70,9 +70,6 @@ If a tid (tidmin or tidmax) is given, it has to be specified as follows:
     - absolute timestamp, in RFC3339 or RFC822 formats
     - relative timestamp, e.g. yesterday, 1 week ago
 
-Dates are parsed using https://dateparser.readthedocs.io/en/latest/ please refer
-to this documentation for the more details on supported syntax.
-
 Example tid ranges:
 
     ..                                  whole database history
