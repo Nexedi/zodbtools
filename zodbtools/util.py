@@ -122,8 +122,10 @@ def parse_tidrange(tidrange):
     except ValueError:  # not exactly 2 parts in between ".."
         raise TidRangeInvalid(tidrange)
 
-    tidmin = parse_tid(tidmin)
-    tidmax = parse_tid(tidmax)
+    if tidmin:
+        tidmin = parse_tid(tidmin)
+    if tidmax:
+        tidmax = parse_tid(tidmax)
 
     # empty tid means -inf / +inf respectively
     # ( which is None in IStorage.iterator() )
