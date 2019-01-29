@@ -25,7 +25,6 @@ import pytest
 import pytz
 from freezegun import freeze_time
 
-from ZODB.TimeStamp import TimeStamp
 from zodbtools.util import TidRangeInvalid, TidInvalid, ashex, parse_tid, parse_tidrange
 
 
