@@ -62,7 +62,7 @@ from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
 import sys
-import logging
+import logging as log
 import re
 from golang.gcompat import qq
 from golang import func, defer, strconv
@@ -78,9 +78,9 @@ def txn_raw_extension(stor, txn):
     # in a rational way
     stor_name = "(%s, %s)" % (type(stor).__name__, stor.getName())
     if stor_name not in _already_warned_notxnraw:
-        logging.warn("%s: storage does not provide IStorageTransactionInformationRaw ...", stor_name)
-        logging.warn("... will do best-effort to dump pickles in stable order but this cannot be done 100% correctly")
-        logging.warn("... please upgrade your ZODB & storage: see https://github.com/zopefoundation/ZODB/pull/183 for details.")
+        log.warning("%s: storage does not provide IStorageTransactionInformationRaw ...", stor_name)
+        log.warning("... will do best-effort to dump pickles in stable order but this cannot be done 100% correctly")
+        log.warning("... please upgrade your ZODB & storage: see https://github.com/zopefoundation/ZODB/pull/183 for details.")
         _already_warned_notxnraw.add(stor_name)
 
     return serializeext(txn.extension)
