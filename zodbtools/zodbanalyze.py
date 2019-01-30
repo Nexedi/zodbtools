@@ -9,7 +9,7 @@ from __future__ import print_function
 import sys
 import os
 import getopt
-from six.moves import dbm_gnu as dbm
+from six.moves import dbm_gnu as dbm # type: ignore
 import tempfile
 import shutil
 from ZODB.FileStorage import FileIterator, packed_version

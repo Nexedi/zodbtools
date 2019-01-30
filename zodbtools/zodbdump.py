@@ -53,6 +53,10 @@ TODO also protect txn record by hash.
 """
 
 from __future__ import print_function
+try:
+    from typing import Any, Set, Optional, BinaryIO, NoReturn, Union
+except ImportError:
+    pass
 from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
         storageFromURL, hashRegistry
 from ZODB._compat import loads, _protocol, BytesIO
@@ -61,6 +65,7 @@ from zodbpickle.slowpickle import Pickler as pyPickler
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
+import six
 import sys
 import logging
 import re
@@ -92,50 +97,53 @@ def txn_raw_extension(stor, txn):
     return serializeext(txn.extension)
 
 # set of storage names already warned for not providing IStorageTransactionInformationRaw
-_already_warned_notxnraw = set()
+_already_warned_notxnraw = set() # type: Set[str]
 
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
-def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
+def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout.buffer):
+    # type: (Any, Optional[bytes], Optional[bytes], bool, BinaryIO) -> None
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
-        out.write("txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
+        out.write(("txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
             ashex(txn.tid), qq(txn.status),
             qq(txn.user),
             qq(txn.description),
-            qq(txn_raw_extension(stor, txn)) ))
+            qq(txn_raw_extension(stor, txn)) )).encode())
 
         objv = txnobjv(txn)
 
         for obj in objv:
-            entry = "obj %s " % ashex(obj.oid)
+            entry = b"obj %s " % ashex(obj.oid).encode()
             write_data = False
 
             if obj.data is None:
-                entry += "delete"
+                entry += b"delete"
 
             # was undo and data taken from obj.data_txn
             elif obj.data_txn is not None:
-                entry += "from %s" % ashex(obj.data_txn)
+                entry += b"from %s" % ashex(obj.data_txn)
 
             else:
                 # XXX sha1 is hardcoded for now. Dump format allows other hashes.
-                entry += "%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
+                entry += b"%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)).encode())
                 write_data = True
 
+            if six.PY2:
+                entry = entry.encode('utf-8')
             out.write(entry)
 
             if write_data:
                 if hashonly:
-                    out.write(" -")
+                    out.write(b" -")
                 else:
-                    out.write("\n")
-                    out.write(obj.data)
+                    out.write(b"\n")
+                    out.write(obj.data or b"")
 
-            out.write("\n")
+            out.write(b"\n")
 
-        out.write("\n")
+        out.write(b"\n")
 
 # ----------------------------------------
 # XPickler is Pickler that tries to save objects stably
@@ -309,13 +317,15 @@ class DumpReader(object):
     # .lineno   - line number position in read stream
 
     def __init__(self, r):
-        self._r         = r
+        # type (BinaryIO) -> None
+        self._r         = r # type: BinaryIO
         self._line      = None  # last read line
         self.lineno     = 0
 
     def _readline(self):
+        # type: () -> Optional[bytes]
         l = self._r.readline()
-        if l == '':
+        if l == b'':
             self._line = None
             return None # EOF
 
@@ -326,11 +336,17 @@ class DumpReader(object):
 
     # report a problem found around currently-read line
     def _badline(self, msg):
-        raise RuntimeError("%s+%d: invalid line: %s (%r)" % (_ioname(self._r), self.lineno, msg, self._line))
+        # type: (str) -> NoReturn
+        raise RuntimeError("%s+%d: invalid line: %s (%r)" % (
+            _ioname(self._r),
+             self.lineno, msg,
+             # BBB produce same output in python 2 and 3
+             self._line.decode() if six.PY3 else self._line.encode()))
 
     # readtxn reads one transaction record from input stream and returns
     # Transaction instance or None at EOF.
     def readtxn(self):
+        # type: () -> Optional[Transaction]
         # header
         l = self._readline()
         if l is None:
@@ -356,7 +372,7 @@ class DumpReader(object):
         objv = []
         while 1:
             l = self._readline()
-            if l == '':
+            if l == b'':
                 break   # empty line - end of transaction
 
             if l is None or not l.startswith(b'obj '):
@@ -366,7 +382,7 @@ class DumpReader(object):
             if m is None:
                 self._badline('invalid obj entry')
 
-            obj = None # will be Object*
+            obj = None # type: Optional[Union[ObjectDelete, ObjectCopy, ObjectData]]
             oid = fromhex(m.group('oid'))
 
             from_ = m.group('from')
@@ -380,10 +396,10 @@ class DumpReader(object):
 
             else:
                 size     = int(m.group('size'))
-                hashfunc = m.group('hashfunc')
+                hashfunc = m.group('hashfunc').decode()
                 hashok   = fromhex(m.group('hash'))
                 hashonly = m.group('hashonly') is not None
-                data     = None # see vvv
+                data     = None # type: Optional[Union[HashOnly, bytes]] # see vvv
 
                 hcls = hashRegistry.get(hashfunc)
                 if hcls is None:
@@ -399,7 +415,7 @@ class DumpReader(object):
                         chunk = self._r.read(n)
                         data += chunk
                         n -= len(chunk)
-                    self.lineno += data.count('\n')
+                    self.lineno += data.count(b'\n')
                     self._line = None
                     if data[-1:] != b'\n':
                         raise RuntimeError('%s+%d: no LF after obj data' % (_ioname(self._r), self.lineno))
@@ -460,13 +476,14 @@ class Transaction(object):
 
     # zdump returns text representation of a record in zodbdump format.
     def zdump(self):
-        z  = 'txn %s %s\n' % (ashex(self.tid), qq(self.status))
-        z += 'user %s\n' % qq(self.user)
-        z += 'description %s\n' % qq(self.description)
-        z += 'extension %s\n' % qq(self.extension_bytes)
+        # type: () -> bytes
+        z  = b'txn %s %s\n' % (ashex(self.tid).encode(), qq(self.status).encode())
+        z += b'user %s\n' % qq(self.user).encode()
+        z += b'description %s\n' % qq(self.description).encode()
+        z += b'extension %s\n' % qq(self.extension_bytes).encode()
         for obj in self.objv:
             z += obj.zdump()
-        z += '\n'
+        z += b'\n'
         return z
 
 
@@ -483,7 +500,8 @@ class ObjectDelete(Object):
         super(ObjectDelete, self).__init__(oid)
 
     def zdump(self):
-        return 'obj %s delete\n' % (ashex(self.oid))
+        # type: () -> bytes
+        return b'obj %s delete\n' % (ashex(self.oid).encode())
 
 # ObjectCopy represents object data copy.
 class ObjectCopy(Object):
@@ -493,7 +511,8 @@ class ObjectCopy(Object):
         self.copy_from = copy_from
 
     def zdump(self):
-        return 'obj %s from %s\n' % (ashex(self.oid), ashex(self.copy_from))
+        # type: () -> bytes
+        return b'obj %s from %s\n' % (ashex(self.oid).encode(), ashex(self.copy_from).encode())
 
 # ObjectData represents record with object data.
 class ObjectData(Object):
@@ -507,19 +526,20 @@ class ObjectData(Object):
         self.hash_      = hash_
 
     def zdump(self):
+        # type: () -> bytes
         data = self.data
         hashonly = isinstance(data, HashOnly)
         if hashonly:
             size = data.size
         else:
             size = len(data)
-        z = 'obj %s %d %s:%s' % (ashex(self.oid), size, self.hashfunc, ashex(self.hash_))
+        z = b'obj %s %d %s:%s' % (ashex(self.oid).encode(), size, self.hashfunc.encode(), ashex(self.hash_).encode())
         if hashonly:
-            z += ' -'
+            z += b' -'
         else:
-            z += '\n'
+            z += b'\n'
             z += data
-        z += '\n'
+        z += b'\n'
         return z
 
 # HashOnly indicated that this ObjectData record contains only hash and does not contain object data.

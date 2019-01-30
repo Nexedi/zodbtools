@@ -18,20 +18,32 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
+try:
+    from typing import Tuple, Optional, Union, Iterable, Any, Mapping, Callable
+except ImportError:
+    pass
+
 import hashlib, struct, codecs
-import zodburi
+import zodburi # type: ignore
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 import dateparser
 
+# XXX note that for ashex and fromhex I run mypy with a typeshed patch
+# https://github.com/python/typeshed/issues/300#issuecomment-459151016
+
 def ashex(s):
-    return s.encode('hex')
+    # type: (bytes) -> str
+    return codecs.encode(s, 'hex').decode()
 
 def fromhex(s):
+    # type: (Union[str,bytes]) -> bytes
     return codecs.decode(s, 'hex')
 
+
 def sha1(data):
+    # type: (bytes) -> bytes
     m = hashlib.sha1()
     m.update(data)
     return m.digest()
@@ -53,6 +65,8 @@ def nextitem(it):
 
 # objects of a IStorageTransactionInformation
 def txnobjv(txn):
+    # type: (Any) -> Iterable[Any]
+    # XXX type ?
     objv = []
     for obj in txn:
         assert obj.tid == txn.tid
@@ -72,6 +86,7 @@ class TidRangeInvalid(ValueError):
 
 
 def parse_tid(tid_string, raw_only=False):
+    # type: (str, bool) -> bytes
     """Try to parse `tid_string` as a time and returns the
     corresponding raw TID.
     If `tid_string` cannot be parsed as a time, assume it was
@@ -121,19 +136,16 @@ def parse_tid(tid_string, raw_only=False):
 #
 # see `zodb help tidrange` for accepted tidrange syntax.
 def parse_tidrange(tidrange):
+    # type: (str) -> Tuple[Optional[bytes], Optional[bytes]]
     try:
         tidmin, tidmax = tidrange.split("..")
     except ValueError:  # not exactly 2 parts in between ".."
         raise TidRangeInvalid(tidrange)
 
-    if tidmin:
-        tidmin = parse_tid(tidmin)
-    if tidmax:
-        tidmax = parse_tid(tidmax)
-
     # empty tid means -inf / +inf respectively
     # ( which is None in IStorage.iterator() )
-    return (tidmin or None, tidmax or None)
+    return (parse_tid(tidmin) if tidmin else None,
+            parse_tid(tidmax) if tidmax else None)
 
 
 # storageFromURL opens a ZODB-storage specified by url
@@ -169,12 +181,15 @@ class NullHasher:
     digest_size = 1
 
     def update(self, data):
+        # type: (bytes) -> None
         pass
 
     def digest(self):
+        # type: () -> bytes
         return b'\0'
 
     def hexdigest(self):
+        # type: () -> str
         return "00"
 
 # adler32 in hashlib interface
@@ -183,15 +198,19 @@ class Adler32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = adler32('')
+        # type: () -> None
+        self._h = adler32(b'')
 
     def update(self, data):
+        # type: (bytes) -> None
         self._h = adler32(data, self._h)
 
     def digest(self):
+        # type: () -> bytes
         return struct.pack('>I', self._h & 0xffffffff)
 
     def hexdigest(self):
+        # type: () -> str
         return '%08x' % (self._h & 0xffffffff)
 
 # crc32 in hashlib interface
@@ -200,15 +219,19 @@ class CRC32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = crc32('')
+        # type: () -> None
+        self._h = crc32(b'')
 
     def update(self, data):
+        # type: (bytes) -> None
         self._h = crc32(data, self._h)
 
     def digest(self):
+        # type: () -> bytes
         return struct.pack('>I', self._h & 0xffffffff)
 
     def hexdigest(self):
+        # type: () -> str
         return '%08x' % (self._h & 0xffffffff)
 
 # {} name -> hasher
@@ -219,4 +242,4 @@ hashRegistry = {
     "sha1":     hashlib.sha1,
     "sha256":   hashlib.sha256,
     "sha512":   hashlib.sha512,
-}
+} # type: Mapping[str, Callable] # XXX "Callable" is a bit too wide typing

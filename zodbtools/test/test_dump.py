@@ -21,14 +21,14 @@ from zodbtools.zodbdump import (
         zodbdump, DumpReader, Transaction, ObjectDelete, ObjectCopy,
         ObjectData, HashOnly
     )
+from zodbtools.util import fromhex
 from ZODB.FileStorage import FileStorage
 from ZODB.utils import p64
-from cStringIO import StringIO
+from io import BytesIO
 
 from os.path import dirname
 
-from zodbtools.test.testutil import zext_supported
-from pytest import raises, xfail
+from pytest import raises
 
 # verify zodbdump output against golden
 def test_zodbdump(zext):
@@ -39,7 +39,7 @@ def test_zodbdump(zext):
     with open('%s/testdata/1%s.zdump.ok' % (tdir, zkind)) as f:
         dumpok = f.read()
 
-    out = StringIO()
+    out = BytesIO()
     zodbdump(stor, None, None, out=out)
 
     assert out.getvalue() == dumpok
@@ -69,10 +69,10 @@ extension "qqq"
 
 """
 
-    r = DumpReader(StringIO(in_))
+    r = DumpReader(BytesIO(in_))
     t1 = r.readtxn()
     assert isinstance(t1, Transaction)
-    assert t1.tid == '0123456789abcdef'.decode('hex')
+    assert t1.tid == fromhex('0123456789abcdef')
     assert t1.user              == b'my name'
     assert t1.description       == b'o la-la...'
     assert t1.extension_bytes   == b'zzz123 def'
@@ -83,29 +83,29 @@ extension "qqq"
     _ = t1.objv[1]
     assert isinstance(_, ObjectCopy)
     assert _.oid        == p64(2)
-    assert _.copy_from  == '0123456789abcdee'.decode('hex')
+    assert _.copy_from  == fromhex('0123456789abcdee')
     _ = t1.objv[2]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(3)
     assert _.data       == HashOnly(54)
     assert _.hashfunc   == 'adler32'
-    assert _.hash_      == '01234567'.decode('hex')
+    assert _.hash_      == fromhex('01234567')
     _ = t1.objv[3]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(4)
     assert _.data       == b'ZZZZ'
     assert _.hashfunc   == 'sha1'
-    assert _.hash_      == '9865d483bc5a94f2e30056fc256ed3066af54d04'.decode('hex')
+    assert _.hash_      == fromhex('9865d483bc5a94f2e30056fc256ed3066af54d04')
     _ = t1.objv[4]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(5)
     assert _.data       == b'ABC\n\nDEF!'
     assert _.hashfunc   == 'crc32'
-    assert _.hash_      == '52fdeac5'.decode('hex')
+    assert _.hash_      == fromhex('52fdeac5')
 
     t2 = r.readtxn()
     assert isinstance(t2, Transaction)
-    assert t2.tid == '0123456789abcdf0'.decode('hex')
+    assert t2.tid == fromhex('0123456789abcdf0')
     assert t2.user              == b'author2'
     assert t2.description       == b'zzz'
     assert t2.extension_bytes   == b'qqq'
@@ -113,11 +113,11 @@ extension "qqq"
 
     assert r.readtxn() == None
 
-    z = ''.join([_.zdump() for _ in (t1, t2)])
+    z = b''.join([_.zdump() for _ in (t1, t2)])
     assert z == in_
 
     # unknown hash function
-    r = DumpReader(StringIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""
@@ -130,7 +130,7 @@ obj 0000000000000001 1 xyz:0123 -
     assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ('obj 0000000000000001 1 xyz:0123 -')""",)
 
     # data integrity error
-    r = DumpReader(StringIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""

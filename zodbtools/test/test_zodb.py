@@ -22,7 +22,9 @@ try:
     from unittest import mock
 except ImportError:
     # BBB python2
-    import mock
+    import mock # type: ignore
+    # mypy complains: error: Name 'mock' already defined (by an import)
+    # https://github.com/python/mypy/issues/1153#issuecomment-253842414
 
 import pytest
 

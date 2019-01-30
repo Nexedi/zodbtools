@@ -19,10 +19,15 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
+try:
+    from typing import Tuple
+except ImportError:
+    pass
+
 from collections import OrderedDict
 
 # topic_name -> (topic_summary, topic_help)
-topic_dict = OrderedDict()
+topic_dict = OrderedDict() # type: OrderedDict[str, Tuple[str, str]]
 
 help_zurl = """\
 Almost every zodb command works with a database.
