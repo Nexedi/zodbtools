@@ -1,6 +1,8 @@
 #!/usr/bin/env python
-# Copyright (C) 2017-2018  Nexedi SA and Contributors.
+# -*- coding: utf-8 -*-
+# Copyright (C) 2017-2019  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -51,10 +53,7 @@ Usage:
 The commands are:
 """, file=out)
 
-    cmdv = command_dict.keys()
-    cmdv.sort()
-    for cmd in cmdv:
-        cmd_module = command_dict[cmd]
+    for cmd, cmd_module in sorted(command_dict.items()):
         print("    %-11s %s" % (cmd, cmd_module.summary), file=out)
 
     print("""\
