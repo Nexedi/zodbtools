@@ -51,10 +51,7 @@ Usage:
 The commands are:
 """, file=out)
 
-    cmdv = command_dict.keys()
-    cmdv.sort()
-    for cmd in cmdv:
-        cmd_module = command_dict[cmd]
+    for cmd, cmd_module in sorted(command_dict.items()):
         print("    %-11s %s" % (cmd, cmd_module.summary), file=out)
 
     print("""\
