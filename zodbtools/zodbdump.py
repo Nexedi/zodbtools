@@ -16,7 +16,7 @@
 #
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
-"""Zodbdump - Tool to dump content of a ZODB database
+r"""Zodbdump - Tool to dump content of a ZODB database
 
 This program dumps content of a ZODB database.
 It uses ZODB Storage iteration API to get list of transactions and for every
