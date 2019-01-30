@@ -283,8 +283,11 @@ def main(argv):
 # ----------------------------------------
 # dump reading/parsing
 
-_txn_re = re.compile(b'^txn (?P<tid>[0-9a-f]{16}) "(?P<status>.)"$')
-_obj_re = re.compile(b'^obj (?P<oid>[0-9a-f]{16}) ((?P<delete>delete)|from (?P<from>[0-9a-f]{16})|(?P<size>[0-9]+) (?P<hashfunc>\w+):(?P<hash>[0-9a-f]+)(?P<hashonly> -)?)')
+_txn_re = re.compile(br'^txn (?P<tid>[0-9a-f]{16}) "(?P<status>.)"$')
+_obj_re = re.compile(
+    br'^obj (?P<oid>[0-9a-f]{16}) ((?P<delete>delete)|from (?P<from>[0-9a-f]{16})|(?P<size>[0-9]+) (?P<hashfunc>\w+):(?P<hash>[0-9a-f]+)(?P<hashonly> -)?)'
+)
+
 
 # _ioname returns name of the reader r, if it has one.
 # if there is no name - '' is returned.
