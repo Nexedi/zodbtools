@@ -1,6 +1,27 @@
 Zodbtools change history
 ========================
 
+0.0.0.dev8 (2019-03-07)
+-----------------------
+
+- Support using absolute and relative time in tidrange.  One example usage is:
+  ``zodb analyze data.fs 2018-01-01T10:30:00Z..yesterday`` (commit__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/4037002c
+
+- Python3 support progressed (`commit 1`__, 2__, 3__), but zodbtools does not
+  support python3 yet. The test suite was extended to run on python3 (commit__)
+  and also was extended to also run on ZODB with raw extensions from ongoing
+  pull request `#183`__  (commit__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/d6bde57c
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/f16ccfd4
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/b338d004
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/eaa3aec7
+  __ https://github.com/zopefoundation/ZODB/pull/183
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/c50bfb00
+
+
 0.0.0.dev7 (2019-01-11)
 -----------------------
 
