@@ -1,5 +1,7 @@
-# Copyright (C) 2017-2018  Nexedi SA and Contributors.
+# -*- coding: utf-8 -*-
+# Copyright (C) 2017-2019  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -23,7 +25,7 @@ from zodbtools.zodbdump import (
     )
 from ZODB.FileStorage import FileStorage
 from ZODB.utils import p64
-from cStringIO import StringIO
+from io import BytesIO
 
 from os.path import dirname
 
@@ -39,7 +41,7 @@ def test_zodbdump(zext):
     with open('%s/testdata/1%s.zdump.ok' % (tdir, zkind)) as f:
         dumpok = f.read()
 
-    out = StringIO()
+    out = BytesIO()
     zodbdump(stor, None, None, out=out)
 
     assert out.getvalue() == dumpok
@@ -69,7 +71,7 @@ extension "qqq"
 
 """
 
-    r = DumpReader(StringIO(in_))
+    r = DumpReader(BytesIO(in_))
     t1 = r.readtxn()
     assert isinstance(t1, Transaction)
     assert t1.tid == '0123456789abcdef'.decode('hex')
@@ -117,7 +119,7 @@ extension "qqq"
     assert z == in_
 
     # unknown hash function
-    r = DumpReader(StringIO("""\
+    r = DumpReader(BytesIO("""\
 txn 0000000000000000 " "
 user ""
 description ""
@@ -130,7 +132,7 @@ obj 0000000000000001 1 xyz:0123 -
     assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ('obj 0000000000000001 1 xyz:0123 -')""",)
 
     # data integrity error
-    r = DumpReader(StringIO("""\
+    r = DumpReader(BytesIO("""\
 txn 0000000000000000 " "
 user ""
 description ""
