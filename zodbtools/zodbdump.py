@@ -1,5 +1,7 @@
-# Copyright (C) 2016-2018  Nexedi SA and Contributors.
+# -*- coding: utf-8 -*-
+# Copyright (C) 2016-2019  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -54,7 +56,7 @@ TODO also protect txn record by hash.
 
 from __future__ import print_function
 from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL, hashRegistry
+        storageFromURL, hashRegistry, asbinstream
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
 #import pickletools
@@ -90,7 +92,7 @@ _already_warned_notxnraw = set()
 
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
-def zodbdump(stor, tidmin, tidmax, hashonly=False, out=sys.stdout):
+def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord

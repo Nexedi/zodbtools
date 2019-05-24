@@ -20,7 +20,7 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib, struct, codecs
+import hashlib, struct, codecs, io
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
@@ -225,3 +225,13 @@ hashRegistry = {
     "sha256":   hashlib.sha256,
     "sha512":   hashlib.sha512,
 }
+
+# ---- IO ----
+
+# asbinstream return binary stream associated with stream.
+# For example on py3 sys.stdout is io.TextIO which does not allow to write binary data to it.
+def asbinstream(stream):
+    # type: (IO) -> BinaryIO
+    if isinstance(stream, io.TextIOBase):
+        return stream.buffer
+    return stream
