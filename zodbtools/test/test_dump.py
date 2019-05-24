@@ -23,6 +23,7 @@ from zodbtools.zodbdump import (
         zodbdump, DumpReader, Transaction, ObjectDelete, ObjectCopy,
         ObjectData, HashOnly
     )
+from zodbtools.util import fromhex
 from ZODB.FileStorage import FileStorage
 from ZODB.utils import p64
 from io import BytesIO
@@ -74,7 +75,7 @@ extension "qqq"
     r = DumpReader(BytesIO(in_))
     t1 = r.readtxn()
     assert isinstance(t1, Transaction)
-    assert t1.tid == '0123456789abcdef'.decode('hex')
+    assert t1.tid == fromhex('0123456789abcdef')
     assert t1.user              == b'my name'
     assert t1.description       == b'o la-la...'
     assert t1.extension_bytes   == b'zzz123 def'
@@ -85,29 +86,29 @@ extension "qqq"
     _ = t1.objv[1]
     assert isinstance(_, ObjectCopy)
     assert _.oid        == p64(2)
-    assert _.copy_from  == '0123456789abcdee'.decode('hex')
+    assert _.copy_from  == fromhex('0123456789abcdee')
     _ = t1.objv[2]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(3)
     assert _.data       == HashOnly(54)
     assert _.hashfunc   == 'adler32'
-    assert _.hash_      == '01234567'.decode('hex')
+    assert _.hash_      == fromhex('01234567')
     _ = t1.objv[3]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(4)
     assert _.data       == b'ZZZZ'
     assert _.hashfunc   == 'sha1'
-    assert _.hash_      == '9865d483bc5a94f2e30056fc256ed3066af54d04'.decode('hex')
+    assert _.hash_      == fromhex('9865d483bc5a94f2e30056fc256ed3066af54d04')
     _ = t1.objv[4]
     assert isinstance(_, ObjectData)
     assert _.oid        == p64(5)
     assert _.data       == b'ABC\n\nDEF!'
     assert _.hashfunc   == 'crc32'
-    assert _.hash_      == '52fdeac5'.decode('hex')
+    assert _.hash_      == fromhex('52fdeac5')
 
     t2 = r.readtxn()
     assert isinstance(t2, Transaction)
-    assert t2.tid == '0123456789abcdf0'.decode('hex')
+    assert t2.tid == fromhex('0123456789abcdf0')
     assert t2.user              == b'author2'
     assert t2.description       == b'zzz'
     assert t2.extension_bytes   == b'qqq'
