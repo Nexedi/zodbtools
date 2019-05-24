@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 # zodbtools - various utility routines
-# Copyright (C) 2016-2018  Nexedi SA and Contributors.
+# Copyright (C) 2016-2019  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -26,9 +28,11 @@ from ZODB.TimeStamp import TimeStamp
 import dateparser
 
 def ashex(s):
-    return s.encode('hex')
+    # type: (bytes) -> bytes
+    return codecs.encode(s, 'hex')
 
 def fromhex(s):
+    # type: (Union[str,bytes]) -> bytes
     return codecs.decode(s, 'hex')
 
 def sha1(data):
