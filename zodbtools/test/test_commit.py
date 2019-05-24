@@ -1,5 +1,7 @@
-# Copyright (C) 2018  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# -*- coding: utf-8 -*-
+# Copyright (C) 2018-2019  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -41,8 +43,8 @@ def test_zodbcommit(zext):
     # commit some transactions via zodbcommit and verify if storage dump gives
     # what is expected.
     t1 = Transaction(z64, ' ', b'user name', b'description ...', zext(dumps({'a': 'b'}, _protocol)), [
-        ObjectData(p64(1), b'data1', 'sha1', sha1('data1')),
-        ObjectData(p64(2), b'data2', 'sha1', sha1('data2'))])
+        ObjectData(p64(1), b'data1', 'sha1', sha1(b'data1')),
+        ObjectData(p64(2), b'data2', 'sha1', sha1(b'data2'))])
 
     t1.tid = zodbcommit(stor, head, t1)
 

@@ -36,6 +36,7 @@ def fromhex(s):
     return codecs.decode(s, 'hex')
 
 def sha1(data):
+    # type: (bytes) -> bytes
     m = hashlib.sha1()
     m.update(data)
     return m.digest()
