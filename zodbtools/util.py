@@ -188,7 +188,7 @@ class Adler32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = adler32('')
+        self._h = adler32(b'')
 
     def update(self, data):
         self._h = adler32(data, self._h)
@@ -205,7 +205,7 @@ class CRC32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = crc32('')
+        self._h = crc32(b'')
 
     def update(self, data):
         self._h = crc32(data, self._h)
