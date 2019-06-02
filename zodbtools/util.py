@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 # zodbtools - various utility routines
-# Copyright (C) 2016-2018  Nexedi SA and Contributors.
+# Copyright (C) 2016-2019  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
+#                          Jérome Perrin <jerome@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -18,7 +20,7 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib, struct, codecs
+import hashlib, struct, codecs, io
 import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
@@ -26,12 +28,15 @@ from ZODB.TimeStamp import TimeStamp
 import dateparser
 
 def ashex(s):
-    return s.encode('hex')
+    # type: (bytes) -> bytes
+    return codecs.encode(s, 'hex')
 
 def fromhex(s):
+    # type: (Union[str,bytes]) -> bytes
     return codecs.decode(s, 'hex')
 
 def sha1(data):
+    # type: (bytes) -> bytes
     m = hashlib.sha1()
     m.update(data)
     return m.digest()
@@ -183,7 +188,7 @@ class Adler32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = adler32('')
+        self._h = adler32(b'')
 
     def update(self, data):
         self._h = adler32(data, self._h)
@@ -200,7 +205,7 @@ class CRC32Hasher:
     digest_size = 4
 
     def __init__(self):
-        self._h = crc32('')
+        self._h = crc32(b'')
 
     def update(self, data):
         self._h = crc32(data, self._h)
@@ -220,3 +225,13 @@ hashRegistry = {
     "sha256":   hashlib.sha256,
     "sha512":   hashlib.sha512,
 }
+
+# ---- IO ----
+
+# asbinstream return binary stream associated with stream.
+# For example on py3 sys.stdout is io.TextIO which does not allow to write binary data to it.
+def asbinstream(stream):
+    # type: (IO) -> BinaryIO
+    if isinstance(stream, io.TextIOBase):
+        return stream.buffer
+    return stream

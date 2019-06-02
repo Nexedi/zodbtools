@@ -1,5 +1,5 @@
-# Copyright (C) 2018  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# Copyright (C) 2018-2019  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -40,7 +40,7 @@ can query current database head (last_tid) with `zodb info <stor> last_tid`.
 
 from __future__ import print_function
 from zodbtools import zodbdump
-from zodbtools.util import ashex, storageFromURL
+from zodbtools.util import ashex, fromhex, storageFromURL
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
 from ZODB._compat import BytesIO
@@ -154,7 +154,7 @@ def main(argv):
         sys.exit(2)
 
     storurl = argv[0]
-    at = argv[1].decode('hex')
+    at = fromhex(argv[1])
 
     stor = storageFromURL(storurl)
     defer(stor.close)
