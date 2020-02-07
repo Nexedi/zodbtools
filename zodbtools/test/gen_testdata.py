@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2019  Nexedi SA and Contributors.
+# Copyright (C) 2017-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -39,6 +39,7 @@
 
 from ZODB.FileStorage import FileStorage
 from ZODB import DB
+from ZODB.Connection import TransactionMetaData
 from ZODB.POSException import UndoError
 from persistent import Persistent
 import transaction
@@ -120,10 +121,60 @@ def ext4subj(subj):
 
     return ext
 
+# run_with_zodb3py2_compat(f) runs f preserving database compatibility with
+# ZODB3/py2, which cannot load pickles encoded with protocol 3.
+#
+# ZODB5 started to use protocol 3 and binary for oids starting from ZODB 5.4.0:
+# https://github.com/zopefoundation/ZODB/commit/12ee41c4
+# Undo it, while we generate test database.
+def run_with_zodb3py2_compat(f):
+    import ZODB.ConflictResolution
+    import ZODB.Connection
+    import ZODB.ExportImport
+    import ZODB.FileStorage.FileStorage
+    import ZODB._compat
+    import ZODB.broken
+    import ZODB.fsIndex
+    import ZODB.serialize
+    binary    = getattr(ZODB.serialize, 'binary', None)
+    _protocol = getattr(ZODB.serialize, '_protocol', None)
+    Pz3 = 2
+    try:
+        ZODB.serialize.binary    = bytes
+        # XXX cannot change just ZODB._compat._protocol, because many modules
+        # do `from ZODB._compat import _protocol` and just `import ZODB`
+        # imports many ZODB.X modules. In other words we cannot change
+        # _protocol just in one place.
+        ZODB.ConflictResolution._protocol       = Pz3
+        ZODB.Connection._protocol               = Pz3
+        ZODB.ExportImport._protocol             = Pz3
+        ZODB.FileStorage.FileStorage._protocol  = Pz3
+        ZODB._compat._protocol                  = Pz3
+        ZODB.broken._protocol                   = Pz3
+        ZODB.fsIndex._protocol                  = Pz3
+        ZODB.serialize._protocol                = Pz3
+
+        f()
+    finally:
+        ZODB.serialize.binary    = binary
+        ZODB.ConflictResolution._protocol       = _protocol
+        ZODB.Connection._protocol               = _protocol
+        ZODB.ExportImport._protocol             = _protocol
+        ZODB.FileStorage.FileStorage._protocol  = _protocol
+        ZODB._compat._protocol                  = _protocol
+        ZODB.broken._protocol                   = _protocol
+        ZODB.fsIndex._protocol                  = _protocol
+        ZODB.serialize._protocol                = _protocol
+
 # gen_testdb generates test FileStorage database @ outfs_path.
 #
 # zext indicates whether or not to include non-empty extension into transactions.
 def gen_testdb(outfs_path, zext=True):
+    def _():
+        _gen_testdb(outfs_path, zext)
+    run_with_zodb3py2_compat(_)
+
+def _gen_testdb(outfs_path, zext):
     xtime_reset()
 
     ext = ext4subj
@@ -191,14 +242,16 @@ def gen_testdb(outfs_path, zext=True):
                             ''.join(chr(_) for _ in range(32)),     # <- NOTE all control characters
                         u"delete %i\nalpha beta gamma'delta\"lambda\n\nqqq ..." % i,
                         ext("delete %s" % unpack64(obj._p_oid)))
-        stor.tpc_begin(txn)
-        stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn)
-        stor.tpc_vote(txn)
+        # at low level stor requires ZODB.IStorageTransactionMetaData not txn (ITransaction)
+        txn_stormeta = TransactionMetaData(txn.user, txn.description, txn.extension)
+        stor.tpc_begin(txn_stormeta)
+        stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn_stormeta)
+        stor.tpc_vote(txn_stormeta)
         # TODO different txn status vvv
         # XXX vvv it does the thing, but py fs iterator treats this txn as EOF
         #if i != Niter-1:
-        #    stor.tpc_finish(txn)
-        stor.tpc_finish(txn)
+        #    stor.tpc_finish(txn_stormeta)
+        stor.tpc_finish(txn_stormeta)
 
         # close db & rest not to get conflict errors after we touched stor
         # directly a bit. everything will be reopened on next iteration.
