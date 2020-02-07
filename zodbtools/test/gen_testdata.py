@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2019  Nexedi SA and Contributors.
+# Copyright (C) 2017-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -39,6 +39,7 @@
 
 from ZODB.FileStorage import FileStorage
 from ZODB import DB
+from ZODB.Connection import TransactionMetaData
 from ZODB.POSException import UndoError
 from persistent import Persistent
 import transaction
@@ -191,14 +192,16 @@ def gen_testdb(outfs_path, zext=True):
                             ''.join(chr(_) for _ in range(32)),     # <- NOTE all control characters
                         u"delete %i\nalpha beta gamma'delta\"lambda\n\nqqq ..." % i,
                         ext("delete %s" % unpack64(obj._p_oid)))
-        stor.tpc_begin(txn)
-        stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn)
-        stor.tpc_vote(txn)
+        # at low level stor requires ZODB.IStorageTransactionMetaData not txn (ITransaction)
+        txn_stormeta = TransactionMetaData(txn.user, txn.description, txn.extension)
+        stor.tpc_begin(txn_stormeta)
+        stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn_stormeta)
+        stor.tpc_vote(txn_stormeta)
         # TODO different txn status vvv
         # XXX vvv it does the thing, but py fs iterator treats this txn as EOF
         #if i != Niter-1:
-        #    stor.tpc_finish(txn)
-        stor.tpc_finish(txn)
+        #    stor.tpc_finish(txn_stormeta)
+        stor.tpc_finish(txn_stormeta)
 
         # close db & rest not to get conflict errors after we touched stor
         # directly a bit. everything will be reopened on next iteration.
