@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# Copyright (C) 2017-2020  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -25,11 +25,16 @@ from collections import OrderedDict
 from golang import func, defer
 import sys
 
+def _last_tid(stor):
+    print("W: last_tid is deprecated alias for head", file=sys.stderr)
+    return infoDict["head"](stor)
+
 # {} parameter_name -> get_parameter(stor)
 infoDict = OrderedDict([
     ("name", lambda stor: stor.getName()),
     ("size", lambda stor: stor.getSize()),
-    ("last_tid", lambda stor: ashex(stor.lastTransaction())),
+    ("head", lambda stor: ashex(stor.lastTransaction())),
+    ("last_tid", _last_tid),
 ])
 
 def zodbinfo(stor, parameterv):
