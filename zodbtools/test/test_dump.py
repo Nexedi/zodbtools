@@ -130,7 +130,7 @@ obj 0000000000000001 1 xyz:0123 -
 """))
     with raises(RuntimeError) as exc:
         r.readtxn()
-    assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ('obj 0000000000000001 1 xyz:0123 -')""",)
+    assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ("obj 0000000000000001 1 xyz:0123 -")""",)
 
     # data integrity error
     r = DumpReader(BytesIO("""\

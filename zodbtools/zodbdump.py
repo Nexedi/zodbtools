@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2019  Nexedi SA and Contributors.
+# Copyright (C) 2016-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -320,7 +320,7 @@ class DumpReader(object):
 
     # report a problem found around currently-read line
     def _badline(self, msg):
-        raise RuntimeError("%s+%d: invalid line: %s (%r)" % (_ioname(self._r), self.lineno, msg, self._line))
+        raise RuntimeError("%s+%d: invalid line: %s (%s)" % (_ioname(self._r), self.lineno, msg, qq(self._line)))
 
     # readtxn reads one transaction record from input stream and returns
     # Transaction instance or None at EOF.
