@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2019 Nexedi SA and Contributors.
+# Copyright (C) 2019-2020 Nexedi SA and Contributors.
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -27,6 +27,7 @@ from freezegun import freeze_time
 import tzlocal
 
 from zodbtools.util import TidRangeInvalid, TidInvalid, ashex, parse_tid, parse_tidrange
+from golang import b
 
 
 @pytest.fixture
@@ -94,7 +95,7 @@ def test_parse_tid():
     assert exc.value.args == ('', )
 
 
-test_parameters = []
+test_parameters = [] # of (reference_time, reference_tid, input_time)
 with open(
         os.path.join(
             os.path.dirname(__file__), "testdata",
@@ -109,7 +110,7 @@ with open(
                          test_parameters)
 def test_parse_tid_time_format(fake_time, reference_time, reference_tid,
                                input_time):
-    assert reference_tid == ashex(parse_tid(input_time))
+    assert b(reference_tid) == ashex(parse_tid(input_time))
     # check that the reference_tid matches the reference time, mainly
     # to check that input is defined correctly.
-    assert reference_tid == ashex(parse_tid(reference_time))
+    assert b(reference_tid) == ashex(parse_tid(reference_time))
