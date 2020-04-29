@@ -67,7 +67,7 @@ import sys
 import logging as log
 import re
 from golang.gcompat import qq
-from golang import func, defer, strconv
+from golang import func, defer, strconv, b
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -96,7 +96,7 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
-        out.write("txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
+        out.write(b"txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
             ashex(txn.tid), qq(txn.status),
             qq(txn.user),
             qq(txn.description),
@@ -105,33 +105,33 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
         objv = txnobjv(txn)
 
         for obj in objv:
-            entry = "obj %s " % ashex(obj.oid)
+            entry = b"obj %s " % ashex(obj.oid)
             write_data = False
 
             if obj.data is None:
-                entry += "delete"
+                entry += b"delete"
 
             # was undo and data taken from obj.data_txn
             elif obj.data_txn is not None:
-                entry += "from %s" % ashex(obj.data_txn)
+                entry += b"from %s" % ashex(obj.data_txn)
 
             else:
                 # XXX sha1 is hardcoded for now. Dump format allows other hashes.
-                entry += "%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
+                entry += b"%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
                 write_data = True
 
-            out.write(entry)
+            out.write(b(entry))
 
             if write_data:
                 if hashonly:
-                    out.write(" -")
+                    out.write(b" -")
                 else:
-                    out.write("\n")
+                    out.write(b"\n")
                     out.write(obj.data)
 
-            out.write("\n")
+            out.write(b"\n")
 
-        out.write("\n")
+        out.write(b"\n")
 
 # ----------------------------------------
 # XPickler is Pickler that tries to save objects stably
@@ -309,7 +309,7 @@ class DumpReader(object):
 
     def _readline(self):
         l = self._r.readline()
-        if l == '':
+        if l == b'':
             self._line = None
             return None # EOF
 
@@ -350,7 +350,7 @@ class DumpReader(object):
         objv = []
         while 1:
             l = self._readline()
-            if l == '':
+            if l == b'':
                 break   # empty line - end of transaction
 
             if l is None or not l.startswith(b'obj '):
@@ -393,7 +393,7 @@ class DumpReader(object):
                         chunk = self._r.read(n)
                         data += chunk
                         n -= len(chunk)
-                    self.lineno += data.count('\n')
+                    self.lineno += data.count(b'\n')
                     self._line = None
                     if data[-1:] != b'\n':
                         raise RuntimeError('%s+%d: no LF after obj data' % (_ioname(self._r), self.lineno))
@@ -454,13 +454,13 @@ class Transaction(object):
 
     # zdump returns semi text-binary representation of a record in zodbdump format.
     def zdump(self): # -> bytes
-        z  = 'txn %s %s\n' % (ashex(self.tid), qq(self.status))
-        z += 'user %s\n' % qq(self.user)
-        z += 'description %s\n' % qq(self.description)
-        z += 'extension %s\n' % qq(self.extension_bytes)
+        z  = b'txn %s %s\n' % (ashex(self.tid), qq(self.status))
+        z += b'user %s\n' % qq(self.user)
+        z += b'description %s\n' % qq(self.description)
+        z += b'extension %s\n' % qq(self.extension_bytes)
         for obj in self.objv:
             z += obj.zdump()
-        z += '\n'
+        z += b'\n'
         return z
 
 
@@ -477,7 +477,7 @@ class ObjectDelete(Object):
         super(ObjectDelete, self).__init__(oid)
 
     def zdump(self):
-        return 'obj %s delete\n' % (ashex(self.oid))
+        return b'obj %s delete\n' % (ashex(self.oid))
 
 # ObjectCopy represents object data copy.
 class ObjectCopy(Object):
@@ -487,7 +487,7 @@ class ObjectCopy(Object):
         self.copy_from = copy_from
 
     def zdump(self):
-        return 'obj %s from %s\n' % (ashex(self.oid), ashex(self.copy_from))
+        return b'obj %s from %s\n' % (ashex(self.oid), ashex(self.copy_from))
 
 # ObjectData represents record with object data.
 class ObjectData(Object):
@@ -507,13 +507,13 @@ class ObjectData(Object):
             size = data.size
         else:
             size = len(data)
-        z = 'obj %s %d %s:%s' % (ashex(self.oid), size, self.hashfunc, ashex(self.hash_))
+        z = b'obj %s %d %s:%s' % (ashex(self.oid), size, self.hashfunc, ashex(self.hash_))
         if hashonly:
-            z += ' -'
+            z += b' -'
         else:
-            z += '\n'
+            z += b'\n'
             z += data
-        z += '\n'
+        z += b'\n'
         return z
 
 # HashOnly indicated that this ObjectData record contains only hash and does not contain object data.
