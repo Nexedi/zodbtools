@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2019  Nexedi SA and Contributors.
+# Copyright (C) 2018-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -159,7 +159,7 @@ def main(argv):
     stor = storageFromURL(storurl)
     defer(stor.close)
 
-    zin = 'txn 0000000000000000 " "\n'  # artificial transaction header
+    zin = b'txn 0000000000000000 " "\n'  # artificial transaction header
     zin += sys.stdin.read()
     zin = BytesIO(zin)
     zr = zodbdump.DumpReader(zin)

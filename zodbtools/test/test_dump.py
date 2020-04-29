@@ -120,7 +120,7 @@ extension "qqq"
     assert z == in_
 
     # unknown hash function
-    r = DumpReader(BytesIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""
@@ -133,7 +133,7 @@ obj 0000000000000001 1 xyz:0123 -
     assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ("obj 0000000000000001 1 xyz:0123 -")""",)
 
     # data integrity error
-    r = DumpReader(BytesIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""
