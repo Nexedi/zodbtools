@@ -452,8 +452,8 @@ class Transaction(object):
     def _extension(self):
         return self.extension
 
-    # zdump returns text representation of a record in zodbdump format.
-    def zdump(self):
+    # zdump returns semi text-binary representation of a record in zodbdump format.
+    def zdump(self): # -> bytes
         z  = 'txn %s %s\n' % (ashex(self.tid), qq(self.status))
         z += 'user %s\n' % qq(self.user)
         z += 'description %s\n' % qq(self.description)

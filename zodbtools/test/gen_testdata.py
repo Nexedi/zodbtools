@@ -276,7 +276,7 @@ def main():
             dbname += "_!zext"
         gen_testdb("%s.fs" % dbname, zext=zext)
         stor = FileStorage("%s.fs" % dbname, read_only=True)
-        with open("%s.zdump.ok" % dbname, "w") as f:
+        with open("%s.zdump.ok" % dbname, "wb") as f:
             zodbdump(stor, None, None, out=f)
 
 if __name__ == '__main__':
