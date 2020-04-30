@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2019  Nexedi SA and Contributors.
+# Copyright (C) 2017-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -39,7 +39,7 @@ def test_zodbdump(zext):
     zkind = '_!zext' if zext.disabled else ''
     stor  = FileStorage('%s/testdata/1%s.fs' % (tdir, zkind), read_only=True)
 
-    with open('%s/testdata/1%s.zdump.ok' % (tdir, zkind)) as f:
+    with open('%s/testdata/1%s.zdump.ok' % (tdir, zkind), 'rb') as f:
         dumpok = f.read()
 
     out = BytesIO()
@@ -116,11 +116,11 @@ extension "qqq"
 
     assert r.readtxn() == None
 
-    z = ''.join([_.zdump() for _ in (t1, t2)])
+    z = b''.join([_.zdump() for _ in (t1, t2)])
     assert z == in_
 
     # unknown hash function
-    r = DumpReader(BytesIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""
@@ -130,10 +130,10 @@ obj 0000000000000001 1 xyz:0123 -
 """))
     with raises(RuntimeError) as exc:
         r.readtxn()
-    assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ('obj 0000000000000001 1 xyz:0123 -')""",)
+    assert exc.value.args == ("""+5: invalid line: unknown hash function "xyz" ("obj 0000000000000001 1 xyz:0123 -")""",)
 
     # data integrity error
-    r = DumpReader(BytesIO("""\
+    r = DumpReader(BytesIO(b"""\
 txn 0000000000000000 " "
 user ""
 description ""

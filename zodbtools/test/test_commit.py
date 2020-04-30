@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018-2019  Nexedi SA and Contributors.
+# Copyright (C) 2018-2020  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -58,7 +58,7 @@ def test_zodbcommit(zext):
     zodbdump(stor, p64(u64(head)+1), None, out=buf)
     dumped = buf.getvalue()
 
-    assert dumped == ''.join([_.zdump() for _ in (t1, t2)])
+    assert dumped == b''.join([_.zdump() for _ in (t1, t2)])
 
     # ObjectCopy. XXX zodbcommit handled ObjectCopy by actually copying data,
     # not referencing previous transaction via backpointer.

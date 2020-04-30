@@ -113,7 +113,7 @@ def ext4subj(subj):
     d[xcookie] = cookie
 
     # shufle extension dict randomly - to likely trigger different ordering on save
-    keyv = d.keys()
+    keyv = list(d.keys())
     random.shuffle(keyv)
     ext = {}
     for key in keyv:
@@ -227,7 +227,7 @@ def _gen_testdb(outfs_path, zext):
                 break
 
         # delete an object
-        name = random.choice(root.keys())
+        name = random.choice(list(root.keys()))
         obj = root[name]
         root[name] = Object("%s%i*" % (name, i))
         # NOTE user/ext are kept empty on purpose - to also test this case
@@ -276,7 +276,7 @@ def main():
             dbname += "_!zext"
         gen_testdb("%s.fs" % dbname, zext=zext)
         stor = FileStorage("%s.fs" % dbname, read_only=True)
-        with open("%s.zdump.ok" % dbname, "w") as f:
+        with open("%s.zdump.ok" % dbname, "wb") as f:
             zodbdump(stor, None, None, out=f)
 
 if __name__ == '__main__':
