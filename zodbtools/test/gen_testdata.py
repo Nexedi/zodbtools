@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2020  Nexedi SA and Contributors.
+# Copyright (C) 2017-2021  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -121,13 +121,13 @@ def ext4subj(subj):
 
     return ext
 
-# run_with_zodb3py2_compat(f) runs f preserving database compatibility with
-# ZODB3/py2, which cannot load pickles encoded with protocol 3.
+# run_with_zodb4py2_compat(f) runs f preserving database compatibility with
+# ZODB4/py2, which generates pickles encoded with protocol < 3.
 #
 # ZODB5 started to use protocol 3 and binary for oids starting from ZODB 5.4.0:
 # https://github.com/zopefoundation/ZODB/commit/12ee41c4
 # Undo it, while we generate test database.
-def run_with_zodb3py2_compat(f):
+def run_with_zodb4py2_compat(f):
     import ZODB.ConflictResolution
     import ZODB.Connection
     import ZODB.ExportImport
@@ -138,21 +138,21 @@ def run_with_zodb3py2_compat(f):
     import ZODB.serialize
     binary    = getattr(ZODB.serialize, 'binary', None)
     _protocol = getattr(ZODB.serialize, '_protocol', None)
-    Pz3 = 2
+    Pz4 = 2
     try:
         ZODB.serialize.binary    = bytes
         # XXX cannot change just ZODB._compat._protocol, because many modules
         # do `from ZODB._compat import _protocol` and just `import ZODB`
         # imports many ZODB.X modules. In other words we cannot change
         # _protocol just in one place.
-        ZODB.ConflictResolution._protocol       = Pz3
-        ZODB.Connection._protocol               = Pz3
-        ZODB.ExportImport._protocol             = Pz3
-        ZODB.FileStorage.FileStorage._protocol  = Pz3
-        ZODB._compat._protocol                  = Pz3
-        ZODB.broken._protocol                   = Pz3
-        ZODB.fsIndex._protocol                  = Pz3
-        ZODB.serialize._protocol                = Pz3
+        ZODB.ConflictResolution._protocol       = Pz4
+        ZODB.Connection._protocol               = Pz4
+        ZODB.ExportImport._protocol             = Pz4
+        ZODB.FileStorage.FileStorage._protocol  = Pz4
+        ZODB._compat._protocol                  = Pz4
+        ZODB.broken._protocol                   = Pz4
+        ZODB.fsIndex._protocol                  = Pz4
+        ZODB.serialize._protocol                = Pz4
 
         f()
     finally:
@@ -172,7 +172,7 @@ def run_with_zodb3py2_compat(f):
 def gen_testdb(outfs_path, zext=True):
     def _():
         _gen_testdb(outfs_path, zext)
-    run_with_zodb3py2_compat(_)
+    run_with_zodb4py2_compat(_)
 
 def _gen_testdb(outfs_path, zext):
     xtime_reset()
