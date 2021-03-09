@@ -102,7 +102,7 @@ def zodbcommit(stor, at, txn):
 
     stor.tpc_vote(txn)
 
-    # in ZODB >= 5 tpc_finish returns tid directly, but on ZODB 4 and ZODB 3 it
+    # in ZODB >= 5 tpc_finish returns tid directly, but on ZODB 4 it
     # does not do so. Since we still need to support ZODB 4, utilize tpc_finish
     # callback to know with which tid the transaction was committed.
     _ = []
