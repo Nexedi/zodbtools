@@ -55,11 +55,11 @@ from golang import func, defer, panic
 def zodbcommit(stor, at, txn):
     assert isinstance(txn, zodbdump.Transaction)
 
-    before = p64(u64(at)+1)
-
     stor.tpc_begin(txn)
 
     def _():
+        def current_serial(oid):
+            return _serial_at(stor, oid, at)
         for obj in txn.objv:
             data = None # data do be committed - setup vvv
             if isinstance(obj, zodbdump.ObjectCopy):
@@ -82,25 +82,12 @@ def zodbcommit(stor, at, txn):
             else:
                 panic('invalid object record: %r' % (obj,))
 
-
-            # now we have the data.
-            # find out what is oid's serial as of <before state
-            try:
-                xdata = stor.loadBefore(obj.oid, before)
-            except POSKeyError:
-                serial_prev = z64
-            else:
-                if xdata is None:
-                    serial_prev = z64
-                else:
-                    _, serial_prev, _ = xdata
-
-            # store the object.
+            # we have the data -> store the object.
             # if it will be ConflictError - we just fail and let the caller retry.
             if data is None:
-                stor.deleteObject(obj.oid, serial_prev, txn)
+                stor.deleteObject(obj.oid, current_serial(obj.oid), txn)
             else:
-                stor.store(obj.oid, serial_prev, data, '', txn)
+                stor.store(obj.oid, current_serial(obj.oid), data, '', txn)
 
     try:
         _()
@@ -117,6 +104,20 @@ def zodbcommit(stor, at, txn):
     assert len(_) == 1
     tid = _[0]
     return tid
+
+# _serial_at returns oid's serial as of @at database state.
+def _serial_at(stor, oid, at):
+    before = p64(u64(at)+1)
+    try:
+        xdata = stor.loadBefore(oid, before)
+    except POSKeyError:
+        serial = z64
+    else:
+        if xdata is None:
+            serial = z64
+        else:
+            _, serial, _ = xdata
+    return serial
 
 
 # ----------------------------------------
