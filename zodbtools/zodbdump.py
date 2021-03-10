@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2020  Nexedi SA and Contributors.
+# Copyright (C) 2016-2021  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -26,8 +26,8 @@ transaction prints transaction's header and information about changed objects.
 
 The information dumped is complete raw information as stored in ZODB storage
 and should be suitable for restoring the database from the dump file bit-to-bit
-identical to its original(*). It is dumped in semi text-binary format where
-object data is output as raw binary and everything else is text.
+identical to its original(*) via Zodbrestore. It is dumped in semi text-binary
+format where object data is output as raw binary and everything else is text.
 
 There is also shortened mode activated via --hashonly where only hash of object
 data is printed without content.

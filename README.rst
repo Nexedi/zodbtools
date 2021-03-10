@@ -12,4 +12,5 @@ __ https://github.com/zopefoundation/ZODB/pull/128#issuecomment-260970932
 - `zodb cmp` - compare content of two ZODB databases bit-to-bit.
 - `zodb commit` - commit new transaction into a ZODB database.
 - `zodb dump` - dump content of a ZODB database.
+- `zodb restore` - restore content of a ZODB database.
 - `zodb info` - print general information about a ZODB database.
