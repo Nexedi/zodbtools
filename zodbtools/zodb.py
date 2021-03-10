@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2019  Nexedi SA and Contributors.
+# Copyright (C) 2017-2021  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -37,7 +37,7 @@ def register_command(cmdname):
     command_module = importlib.import_module('zodbtools.zodb' + cmdname)
     command_dict[cmdname] = command_module
 
-for _ in ('analyze', 'cmp', 'commit', 'dump', 'info'):
+for _ in ('analyze', 'cmp', 'commit', 'dump', 'info', 'restore'):
     register_command(_)
 
 

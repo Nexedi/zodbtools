@@ -41,32 +41,53 @@ can query current database head (last_tid) with `zodb info <stor> last_tid`.
 from __future__ import print_function
 from zodbtools import zodbdump
 from zodbtools.util import ashex, fromhex, storageFromURL
+from ZODB.interfaces import IStorageRestoreable
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
 from ZODB._compat import BytesIO
 from golang import func, defer, panic
+import warnings
 
 
 # zodbcommit commits new transaction into ZODB storage with data specified by
 # zodbdump transaction.
 #
-# txn.tid is ignored.
-# tid of committed transaction is returned.
+# txn.tid acts as a flag:
+# - with tid=0 the transaction is committed regularly.
+# - with tid=!0 the transaction is recreated with exactly that tid via IStorageRestoreable.
+#
+# tid of created transaction is returned.
+_norestoreWarned = set() # of storage class
 def zodbcommit(stor, at, txn):
     assert isinstance(txn, zodbdump.Transaction)
 
-    stor.tpc_begin(txn)
+    want_restore = (txn.tid != z64)
+    have_restore = IStorageRestoreable.providedBy(stor)
+    # warn once if stor does not implement IStorageRestoreable
+    if want_restore and (not have_restore):
+        if type(stor) not in _norestoreWarned:
+            warnings.warn("restore: %s does not provide IStorageRestoreable ...\n"
+                          "\t... -> will try to emulate it on best-effort basis." %
+                          type(stor), RuntimeWarning)
+            _norestoreWarned.add(type(stor))
+
+    if want_restore:
+        # even if stor might be not providing IStorageRestoreable and not
+        # supporting .restore, it can still support .tpc_begin(tid=...). An example
+        # of this is NEO. We anyway need to be able to specify which transaction ID
+        # we need to restore transaction with.
+        stor.tpc_begin(txn, tid=txn.tid)
+    else:
+        stor.tpc_begin(txn)
 
     def _():
         def current_serial(oid):
             return _serial_at(stor, oid, at)
         for obj in txn.objv:
             data = None # data do be committed - setup vvv
+            copy_from = None
             if isinstance(obj, zodbdump.ObjectCopy):
-                # NEO does not support restore, and even if stor supports restore,
-                # going that way requires to already know tid for transaction we are
-                # committing. -> we just imitate copy by actually copying data and
-                # letting the storage deduplicate it.
+                copy_from = obj.copy_from
                 data, _, _ = stor.loadBefore(obj.oid, p64(u64(obj.copy_from)+1))
 
             elif isinstance(obj, zodbdump.ObjectDelete):
@@ -82,12 +103,20 @@ def zodbcommit(stor, at, txn):
             else:
                 panic('invalid object record: %r' % (obj,))
 
-            # we have the data -> store the object.
+            # we have the data -> restore/store the object.
             # if it will be ConflictError - we just fail and let the caller retry.
             if data is None:
                 stor.deleteObject(obj.oid, current_serial(obj.oid), txn)
             else:
-                stor.store(obj.oid, current_serial(obj.oid), data, '', txn)
+                if want_restore and have_restore:
+                    stor.restore(obj.oid, txn.tid, data, '', copy_from, txn)
+                else:
+                    # FIXME we don't handle copy_from on commit
+                    # NEO does not support restore, and even if stor supports restore,
+                    # going that way requires to already know tid for transaction we are
+                    # committing. -> we just imitate copy by actually copying data and
+                    # letting the storage deduplicate it.
+                    stor.store(obj.oid, current_serial(obj.oid), data, '', txn)
 
     try:
         _()
@@ -103,6 +132,9 @@ def zodbcommit(stor, at, txn):
     stor.tpc_finish(txn, lambda tid: _.append(tid))
     assert len(_) == 1
     tid = _[0]
+    if want_restore and (tid != txn.tid):
+        panic('restore: restored tranaction has tid=%s, but requested was tid=%s' %
+              (ashex(tid), ashex(txn.tid)))
     return tid
 
 # _serial_at returns oid's serial as of @at database state.
@@ -167,7 +199,9 @@ def main(argv):
     stor = storageFromURL(storurl)
     defer(stor.close)
 
-    zin = b'txn 0000000000000000 " "\n'  # artificial transaction header
+    # artificial transaction header with tid=0 to request regular commit
+    zin = b'txn 0000000000000000 " "\n'
+
     zin += sys.stdin.read()
     zin = BytesIO(zin)
     zr = zodbdump.DumpReader(zin)
