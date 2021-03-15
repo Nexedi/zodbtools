@@ -24,7 +24,7 @@ ZODB storage. See Zodbdump documentation for details.
 
 from __future__ import print_function
 from zodbtools.zodbdump import DumpReader
-from zodbtools.zodbcommit import zodbcommit
+from zodbtools.zodbcommit import zodbcommit, _low_level_note
 from zodbtools.util import asbinstream, ashex, storageFromURL
 from golang import func, defer
 
@@ -64,7 +64,7 @@ On success the ID of every restored transaction is printed to stdout.
 Options:
 
     -h  --help      show this help
-""", file=out)
+""" + (_low_level_note % "zodb restore"), file=out)
 
 @func
 def main(argv):
