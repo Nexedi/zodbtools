@@ -173,7 +173,16 @@ On success the ID of committed transaction is printed to stdout.
 Options:
 
     -h  --help      show this help
-""", file=out)
+""" + (_low_level_note % "zodb commit"), file=out)
+
+_low_level_note = """
+Note: `%s` is low-level tool that creates transactions without checking
+data for correctness and consistency at object level. Given incorrect data it
+can create transactions with objects that cannot be unpickled, or with objects
+that reference other objects that may not already be present in the database.
+Such transactions would lead to errors later when accessing those objects at
+Zope/ERP5 level.
+"""
 
 @func
 def main(argv):
