@@ -88,7 +88,14 @@ def zodbcommit(stor, at, txn):
             copy_from = None
             if isinstance(obj, zodbdump.ObjectCopy):
                 copy_from = obj.copy_from
-                data, _, _ = stor.loadBefore(obj.oid, p64(u64(obj.copy_from)+1))
+                try:
+                    xdata = stor.loadBefore(obj.oid, p64(u64(obj.copy_from)+1))
+                except POSKeyError:
+                    xdata = None
+                if xdata is None:
+                    raise ValueError("%s: object %s: copy from @%s: no data" %
+                            (stor.__name__, ashex(obj.oid), ashex(obj.copy_from)))
+                data, _, _ = xdata
 
             elif isinstance(obj, zodbdump.ObjectDelete):
                 data = None
