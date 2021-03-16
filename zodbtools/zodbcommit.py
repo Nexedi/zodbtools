@@ -77,8 +77,10 @@ def zodbcommit(stor, at, txn):
         # of this is NEO. We anyway need to be able to specify which transaction ID
         # we need to restore transaction with.
         stor.tpc_begin(txn, tid=txn.tid)
+        runctx = "%s: restore @%s" % (stor.getName(), ashex(txn.tid))
     else:
         stor.tpc_begin(txn)
+        runctx = "%s: commit" % (stor.getName(),)
 
     def _():
         def current_serial(oid):
@@ -94,7 +96,7 @@ def zodbcommit(stor, at, txn):
                     xdata = None
                 if xdata is None:
                     raise ValueError("%s: object %s: copy from @%s: no data" %
-                            (stor.getName(), ashex(obj.oid), ashex(obj.copy_from)))
+                            (runctx, ashex(obj.oid), ashex(obj.copy_from)))
                 data, _, _ = xdata
 
             elif isinstance(obj, zodbdump.ObjectDelete):
@@ -103,12 +105,12 @@ def zodbcommit(stor, at, txn):
             elif isinstance(obj, zodbdump.ObjectData):
 
                 if isinstance(obj.data, zodbdump.HashOnly):
-                    raise ValueError('cannot commit transaction with hashonly object')
+                    raise ValueError('%s: cannot commit transaction with hashonly object' % runctx)
 
                 data = obj.data
 
             else:
-                panic('invalid object record: %r' % (obj,))
+                panic('%s: invalid object record: %r' % (runctx, obj,))
 
             # we have the data -> restore/store the object.
             # if it will be ConflictError - we just fail and let the caller retry.
@@ -140,8 +142,7 @@ def zodbcommit(stor, at, txn):
     assert len(_) == 1
     tid = _[0]
     if want_restore and (tid != txn.tid):
-        panic('restore: restored transaction has tid=%s, but requested was tid=%s' %
-              (ashex(tid), ashex(txn.tid)))
+        panic('%s: restored transaction has different tid=%s' % (runctx, ashex(tid)))
     return tid
 
 # _serial_at returns oid's serial as of @at database state.
