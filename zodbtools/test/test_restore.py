@@ -30,16 +30,17 @@ from golang import func, defer
 
 # verify zodbrestore.
 @func
-def test_zodbrestore():
+def test_zodbrestore(zext):
     tmpd = mkdtemp('', 'zodbrestore.')
     defer(lambda: rmtree(tmpd))
+    zkind = '_!zext' if zext.disabled else ''
 
     # restore from testdata/1.zdump.ok and verify it gives result that is
     # bit-to-bit identical to testdata/1.fs
     tdata = dirname(__file__) + "/testdata"
     @func
     def _():
-        zdump = open("%s/1.zdump.ok" % tdata, 'rb')
+        zdump = open("%s/1%s.zdump.ok" % (tdata, zkind), 'rb')
         defer(zdump.close)
 
         stor = storageFromURL('%s/2.fs' % tmpd)
@@ -48,7 +49,7 @@ def test_zodbrestore():
         zodbrestore(stor, zdump)
     _()
 
-    zfs1 = _readfile("%s/1.fs" % tdata)
+    zfs1 = _readfile("%s/1%s.fs" % (tdata, zkind))
     zfs2 = _readfile("%s/2.fs" % tmpd)
     assert zfs1 == zfs2
 
