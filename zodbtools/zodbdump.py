@@ -30,7 +30,9 @@ identical to its original(*) via Zodbrestore. It is dumped in semi text-binary
 format where object data is output as raw binary and everything else is text.
 
 There is also shortened mode activated via --hashonly where only hash of object
-data is printed without content.
+data is printed without content and a "disassembled" mode, where pickle content
+are disasembled thanks to pickletools.dis. The dump produced by these modes can
+not be used to restore.
 
 Dump format:
 
@@ -59,7 +61,7 @@ from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRan
         storageFromURL, hashRegistry, asbinstream
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
-#import pickletools
+import pickletools
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
@@ -92,7 +94,7 @@ _already_warned_notxnraw = set()
 
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
-def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
+def zodbdump(stor, tidmin, tidmax, hashonly=False, disassemble=False, out=asbinstream(sys.stdout)):
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
@@ -127,7 +129,12 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
                     out.write(b" -")
                 else:
                     out.write(b"\n")
-                    out.write(obj.data)
+                    if disassemble:
+                      f = BytesIO(obj.data)
+                      pickletools.dis(f, out)
+                      pickletools.dis(f, out)
+                    else:
+                      out.write(obj.data)
 
             out.write(b"\n")
 
@@ -239,16 +246,18 @@ Dump content of a ZODB database.
 
 Options:
 
-        --hashonly  dump only hashes of objects without content
-    -h  --help      show this help
+        --disassemble show disassembly of pickle data
+        --hashonly    dump only hashes of objects without content
+    -h  --help        show this help
 """, file=out)
 
 @func
 def main(argv):
     hashonly = False
+    disassemble = False
 
     try:
-        optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly"])
+        optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly", "disassemble"])
     except getopt.GetoptError as e:
         print(e, file=sys.stderr)
         usage(sys.stderr)
@@ -260,6 +269,8 @@ def main(argv):
             sys.exit(0)
         if opt in ("--hashonly"):
             hashonly = True
+        if opt in ("--disassemble"):
+            disassemble = True
 
     try:
         storurl = argv[0]
@@ -279,7 +290,7 @@ def main(argv):
     stor = storageFromURL(storurl, read_only=True)
     defer(stor.close)
 
-    zodbdump(stor, tidmin, tidmax, hashonly)
+    zodbdump(stor, tidmin, tidmax, hashonly, disassemble)
 
 
 # ----------------------------------------
