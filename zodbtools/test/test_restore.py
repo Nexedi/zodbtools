@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2021  Nexedi SA and Contributors.
-#                     Kirill Smelkov <kirr@nexedi.com>
+# Copyright (C) 2021-2022  Nexedi SA and Contributors.
+#                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -40,7 +40,7 @@ def test_zodbrestore(zext):
     tdata = dirname(__file__) + "/testdata"
     @func
     def _():
-        zdump = open("%s/1%s.zdump.ok" % (tdata, zkind), 'rb')
+        zdump = open("%s/1%s.zdump.raw.ok" % (tdata, zkind), 'rb')
         defer(zdump.close)
 
         stor = storageFromURL('%s/2.fs' % tmpd)
