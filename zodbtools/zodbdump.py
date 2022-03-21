@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2021  Nexedi SA and Contributors.
+# Copyright (C) 2016-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -32,7 +32,15 @@ format where object data is output as raw binary and everything else is text.
 There is also shortened mode activated via --hashonly where only hash of object
 data is printed without content.
 
-Dump format:
+Alternatively, the dump can be produced in other "pretty" formats, that zodb
+restore will not be able to restore, but that are more suitable for analysis.
+The output format can be selected with --pretty "format" option. The following
+formats are available:
+
+  raw           default zodb dump format
+  zpickledis    display the disassembled pickles, using pickletools.dis.
+
+Raw dump format:
 
     txn <tid> <status|quote>
     user <user|quote>
@@ -59,7 +67,7 @@ from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRan
         storageFromURL, hashRegistry, asbinstream
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
-#import pickletools
+import pickletools
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
@@ -92,15 +100,36 @@ _already_warned_notxnraw = set()
 
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
-def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
+def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream(sys.stdout)):
+    def badpretty():
+        raise ValueError("invalid pretty format %s" % pretty)
+
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
-        out.write(b"txn %s %s\nuser %s\ndescription %s\nextension %s\n" % (
+        out.write(b"txn %s %s\nuser %s\ndescription %s\n" % (
             ashex(txn.tid), qq(txn.status),
             qq(txn.user),
-            qq(txn.description),
-            qq(txn_raw_extension(stor, txn)) ))
+            qq(txn.description) ))
+
+        # extension is saved by ZODB as either empty or as pickle dump of an object
+        rawext = txn_raw_extension(stor, txn)
+        if pretty == 'raw':
+            out.write(b"extension %s\n" % qq(rawext))
+        elif pretty == 'zpickledis':
+            if len(rawext) == 0:
+                out.write(b'extension ""\n')
+            else:
+                out.write(b"extension\n")
+                extf = BytesIO(rawext)
+                disf = BytesIO()
+                pickletools.dis(extf, disf)
+                out.write(indent(disf.getvalue(), "  "))
+                extra = extf.read()
+                if len(extra) > 0:
+                    out.write(b"  + extra data %s\n" % qq(extra))
+        else:
+            badpretty()
 
         objv = txnobjv(txn)
 
@@ -127,7 +156,20 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, out=asbinstream(sys.stdout)):
                     out.write(b" -")
                 else:
                     out.write(b"\n")
-                    out.write(obj.data)
+                    if pretty == 'raw':
+                        out.write(obj.data)
+                    elif pretty == 'zpickledis':
+                        # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
+                        dataf = BytesIO(obj.data)
+                        disf  = BytesIO()
+                        pickletools.dis(dataf, disf) # class
+                        pickletools.dis(dataf, disf) # state
+                        out.write(indent(disf.getvalue(), "  "))
+                        extra = dataf.read()
+                        if len(extra) > 0:
+                            out.write(b"  + extra data %s\n" % qq(extra))
+                    else:
+                        badpretty()
 
             out.write(b"\n")
 
@@ -224,6 +266,14 @@ def serializeext(ext):
     assert loads(out) == ext
     return out
 
+# indent returns text with each line of it indented with prefix.
+def indent(text, prefix): # -> text
+    textv = text.splitlines(True)
+    textv = [prefix+_ for _ in textv]
+    text  = ''.join(textv)
+    return text
+
+
 # ----------------------------------------
 import sys, getopt
 
@@ -239,27 +289,35 @@ Dump content of a ZODB database.
 
 Options:
 
-        --hashonly  dump only hashes of objects without content
-    -h  --help      show this help
+        --pretty=<format> output in a given format, where <format> can be one
+                          of raw, zpickledis
+        --hashonly        dump only hashes of objects without content
+    -h  --help            show this help
 """, file=out)
 
 @func
 def main(argv):
     hashonly = False
+    pretty   = 'raw';  prettyok = {'raw', 'zpickledis'}
 
     try:
-        optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly"])
+        optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly", "pretty="])
     except getopt.GetoptError as e:
         print(e, file=sys.stderr)
         usage(sys.stderr)
         sys.exit(2)
 
-    for opt, _ in optv:
+    for opt, arg in optv:
         if opt in ("-h", "--help"):
             usage(sys.stdout)
             sys.exit(0)
         if opt in ("--hashonly"):
             hashonly = True
+        if opt in ("--pretty"):
+            pretty = arg
+            if pretty not in prettyok:
+                print("E: unsupported pretty format: %s" % pretty, file=sys.stderr)
+                sys.exit(2)
 
     try:
         storurl = argv[0]
@@ -279,7 +337,7 @@ def main(argv):
     stor = storageFromURL(storurl, read_only=True)
     defer(stor.close)
 
-    zodbdump(stor, tidmin, tidmax, hashonly)
+    zodbdump(stor, tidmin, tidmax, hashonly, pretty)
 
 
 # ----------------------------------------

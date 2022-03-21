@@ -1,0 +1,1367 @@
+txn 0285cbac258bf266 " "
+user ""
+description "initial database creation"
+extension ""
+obj 0000000000000000 61 sha1:664e6de0f153d8eaeda638d616a320c6e3c5feb1
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: s    SETITEM
+     60: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac3d0369e6 " "
+user "user0.0"
+description "step 0.0"
+extension ""
+obj 0000000000000000 98 sha1:eba252d1984f975ecb636bc1b3a89c953dd20527
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: U    SHORT_BINSTRING 'f'
+     62: U    SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+     72: q    BINPUT     5
+     74: c    GLOBAL     '__main__ Object'
+     91: q    BINPUT     6
+     93: \x86 TUPLE2
+     94: Q    BINPERSID
+     95: s    SETITEM
+     96: s    SETITEM
+     97: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000001 33 sha1:1e4a07534b581b8c84c6d887042b3a3469bd4a5c
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.0'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac41b4e833 " "
+user "user0.1"
+description "step 0.1"
+extension ""
+obj 0000000000000001 33 sha1:a98cfba1b3c03d39864ffe9d4727a07d6438849d
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.1'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac46666680 " "
+user "user0.2"
+description "step 0.2"
+extension ""
+obj 0000000000000000 118 sha1:7d46a1e5567afaede4e9392309421b6407a20d87
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x02'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'f'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: u        SETITEMS   (MARK at 59)
+    116: s    SETITEM
+    117: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000002 33 sha1:0304fd1cba1ffbfb9cbe86dd1999b8e43973ea82
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0.2'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac4b17e4cc " "
+user "user0.3"
+description "step 0.3"
+extension ""
+obj 0000000000000000 137 sha1:84faa5da0603b10bd948fc0a1704779178d352fb
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x02'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'b'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'f'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: u        SETITEMS   (MARK at 59)
+    135: s    SETITEM
+    136: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000003 33 sha1:b67e803788cfb17f39c88b438500ca10fe958ef5
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b0.3'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac4fc96319 " "
+user "user0.4"
+description "step 0.4"
+extension ""
+obj 0000000000000000 156 sha1:25aa06cf55255497df05af639b8a559d224e4a92
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x02'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'b'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'd'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'f'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: u        SETITEMS   (MARK at 59)
+    154: s    SETITEM
+    155: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000004 33 sha1:9bcee0a8fb3d5b216064b707ec1083dfdeda7f75
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd0.4'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac547ae166 " "
+user "user0.5"
+description "step 0.5"
+extension ""
+obj 0000000000000002 33 sha1:76391ca5fc2a9bcdafa276d16c6a7b0a2a3c8375
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0.5'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac592c5fb3 " "
+user "user0.6"
+description "step 0.6"
+extension ""
+obj 0000000000000001 33 sha1:fb23da33c75a91be19235ce2c4e9e204a8b26284
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.6'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac5dddde00 " "
+user "user0.7"
+description "step 0.7"
+extension ""
+obj 0000000000000002 33 sha1:ef901f794a3de022b9eeac216a294c8bbe87340b
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0.7'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac628f5c4c " "
+user "user0.8"
+description "step 0.8"
+extension ""
+obj 0000000000000004 33 sha1:dca08ce1ce3ab22cd6c50d0a9af339f148d37570
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd0.8'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac6740da99 " "
+user "user0.9"
+description "step 0.9"
+extension ""
+obj 0000000000000000 175 sha1:2b287f578d0147b0df141756b3db0e60408c0db2
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x02'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'b'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'e'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'd'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: U        SHORT_BINSTRING 'f'
+    156: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    166: q        BINPUT     10
+    168: h        BINGET     6
+    170: \x86     TUPLE2
+    171: Q        BINPERSID
+    172: u        SETITEMS   (MARK at 59)
+    173: s    SETITEM
+    174: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000005 33 sha1:18afafa1c0c3856880ca5e6ab31c267bc43f4a2b
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e0.9'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac6bf258e6 " "
+user "user0.10"
+description "step 0.10"
+extension ""
+obj 0000000000000000 194 sha1:871a66641f3bd2527b3b8cf6f85c9a6790dad365
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x02'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'b'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'e'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'd'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: U        SHORT_BINSTRING 'g'
+    156: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    166: q        BINPUT     10
+    168: h        BINGET     6
+    170: \x86     TUPLE2
+    171: Q        BINPERSID
+    172: U        SHORT_BINSTRING 'f'
+    175: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    185: q        BINPUT     11
+    187: h        BINGET     6
+    189: \x86     TUPLE2
+    190: Q        BINPERSID
+    191: u        SETITEMS   (MARK at 59)
+    192: s    SETITEM
+    193: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000006 34 sha1:4b61abd85c8cd0ca40f4b8c0c847877aac67631e
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g0.10'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac70a3d733 " "
+user "user0.11"
+description "step 0.11"
+extension ""
+obj 0000000000000004 34 sha1:fe21381adc01e51965c3278c6debf52ebd63068c
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd0.11'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac75555580 " "
+user "user0.12"
+description "step 0.12"
+extension ""
+obj 0000000000000003 34 sha1:14852d1b6a461c0ffa3e28d56ea2e0054e2e2136
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b0.12'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac7a06d3cc " "
+user "user0.13"
+description "step 0.13"
+extension ""
+obj 0000000000000001 34 sha1:a88ef0315fc53ae3ca0744dfca450ccf5ebfebd5
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.13'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac7eb85219 " "
+user "user0.14"
+description "step 0.14"
+extension ""
+obj 0000000000000005 34 sha1:820cfeef1fc1fc1bda646401c5603fad36c7011e
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e0.14'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac8369d066 " "
+user "user0.15"
+description "step 0.15"
+extension ""
+obj 0000000000000003 34 sha1:e616d80f35ea7aaaecdbc65e1e5838c25f4bf07a
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b0.15'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac881b4eb3 " "
+user "user0.16"
+description "step 0.16"
+extension ""
+obj 0000000000000006 34 sha1:1770bca026b728d1a12463485ce540217699c0ac
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g0.16'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac8ccccd00 " "
+user "user0.17"
+description "step 0.17"
+extension ""
+obj 0000000000000006 34 sha1:ab0202b8ddf852d5f82ff838f22d5523a2bfe1df
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g0.17'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac917e4b4c " "
+user "user0.18"
+description "step 0.18"
+extension ""
+obj 0000000000000001 34 sha1:de0fc946474efcc8f3432eb258687792711955b8
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.18'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac962fc999 " "
+user "user0.19"
+description "step 0.19"
+extension ""
+obj 0000000000000006 34 sha1:321ac3730fac902210d2ee5dcd1c3db828beb304
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g0.19'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac9ae147e6 " "
+user "user0.20"
+description "step 0.20"
+extension ""
+obj 0000000000000002 34 sha1:2f08db22de5b34eec4b743c0dc97df050593790c
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0.20'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac9f92c633 " "
+user "user0.21"
+description "step 0.21"
+extension ""
+obj 0000000000000001 34 sha1:025d34759b434419251b5a429f3ad78ce3c2fd98
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f0.21'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbaca4444480 " "
+user "user0.22"
+description "step 0.22"
+extension ""
+obj 0000000000000006 34 sha1:0734767857e69ab8bfd0007d4ca3f1a7fd69b677
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g0.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbaca8f5c2cc " "
+user "user0.23"
+description "step 0.23"
+extension ""
+obj 0000000000000005 34 sha1:21107cdc93f7bbadf5f7ac094d511241dc8de69f
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e0.23'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacada74119 " "
+user "user0.24"
+description "step 0.24"
+extension ""
+obj 0000000000000004 34 sha1:a0a87d268da9c8d6e538163ee4db167d1ddc59c2
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd0.24'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacb258bf66 " "
+user "root0.0\nYour\nMagesty "
+description "undo 0.0\nmore detailed description\n\nzzz ..."
+extension ""
+obj 0000000000000005 from 0285cbac7eb85219
+
+txn 0285cbacb70a3db3 " "
+user "root0.1\nYour\nMagesty "
+description "undo 0.1\nmore detailed description\n\nzzz ...\t"
+extension ""
+obj 0000000000000004 from 0285cbac70a3d733
+
+txn 0285cbacbbbbbc00 " "
+user ""
+description "predelete 2"
+extension ""
+obj 0000000000000000 194 sha1:5456a4d7bbe20eb26beb84eae76762cd9f4f8c8a
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'c'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'b'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'e'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'd'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: U        SHORT_BINSTRING 'g'
+    156: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    166: q        BINPUT     10
+    168: h        BINGET     6
+    170: \x86     TUPLE2
+    171: Q        BINPERSID
+    172: U        SHORT_BINSTRING 'f'
+    175: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    185: q        BINPUT     11
+    187: h        BINGET     6
+    189: \x86     TUPLE2
+    190: Q        BINPERSID
+    191: u        SETITEMS   (MARK at 59)
+    192: s    SETITEM
+    193: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000007 32 sha1:c0517df3bfc49dcda73c2797fb957c92bc651888
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0*'
+     29: q    BINPUT     2
+     31: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacc06d3a4c " "
+user "root0\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 0\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+extension ""
+obj 0000000000000002 delete
+
+txn 0285cbacfd70a433 " "
+user "user1.0"
+description "step 1.0"
+extension ""
+obj 0000000000000004 33 sha1:cb655aa6a738a9855dffeb7584da2df381ab89d6
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd1.0'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad02222280 " "
+user "user1.1"
+description "step 1.1"
+extension ""
+obj 0000000000000005 33 sha1:3362a180bda38de9551456e11aba3a50b3ee4063
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e1.1'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad06d3a0cc " "
+user "user1.2"
+description "step 1.2"
+extension ""
+obj 0000000000000006 33 sha1:28e9880fc0f50a9fea5c4a9e861adc1fe44c9f5c
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.2'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad0b851f19 " "
+user "user1.3"
+description "step 1.3"
+extension ""
+obj 0000000000000006 33 sha1:5fb466e36ea6f847b73ad7976def8ad60e00e766
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.3'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad10369d66 " "
+user "user1.4"
+description "step 1.4"
+extension ""
+obj 0000000000000004 33 sha1:31a9f07c87da619daa5212fd3c1af57419d07fc3
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd1.4'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad14e81bb3 " "
+user "user1.5"
+description "step 1.5"
+extension ""
+obj 0000000000000006 33 sha1:ad1fa70347e93f4e7987bb4702494619db32cb73
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.5'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad19999a00 " "
+user "user1.6"
+description "step 1.6"
+extension ""
+obj 0000000000000003 33 sha1:f0d30533c8b386ed571c400c0a37aec4df75fe52
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b1.6'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad1e4b184c " "
+user "user1.7"
+description "step 1.7"
+extension ""
+obj 0000000000000001 33 sha1:fee73692c6795a6421978a1ccdca4b61468a487b
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f1.7'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad22fc9699 " "
+user "user1.8"
+description "step 1.8"
+extension ""
+obj 0000000000000004 33 sha1:e9dc07c0050bf3b9378a1f17d562b8a2423c6076
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd1.8'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad27ae14e6 " "
+user "user1.9"
+description "step 1.9"
+extension ""
+obj 0000000000000000 213 sha1:f4bcbfda350ec47458539ad8aa8566a89f278015
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'a'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'c'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'b'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'e'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: U        SHORT_BINSTRING 'd'
+    156: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    166: q        BINPUT     10
+    168: h        BINGET     6
+    170: \x86     TUPLE2
+    171: Q        BINPERSID
+    172: U        SHORT_BINSTRING 'g'
+    175: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    185: q        BINPUT     11
+    187: h        BINGET     6
+    189: \x86     TUPLE2
+    190: Q        BINPERSID
+    191: U        SHORT_BINSTRING 'f'
+    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    204: q        BINPUT     12
+    206: h        BINGET     6
+    208: \x86     TUPLE2
+    209: Q        BINPERSID
+    210: u        SETITEMS   (MARK at 59)
+    211: s    SETITEM
+    212: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000008 33 sha1:9e7210231bc0dd64ef92361d6bc4c9a3f5670aaf
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'a1.9'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad2c5f9333 " "
+user "user1.10"
+description "step 1.10"
+extension ""
+obj 0000000000000001 34 sha1:32ad367b3ca4641b070902c7d3073b4fa7e22b85
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f1.10'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad31111180 " "
+user "user1.11"
+description "step 1.11"
+extension ""
+obj 0000000000000007 34 sha1:88ab1add11652101077535c03b04e83fe4ddb88b
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c1.11'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad35c28fcc " "
+user "user1.12"
+description "step 1.12"
+extension ""
+obj 0000000000000001 34 sha1:ae2ad008499e3ad36f7c7453437c10dafacc687e
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f1.12'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad3a740e19 " "
+user "user1.13"
+description "step 1.13"
+extension ""
+obj 0000000000000005 34 sha1:1b5a346d8929e52eb078f442c300d26e125e4200
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e1.13'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad3f258c66 " "
+user "user1.14"
+description "step 1.14"
+extension ""
+obj 0000000000000008 34 sha1:2e14c0bd1a82ee7d1ee18d76881221845f47627c
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'a1.14'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad43d70ab3 " "
+user "user1.15"
+description "step 1.15"
+extension ""
+obj 0000000000000004 34 sha1:f136bac1befa0fbd1ebd50218f8d9afe00b9b0a5
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd1.15'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad48888900 " "
+user "user1.16"
+description "step 1.16"
+extension ""
+obj 0000000000000006 34 sha1:778621ce5c5e97b65343b1ab0cc1a3ce5702fbc8
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.16'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad4d3a074c " "
+user "user1.17"
+description "step 1.17"
+extension ""
+obj 0000000000000003 34 sha1:647be0dedecdb5b4db6ba09d53be97e1f2c27bb2
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b1.17'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad51eb8599 " "
+user "user1.18"
+description "step 1.18"
+extension ""
+obj 0000000000000007 34 sha1:bfe7a4966f673758259d81429e6e6b3543fbdc4e
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c1.18'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad569d03e6 " "
+user "user1.19"
+description "step 1.19"
+extension ""
+obj 0000000000000006 34 sha1:b0b31eb0b48548119153628eb3c6711d959e9f9b
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.19'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad5b4e8233 " "
+user "user1.20"
+description "step 1.20"
+extension ""
+obj 0000000000000003 34 sha1:884af302035127df026f8b5fcd29711489d8c3e9
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b1.20'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad60000080 " "
+user "user1.21"
+description "step 1.21"
+extension ""
+obj 0000000000000004 34 sha1:af06091cac7b507337c2876c28d3977b969f4b8a
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'd1.21'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad64b17ecc " "
+user "user1.22"
+description "step 1.22"
+extension ""
+obj 0000000000000003 34 sha1:ca52325c013834a4dd9fc81caca23aef75e31fc0
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'b1.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad6962fd19 " "
+user "user1.23"
+description "step 1.23"
+extension ""
+obj 0000000000000006 34 sha1:36b1190c8065ee5db865bf7bb11cfc1b2d1c2120
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'g1.23'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad6e147b66 " "
+user "user1.24"
+description "step 1.24"
+extension ""
+obj 0000000000000001 34 sha1:b35a1826cc6cb71b9ddff043f0e8f88b4d90281f
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'f1.24'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad72c5f9b3 " "
+user "root1.0\nYour\nMagesty "
+description "undo 1.0\nmore detailed description\n\nzzz ...\t"
+extension ""
+obj 0000000000000006 from 0285cbad569d03e6
+
+txn 0285cbad77777800 " "
+user "root1.1\nYour\nMagesty "
+description "undo 1.1\nmore detailed description\n\nzzz ...\t\t"
+extension ""
+obj 0000000000000001 from 0285cbad35c28fcc
+
+txn 0285cbad7c28f64c " "
+user ""
+description "predelete 5"
+extension ""
+obj 0000000000000000 213 sha1:125bc13199ab5e44db744c520533ead6b0632f00
+      0: \x80 PROTO      2
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      2
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'a'
+     63: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+     73: q        BINPUT     5
+     75: c        GLOBAL     '__main__ Object'
+     92: q        BINPUT     6
+     94: \x86     TUPLE2
+     95: Q        BINPERSID
+     96: U        SHORT_BINSTRING 'c'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    109: q        BINPUT     7
+    111: h        BINGET     6
+    113: \x86     TUPLE2
+    114: Q        BINPERSID
+    115: U        SHORT_BINSTRING 'b'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    128: q        BINPUT     8
+    130: h        BINGET     6
+    132: \x86     TUPLE2
+    133: Q        BINPERSID
+    134: U        SHORT_BINSTRING 'e'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    147: q        BINPUT     9
+    149: h        BINGET     6
+    151: \x86     TUPLE2
+    152: Q        BINPERSID
+    153: U        SHORT_BINSTRING 'd'
+    156: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    166: q        BINPUT     10
+    168: h        BINGET     6
+    170: \x86     TUPLE2
+    171: Q        BINPERSID
+    172: U        SHORT_BINSTRING 'g'
+    175: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    185: q        BINPUT     11
+    187: h        BINGET     6
+    189: \x86     TUPLE2
+    190: Q        BINPERSID
+    191: U        SHORT_BINSTRING 'f'
+    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    204: q        BINPUT     12
+    206: h        BINGET     6
+    208: \x86     TUPLE2
+    209: Q        BINPERSID
+    210: u        SETITEMS   (MARK at 59)
+    211: s    SETITEM
+    212: .    STOP
+  highest protocol among opcodes = 2
+
+obj 0000000000000009 32 sha1:1a43b55bc4a19245cce9eb5aa5ad411006f06afe
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'e1*'
+     29: q    BINPUT     2
+     31: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad80da7499 " "
+user "root1\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 1\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+extension ""
+obj 0000000000000005 delete
+
