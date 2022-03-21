@@ -40,7 +40,7 @@ def test_zodbrestore(zext):
     tdata = dirname(__file__) + "/testdata"
     @func
     def _():
-        zdump = open("%s/1%s.zdump.ok" % (tdata, zkind), 'rb')
+        zdump = open("%s/1%s.zdump.default.ok" % (tdata, zkind), 'rb')
         defer(zdump.close)
 
         stor = storageFromURL('%s/2.fs' % tmpd)
