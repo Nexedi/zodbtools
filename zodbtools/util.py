@@ -241,3 +241,9 @@ def asbinstream(stream):
 def readfile(path): # -> data(bytes)
     with open(path, 'rb') as _:
         return _.read()
+
+# writefile writes data to file at path.
+# if the file existed before its old data is erased.
+def writefile(path, data):
+    with open(path, 'wb') as _:
+        _.write(data)
