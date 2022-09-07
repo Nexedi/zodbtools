@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2021  Nexedi SA and Contributors.
+# Copyright (C) 2018-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -40,7 +40,7 @@ can query current database head (last_tid) with `zodb info <stor> last_tid`.
 
 from __future__ import print_function
 from zodbtools import zodbdump
-from zodbtools.util import ashex, fromhex, storageFromURL
+from zodbtools.util import ashex, fromhex, storageFromURL, asbinstream
 from ZODB.interfaces import IStorageRestoreable
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
@@ -219,7 +219,7 @@ def main(argv):
     # artificial transaction header with tid=0 to request regular commit
     zin = b'txn 0000000000000000 " "\n'
 
-    zin += sys.stdin.read()
+    zin += asbinstream(sys.stdin).read()
     zin = BytesIO(zin)
     zr = zodbdump.DumpReader(zin)
     zr.lineno -= 1                      # we prepended txn header
