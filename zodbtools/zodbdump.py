@@ -76,6 +76,7 @@ import logging as log
 import re
 from golang.gcompat import qq
 from golang import func, defer, strconv, b
+from six import StringIO  # io.StringIO does not accept non-unicode strings on py2
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -122,9 +123,9 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
             else:
                 out.write(b"extension\n")
                 extf = BytesIO(rawext)
-                disf = BytesIO()
+                disf = StringIO()
                 pickletools.dis(extf, disf)
-                out.write(indent(disf.getvalue(), "  "))
+                out.write(b(indent(disf.getvalue(), "  ")))
                 extra = extf.read()
                 if len(extra) > 0:
                     out.write(b"  + extra data %s\n" % qq(extra))
@@ -161,10 +162,10 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
                     elif pretty == 'zpickledis':
                         # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
                         dataf = BytesIO(obj.data)
-                        disf  = BytesIO()
+                        disf  = StringIO()
                         pickletools.dis(dataf, disf) # class
                         pickletools.dis(dataf, disf) # state
-                        out.write(indent(disf.getvalue(), "  "))
+                        out.write(b(indent(disf.getvalue(), "  ")))
                         extra = dataf.read()
                         if len(extra) > 0:
                             out.write(b"  + extra data %s\n" % qq(extra))
