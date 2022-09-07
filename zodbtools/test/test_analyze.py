@@ -19,6 +19,7 @@
 
 from zodbtools.zodbanalyze import analyze, report
 from zodbtools.test.testutil import fs1_testdata_py23
+from zodbtools.util import fromhex
 import os.path
 from golang import b
 
@@ -69,7 +70,7 @@ __main__.Object,56,1880,54.366686%,33.571429,9,303,47,1577
             tfs1,
             use_dbm=False,
             delta_fs=False,
-            tidmin="ffffffffffffffff",
+            tidmin=fromhex("ffffffffffffffff"),
             tidmax=None,
         ),
         csv=False,
