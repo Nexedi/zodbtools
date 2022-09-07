@@ -22,6 +22,7 @@ from __future__ import print_function
 
 from zodbtools.zodbrestore import zodbrestore
 from zodbtools.util import storageFromURL, readfile
+from zodbtools.test.testutil import fs1_testdata_py23
 
 from os.path import dirname
 from tempfile import mkdtemp
@@ -30,9 +31,7 @@ from golang import func, defer
 
 # verify zodbrestore.
 @func
-def test_zodbrestore(zext):
-    tmpd = mkdtemp('', 'zodbrestore.')
-    defer(lambda: rmtree(tmpd))
+def test_zodbrestore(tmpdir, zext):
     zkind = '_!zext' if zext.disabled else ''
 
     # restore from testdata/1.zdump.ok and verify it gives result that is
@@ -43,12 +42,12 @@ def test_zodbrestore(zext):
         zdump = open("%s/1%s.zdump.raw.ok" % (tdata, zkind), 'rb')
         defer(zdump.close)
 
-        stor = storageFromURL('%s/2.fs' % tmpd)
+        stor = storageFromURL('%s/2.fs' % tmpdir)
         defer(stor.close)
 
         zodbrestore(stor, zdump)
     _()
 
-    zfs1 = readfile("%s/1%s.fs" % (tdata, zkind))
-    zfs2 = readfile("%s/2.fs" % tmpd)
+    zfs1 = readfile(fs1_testdata_py23(tmpdir, "%s/1%s.fs" % (tdata, zkind)))
+    zfs2 = readfile("%s/2.fs" % tmpdir)
     assert zfs1 == zfs2

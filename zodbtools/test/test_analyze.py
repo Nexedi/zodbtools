@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2019 Nexedi SA and Contributors.
+# Copyright (C) 2019-2022 Nexedi SA and Contributors.
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -18,14 +18,18 @@
 # See https://www.nexedi.com/licensing for rationale and options.
 
 from zodbtools.zodbanalyze import analyze, report
+from zodbtools.test.testutil import fs1_testdata_py23
 import os.path
 
 
-def test_zodbanalyze(capsys):
+def test_zodbanalyze(tmpdir, capsys):
+    tfs1 = fs1_testdata_py23(tmpdir,
+                    os.path.join(os.path.dirname(__file__), "testdata", "1.fs"))
+
     for use_dbm in (False, True):
         report(
             analyze(
-                os.path.join(os.path.dirname(__file__), "testdata", "1.fs"),
+                tfs1,
                 use_dbm=use_dbm,
                 delta_fs=False,
                 tidmin=None,
@@ -40,7 +44,7 @@ def test_zodbanalyze(capsys):
     # csv output
     report(
         analyze(
-            os.path.join(os.path.dirname(__file__), "testdata", "1.fs"),
+            tfs1,
             use_dbm=False,
             delta_fs=False,
             tidmin=None,
@@ -61,7 +65,7 @@ __main__.Object,56,1880,54.366686%,33.571429,9,303,47,1577
     # empty range
     report(
         analyze(
-            os.path.join(os.path.dirname(__file__), "testdata", "1.fs"),
+            tfs1,
             use_dbm=False,
             delta_fs=False,
             tidmin="ffffffffffffffff",
