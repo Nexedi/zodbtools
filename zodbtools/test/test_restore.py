@@ -21,7 +21,7 @@
 from __future__ import print_function
 
 from zodbtools.zodbrestore import zodbrestore
-from zodbtools.util import storageFromURL
+from zodbtools.util import storageFromURL, readfile
 
 from os.path import dirname
 from tempfile import mkdtemp
@@ -49,12 +49,6 @@ def test_zodbrestore(zext):
         zodbrestore(stor, zdump)
     _()
 
-    zfs1 = _readfile("%s/1%s.fs" % (tdata, zkind))
-    zfs2 = _readfile("%s/2.fs" % tmpd)
+    zfs1 = readfile("%s/1%s.fs" % (tdata, zkind))
+    zfs2 = readfile("%s/2.fs" % tmpd)
     assert zfs1 == zfs2
-
-
-# _readfile reads file at path.
-def _readfile(path): # -> data(bytes)
-    with open(path, 'rb') as _:
-        return _.read()

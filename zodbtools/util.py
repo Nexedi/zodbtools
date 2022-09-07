@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # zodbtools - various utility routines
-# Copyright (C) 2016-2019  Nexedi SA and Contributors.
+# Copyright (C) 2016-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -235,3 +235,9 @@ def asbinstream(stream):
     if isinstance(stream, io.TextIOBase):
         return stream.buffer
     return stream
+
+
+# readfile reads file at path.
+def readfile(path): # -> data(bytes)
+    with open(path, 'rb') as _:
+        return _.read()
