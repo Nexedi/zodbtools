@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018-2020  Nexedi SA and Contributors.
+# Copyright (C) 2018-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -27,7 +27,7 @@ from ZODB._compat import BytesIO, dumps, _protocol   # XXX can't yet commit with
 
 from tempfile import mkdtemp
 from shutil import rmtree
-from golang import func, defer
+from golang import func, defer, b
 
 # verify zodbcommit.
 @func
@@ -43,8 +43,8 @@ def test_zodbcommit(zext):
     # commit some transactions via zodbcommit and verify if storage dump gives
     # what is expected.
     t1 = Transaction(z64, ' ', b'user name', b'description ...', zext(dumps({'a': 'b'}, _protocol)), [
-        ObjectData(p64(1), b'data1', 'sha1', sha1(b'data1')),
-        ObjectData(p64(2), b'data2', 'sha1', sha1(b'data2'))])
+        ObjectData(p64(1), b'data1', b('sha1'), sha1(b'data1')),
+        ObjectData(p64(2), b'data2', b('sha1'), sha1(b'data2'))])
 
     t1.tid = zodbcommit(stor, head, t1)
 

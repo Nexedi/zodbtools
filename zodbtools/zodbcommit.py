@@ -45,7 +45,7 @@ from ZODB.interfaces import IStorageRestoreable
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
 from ZODB._compat import BytesIO
-from golang import func, defer, panic
+from golang import func, defer, panic, b
 import warnings
 
 
@@ -217,7 +217,7 @@ def main(argv):
     defer(stor.close)
 
     # artificial transaction header with tid=0 to request regular commit
-    zin = b'txn 0000000000000000 " "\n'
+    zin = b('txn 0000000000000000 " "\n')
 
     zin += asbinstream(sys.stdin).read()
     zin = BytesIO(zin)

@@ -20,6 +20,7 @@
 from zodbtools.zodbanalyze import analyze, report
 from zodbtools.test.testutil import fs1_testdata_py23
 import os.path
+from golang import b
 
 
 def test_zodbanalyze(tmpdir, capsys):
@@ -74,5 +75,5 @@ __main__.Object,56,1880,54.366686%,33.571429,9,303,47,1577
         csv=False,
     )
     captured = capsys.readouterr()
-    assert "# ø\nNo transactions processed\n" == captured.out.encode('utf-8')
+    assert "# ø\nNo transactions processed\n" == b(captured.out)
     assert captured.err == ""

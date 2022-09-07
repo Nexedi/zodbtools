@@ -27,9 +27,12 @@ from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 import dateparser
 
+from golang import b
+
+
 def ashex(s):
-    # type: (bytes) -> bytes
-    return codecs.encode(s, 'hex')
+    # type: (bytes) -> bstr
+    return b(codecs.encode(s, 'hex'))
 
 def fromhex(s):
     # type: (Union[str,bytes]) -> bytes

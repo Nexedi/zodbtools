@@ -433,7 +433,7 @@ class DumpReader(object):
 
             else:
                 size     = int(m.group('size'))
-                hashfunc = m.group('hashfunc')
+                hashfunc = b(m.group('hashfunc'))
                 hashok   = fromhex(m.group('hash'))
                 hashonly = m.group('hashonly') is not None
                 data     = None # see vvv
@@ -551,7 +551,7 @@ class ObjectCopy(Object):
 # ObjectData represents record with object data.
 class ObjectData(Object):
     # .data         HashOnly | bytes
-    # .hashfunc     str             hash function used for integrity
+    # .hashfunc     bstr            hash function used for integrity
     # .hash_        bytes           hash of the object's data
     def __init__(self, oid, data, hashfunc, hash_):
         super(ObjectData, self).__init__(oid)
