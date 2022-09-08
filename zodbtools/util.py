@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # zodbtools - various utility routines
-# Copyright (C) 2016-2019  Nexedi SA and Contributors.
+# Copyright (C) 2016-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -27,9 +27,12 @@ from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 import dateparser
 
+from golang import b
+
+
 def ashex(s):
-    # type: (bytes) -> bytes
-    return codecs.encode(s, 'hex')
+    # type: (bytes) -> bstr
+    return b(codecs.encode(s, 'hex'))
 
 def fromhex(s):
     # type: (Union[str,bytes]) -> bytes
@@ -235,3 +238,15 @@ def asbinstream(stream):
     if isinstance(stream, io.TextIOBase):
         return stream.buffer
     return stream
+
+
+# readfile reads file at path.
+def readfile(path): # -> data(bytes)
+    with open(path, 'rb') as _:
+        return _.read()
+
+# writefile writes data to file at path.
+# if the file existed before its old data is erased.
+def writefile(path, data):
+    with open(path, 'wb') as _:
+        _.write(data)

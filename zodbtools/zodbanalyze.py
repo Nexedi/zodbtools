@@ -16,7 +16,7 @@ from ZODB.FileStorage import FileIterator, packed_version
 from ZODB.FileStorage.format import FileStorageFormatter
 from ZODB.utils import get_pickle_metadata
 from zodbtools.util import storageFromURL, parse_tidrange, ashex
-from golang import func, defer
+from golang import func, defer, b
 
 class DeltaFileStorage(
     FileStorageFormatter,
@@ -225,7 +225,7 @@ def analyze_rec(report, record):
                 report.COIDSMAP[type] = report.COIDSMAP.get(type, 0) + 1
                 report.CBYTESMAP[type] = report.CBYTESMAP.get(type, 0) + size
             else:
-                type = report.OIDMAP[oid]
+                type = b(report.OIDMAP[oid])
                 if report.use_dbm:
                     fsize = int(report.USEDMAP[oid])
                     report.USEDMAP[oid] = str(size)

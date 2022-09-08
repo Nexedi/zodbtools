@@ -30,15 +30,16 @@ from io import BytesIO
 
 from os.path import dirname
 
-from zodbtools.test.testutil import zext_supported
+from zodbtools.test.testutil import zext_supported, fs1_testdata_py23
 from pytest import mark, raises, xfail
 
 # verify zodbdump output against golden
 @mark.parametrize('pretty', ('raw', 'zpickledis'))
-def test_zodbdump(zext, pretty):
+def test_zodbdump(tmpdir, zext, pretty):
     tdir  = dirname(__file__)
     zkind = '_!zext' if zext.disabled else ''
-    stor  = FileStorage('%s/testdata/1%s.fs' % (tdir, zkind), read_only=True)
+    tfs1  = fs1_testdata_py23(tmpdir, '%s/testdata/1%s.fs' % (tdir, zkind))
+    stor  = FileStorage(tfs1, read_only=True)
 
     with open('%s/testdata/1%s.zdump.%s.ok' % (tdir, zkind, pretty), 'rb') as f:
         dumpok = f.read()
