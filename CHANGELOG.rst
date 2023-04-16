@@ -1,6 +1,30 @@
 Zodbtools change history
 ========================
 
+0.0.0.dev9 (unreleased)
+-----------------------
+
+- Add support for python 3 (commit__). 
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7ae5ff8
+
+- new `zodb restore` command to restore output of `zodb dump`. (commit__)
+
+__ https://lab.nexedi.com/nexedi/zodbtools/commit/b944e0e
+
+- `zodb dump` supports `--pretty` option with a format to show pickles
+  disassembly. (commit__)
+
+__ https://lab.nexedi.com/nexedi/zodbtools/commit/80559a9
+
+- Drop support for ZODB 3.
+
+- `zodb info`: Provide "head" as command to query DB head;
+   Turn "last_tid" into deprecated alias for head (commit__)
+
+__ https://lab.nexedi.com/nexedi/zodbtools/commit/a2e4dd2
+
+
 0.0.0.dev8 (2019-03-07)
 -----------------------
 

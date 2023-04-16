@@ -8,7 +8,7 @@ def readfile(path):
 
 setup(
     name        = 'zodbtools',
-    version     = '0.0.0.dev8',
+    version     = '0.0.0.dev9',
     description = 'ZODB-related utilities',
     long_description = '%s\n----\n\n%s' % (
                             readfile('README.rst'), readfile('CHANGELOG.rst')),
