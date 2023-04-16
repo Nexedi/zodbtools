@@ -1,6 +1,73 @@
 Zodbtools change history
 ========================
 
+0.0.0.dev9 (2024-02-16)
+-----------------------
+
+- Add preliminary support for Python3 (`commit 1`__, 2__, 3__, 4__, 5__, 6__,
+  7__, 8__, 9__, 10__, 11__, 12__, 13__, 14__, 15__, 16__, 17__, 18__, 19__,
+  20__, 21__, 22__). Full py3 support depends on the completion of `bstr work`__
+  in Pygolang.
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/2d94ae9d
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/00a534ef
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/62b21d01
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7a7370e6
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/a7eee284
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/1418c86f
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/b508f108
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/c5f20201
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/bc608aea
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/ddd5fd03
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/d3152c78
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/2f9e0623
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7851a964
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/2236aaaf
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/adec18bd
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/3cb93096
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/e825f80f
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/69dc6de1
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/b21fbe23
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/9861c136
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/65ebbe7b
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/7ae5ff8
+  __ https://lab.nexedi.com/nexedi/pygolang/-/merge_requests/21
+
+- Add new `zodb restore` command to restore database from `zodb dump` output
+  (`commit 1`__, 2__, 3__, 4__, 5__, 6__, 7__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/67b42fa7
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/e7b82a96
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/b944e0e
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/4275f2e9
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/37786d10
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/1b480c93
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/a9853038
+
+- `zodb dump` now supports `--pretty` option with a format to show pickles
+  disassembly (commit__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/80559a9
+
+- Drop support for ZODB 3 (commit__). Only ZODB 4 and ZODB 5 remain to be supported.
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/c59a54ca
+
+- `zodb info`: Provide "head" as subcommand to query last transaction of the database;
+  Turn "last_tid" into deprecated alias for "head" (commit__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/a2e4dd2
+
+- Robustify `zodb commit` when handling object copies and reporting errors (`commit 1`__, 2__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/fa00c283
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/129afa67
+
+- Add support to run tests under Nexedi testing infrastructure (commit__).
+
+  __ https://lab.nexedi.com/nexedi/zodbtools/commit/518537ea
+
+
 0.0.0.dev8 (2019-03-07)
 -----------------------
 
