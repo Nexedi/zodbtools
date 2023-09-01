@@ -187,10 +187,14 @@ def _gen_testdb(outfs_path, zext):
     random.seed(0)
 
     namev = [_ for _ in "abcdefg"]
-    Niter = 2
+    Niter = 3
     for i in range(Niter):
         stor = FileStorage(outfs_path, create=(i == 0))
         db   = DB(stor)
+        if i == 1:
+            # change several transactions created during first pass to have "p" status
+            # (this also removes some transactions completely)
+            db.pack()
         conn = db.open()
         root = conn.root()
         assert root._p_oid == p64(0), repr(root._p_oid)
@@ -247,10 +251,6 @@ def _gen_testdb(outfs_path, zext):
         stor.tpc_begin(txn_stormeta)
         stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn_stormeta)
         stor.tpc_vote(txn_stormeta)
-        # TODO different txn status vvv
-        # XXX vvv it does the thing, but py fs iterator treats this txn as EOF
-        #if i != Niter-1:
-        #    stor.tpc_finish(txn_stormeta)
         stor.tpc_finish(txn_stormeta)
 
         # close db & rest not to get conflict errors after we touched stor
