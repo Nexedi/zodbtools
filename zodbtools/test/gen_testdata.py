@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2021  Nexedi SA and Contributors.
+# Copyright (C) 2017-2023  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -276,8 +276,9 @@ def main():
             dbname += "_!zext"
         gen_testdb("%s.fs" % dbname, zext=zext)
         stor = FileStorage("%s.fs" % dbname, read_only=True)
-        with open("%s.zdump.ok" % dbname, "wb") as f:
-            zodbdump(stor, None, None, out=f)
+        for pretty in ('raw', 'zpickledis'):
+            with open("%s.zdump.%s.ok" % (dbname, pretty), "wb") as f:
+                zodbdump(stor, None, None, pretty=pretty, out=f)
 
 if __name__ == '__main__':
     main()
