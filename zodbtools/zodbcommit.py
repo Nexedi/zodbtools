@@ -76,7 +76,7 @@ def zodbcommit(stor, at, txn):
         # supporting .restore, it can still support .tpc_begin(tid=...). An example
         # of this is NEO. We anyway need to be able to specify which transaction ID
         # we need to restore transaction with.
-        stor.tpc_begin(txn, tid=txn.tid)
+        stor.tpc_begin(txn, tid=txn.tid, status=txn.status)
         runctx = "%s: restore %s @%s" % (stor.getName(), ashex(txn.tid), ashex(at))
     else:
         stor.tpc_begin(txn)

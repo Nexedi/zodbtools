@@ -23,9 +23,17 @@ from __future__ import print_function
 from zodbtools.zodbrestore import zodbrestore
 from zodbtools.util import storageFromURL, readfile
 from zodbtools.test.testutil import fs1_testdata_py23
+from zodbtools.zodbdump import zodbdump
 
+from ZODB.FileStorage import FileStorage
+from ZODB import DB
+from ZODB.serialize import referencesf
+import transaction
+
+from io import BytesIO
 from os.path import dirname
 from tempfile import mkdtemp
+import time
 from shutil import rmtree
 from golang import func, defer
 
@@ -51,3 +59,34 @@ def test_zodbrestore(tmpdir, zext):
     zfs1 = readfile(fs1_testdata_py23(tmpdir, "%s/1%s.fs" % (tdata, zkind)))
     zfs2 = readfile("%s/2.fs" % tmpdir)
     assert zfs1 == zfs2
+
+@func
+def test_dump_and_restore_with_pack(tmpdir):
+    input_storage_path = str(tmpdir / 'input.fs')
+    restored_storage_path = str(tmpdir / 'restored.fs')
+
+    @func
+    def setup_input_storage(input_storage_path):
+        stor = FileStorage(input_storage_path)
+        defer(stor.close)
+        db = DB(stor)
+        defer(db.close)
+        conn = db.open()
+        defer(conn.close)
+        conn.root()['data'] = 'data'
+        transaction.commit()
+        stor.pack(time.time(), referencesf)
+    setup_input_storage(input_storage_path)
+
+    input_zodbdump = BytesIO()
+    input_storage = storageFromURL(input_storage_path)
+    defer(input_storage.close)
+    zodbdump(input_storage, None, None, out=input_zodbdump)
+
+    restored_storage = storageFromURL(restored_storage_path)
+    defer(restored_storage.close)
+    zodbrestore(restored_storage, BytesIO(input_zodbdump.getvalue()))
+
+    restored_zodbdump = BytesIO()
+    zodbdump(restored_storage, None, None, out=restored_zodbdump)
+    assert restored_zodbdump.getvalue() == input_zodbdump.getvalue()
