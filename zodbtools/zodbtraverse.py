@@ -84,7 +84,7 @@ def main(argv):
   # Report arguments
   _("-r", "--report", action="store_true", help="compare 2 ZODB OID dumps")
   _("-t0", "--table0", help="name of first OID dump table to be compared")
-  _("-t1", "--table1", help="name of second OID dump table to be compare")
+  _("-t1", "--table1", help="name of second OID dump table to be compared")
   args = p.parse_args(argv[1:])
 
   if args.dump:
