@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2023  Nexedi SA and Contributors.
+# Copyright (C) 2017-2024  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -229,6 +229,14 @@ def _gen_testdb(outfs_path, zext):
                     continue
 
                 break
+
+        # create a cyclic object -> object reference
+        # pretty=zpickledis used not to handle this well because in ZODB pickle the reference
+        # referes to referred type by GET that is prepared by PUT in class part of the pickle.
+        name = random.choice(list(root.keys()))
+        obj = root[name]
+        obj.value = obj
+        commit(u"user", u"cyclic reference", ext("cycle"))
 
         # delete an object
         name = random.choice(list(root.keys()))
