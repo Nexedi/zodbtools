@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2019-2023 Nexedi SA and Contributors.
+# Copyright (C) 2019-2024 Nexedi SA and Contributors.
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
 # it under the terms of the GNU General Public License version 3, or (at your
@@ -40,7 +40,7 @@ def test_zodbanalyze(tmpdir, capsys):
             csv=False,
         )
         captured = capsys.readouterr()
-        assert "Processed 68 records in 65 transactions" in captured.out
+        assert "Processed 70 records in 67 transactions" in captured.out
         assert captured.err == ""
 
     # csv output
@@ -57,8 +57,8 @@ def test_zodbanalyze(tmpdir, capsys):
     captured = capsys.readouterr()
     assert (
         """Class Name,T.Count,T.Bytes,Pct,AvgSize,C.Count,C.Bytes,O.Count,O.Bytes
-persistent.mapping.PersistentMapping,3,639,23.194192%,213.000000,1,213,2,426
-__main__.Object,63,2116,76.805808%,33.587302,9,303,54,1813
+persistent.mapping.PersistentMapping,3,639,22.468354%,213.000000,1,213,2,426
+__main__.Object,65,2205,77.531646%,33.923077,9,310,56,1895
 """
         == captured.out
     )
