@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-2022  Nexedi SA and Contributors.
+# Copyright (C) 2016-2024  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -161,10 +161,12 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
                         out.write(obj.data)
                     elif pretty == 'zpickledis':
                         # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
+                        # https://github.com/zopefoundation/ZODB/blob/5.8.1-0-g72cebe6bc/src/ZODB/serialize.py#L436-L443
                         dataf = BytesIO(obj.data)
                         disf  = StringIO()
-                        pickletools.dis(dataf, disf) # class
-                        pickletools.dis(dataf, disf) # state
+                        memo = {} # memo is shared in between class and state
+                        pickletools.dis(dataf, disf, memo) # class
+                        pickletools.dis(dataf, disf, memo) # state
                         out.write(b(indent(disf.getvalue(), "  ")))
                         extra = dataf.read()
                         if len(extra) > 0:
