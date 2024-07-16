@@ -44,11 +44,19 @@ def test_zodbdump(tmpdir, ztestdata, pretty):
         dumpok = f.read()
 
     # normalize zpickledis.ok to current python:
+    # unicode comes as *UNICODE u'... on py2 and *UNICODE '... on py3
     # bytes   comes as *BYTES '...    on py2 and *BYTES b'...  on py3
     if pretty == 'zpickledis':
         if PY3:
+            dumpok = dumpok.replace(b"UNICODE u'", b"UNICODE '")
+            dumpok = dumpok.replace(b'UNICODE u"', b'UNICODE "')
             dumpok = dumpok.replace(b"BYTES '",    b"BYTES b'")
             dumpok = dumpok.replace(b'BYTES "',    b'BYTES b"')
+        else:
+            dumpok = dumpok.replace(b"UNICODE '",  b"UNICODE u'")
+            dumpok = dumpok.replace(b'UNICODE "',  b'UNICODE u"')
+            dumpok = dumpok.replace(b"BYTES b'",   b"BYTES '")
+            dumpok = dumpok.replace(b'BYTES b"',   b'BYTES "')
 
     out = BytesIO()
     zodbdump(stor, None, None, pretty=pretty, out=out)
