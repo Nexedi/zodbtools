@@ -38,7 +38,7 @@ def test_zodbcommit(zsrv, zext):
     stor = storageFromURL(zsrv.zurl)
     defer(stor.close)
 
-    head = stor.lastTransaction()
+    at0 = stor.lastTransaction()
 
     # commit some transactions via zodbcommit and verify if storage dump gives
     # what is expected.
@@ -46,7 +46,7 @@ def test_zodbcommit(zsrv, zext):
         ObjectData(p64(1), b'data1', b('sha1'), sha1(b'data1')),
         ObjectData(p64(2), b'data2', b('sha1'), sha1(b'data2'))])
 
-    t1.tid = zodbcommit(stor, head, t1)
+    t1.tid = zodbcommit(stor, at0, t1)
 
     t2 = Transaction(z64, ' ', b'user2', b'desc2', b'', [
         ObjectDelete(p64(2))])
@@ -55,7 +55,7 @@ def test_zodbcommit(zsrv, zext):
 
 
     buf = BytesIO()
-    zodbdump(stor, p64(u64(head)+1), None, out=buf)
+    zodbdump(stor, p64(u64(at0)+1), None, out=buf)
     dumped = buf.getvalue()
 
     assert dumped == b''.join([_.zdump() for _ in (t1, t2)])
