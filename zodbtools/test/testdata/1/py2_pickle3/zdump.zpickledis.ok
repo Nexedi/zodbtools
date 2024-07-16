@@ -1,0 +1,2010 @@
+txn 0285cbac70a3d733 "p"
+user "user0.12"
+description "step 0.12"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie8'
+     17: U        SHORT_BINSTRING '2MHMU'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 34 sha1:fc9e49cca756681a9f36c915c6b7b8ad79f17cbc
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f0.12'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac7eb85219 "p"
+user "user0.15"
+description "step 0.15"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieY'
+     17: U        SHORT_BINSTRING 'EDZ10'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 34 sha1:76a94af22a81cd970845aeb3536f428a96afcfc7
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e0.15'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac917e4b4c "p"
+user "user0.19"
+description "step 0.19"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieF'
+     17: U        SHORT_BINSTRING 'OUC9L'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 34 sha1:4bd994052ba9a6b1f328c252d8766f13c53ae209
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a0.19'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbac9ae147e6 "p"
+user "user0.21"
+description "step 0.21"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie8'
+     17: U        SHORT_BINSTRING '0QC1A'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:633b0e1e89447d452468367784717fb48b0b83b1
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd0.21'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacada74119 "p"
+user "root0.0\nYour\nMagesty "
+description "undo 0.0\nmore detailed description\n\nzzz ..."
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieK'
+     17: U        SHORT_BINSTRING 'G95IH'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrKRERIA=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 34 sha1:b4bf7b467c62a1b51099ba1cc5b5aecd444d598d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c0.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacb258bf66 "p"
+user "root0.1\nYour\nMagesty "
+description "undo 0.1\nmore detailed description\n\nzzz ...\t"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieV'
+     17: U        SHORT_BINSTRING 'VHBGT'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrKj1wsw=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:3e5f02a2aa5f0ea3747a6c0ffeec090654091583
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g0.11'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbacbbbbbc00 "p"
+user ""
+description "predelete 4"
+extension ""
+obj 0000000000000000 199 sha1:d9c10b69422e9a8279e2f738d9c270b88ee49861
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'a'
+     63: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x05'
+     73: c        GLOBAL     '__main__ Object'
+     90: q        BINPUT     5
+     92: \x86     TUPLE2
+     93: Q        BINPERSID
+     94: U        SHORT_BINSTRING 'c'
+     97: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x07'
+    107: h        BINGET     5
+    109: \x86     TUPLE2
+    110: Q        BINPERSID
+    111: U        SHORT_BINSTRING 'b'
+    114: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x08'
+    124: h        BINGET     5
+    126: \x86     TUPLE2
+    127: Q        BINPERSID
+    128: U        SHORT_BINSTRING 'e'
+    131: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x06'
+    141: h        BINGET     5
+    143: \x86     TUPLE2
+    144: Q        BINPERSID
+    145: U        SHORT_BINSTRING 'd'
+    148: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x02'
+    158: h        BINGET     5
+    160: \x86     TUPLE2
+    161: Q        BINPERSID
+    162: U        SHORT_BINSTRING 'g'
+    165: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x03'
+    175: h        BINGET     5
+    177: \x86     TUPLE2
+    178: Q        BINPERSID
+    179: U        SHORT_BINSTRING 'f'
+    182: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x01'
+    192: h        BINGET     5
+    194: \x86     TUPLE2
+    195: Q        BINPERSID
+    196: u        SETITEMS   (MARK at 59)
+    197: s    SETITEM
+    198: .    STOP
+  highest protocol among opcodes = 3
+
+obj 0000000000000008 32 sha1:dfe254b2f091cf0c9bc835713d53012d44e7e7ca
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'b0*'
+     29: q    BINPUT     2
+     31: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad02222280 " "
+user "user1.0"
+description "step 1.0"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieE'
+     17: U        SHORT_BINSTRING 'VAZ3U'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 33 sha1:8f86d80dab366ac9780cdf9fd11aa622364397db
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e1.0'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad06d3a0cc " "
+user "user1.1"
+description "step 1.1"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieN'
+     17: U        SHORT_BINSTRING 'GSV4I'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (b)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000008 33 sha1:3a63a76c25b677ada2cc1281f0fcbca823c2fde8
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'b1.1'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad0b851f19 " "
+user "user1.2"
+description "step 1.2"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieY'
+     17: U        SHORT_BINSTRING 'A01OK'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 33 sha1:c13b686e24c0b49869156feaafa5299a0be0db54
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.2'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad10369d66 " "
+user "user1.3"
+description "step 1.3"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-generator'
+     19: q        BINPUT     2
+     21: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     35: U        SHORT_BINSTRING 'x-cookieW'
+     46: U        SHORT_BINSTRING '1QPNP'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 33 sha1:edbfe9c47fdfd3eeb89578d2b975196b72e04a47
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.3'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad14e81bb3 " "
+user "user1.4"
+description "step 1.4"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieC'
+     17: U        SHORT_BINSTRING 'J7L05'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 33 sha1:0ce3b56cc68602d8fcf9633527fc02d68d3c7963
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c1.4'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad19999a00 " "
+user "user1.5"
+description "step 1.5"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieA'
+     17: U        SHORT_BINSTRING 'CM15Z'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 33 sha1:9bb04c55d1990c274fcc9f6d71701456c999154d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f1.5'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad1e4b184c " "
+user "user1.6"
+description "step 1.6"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieI'
+     17: U        SHORT_BINSTRING 'AH816'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 33 sha1:3856df32ef7c512e9fd2599772e431ce3a18b5f5
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd1.6'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad22fc9699 " "
+user "user1.7"
+description "step 1.7"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieU'
+     17: U        SHORT_BINSTRING 'BE3WH'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 33 sha1:3d9da3b8f59a10f15e7c6796023153089d58d969
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c1.7'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad27ae14e6 " "
+user "user1.8"
+description "step 1.8"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-generator'
+     19: q        BINPUT     2
+     21: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     35: U        SHORT_BINSTRING 'x-cookieW'
+     46: U        SHORT_BINSTRING 'HPFAQ'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 33 sha1:42c7e6fe473e6d99867b134c44c2d97813629b29
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c1.8'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad2c5f9333 " "
+user "user1.9"
+description "step 1.9"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieQ'
+     17: U        SHORT_BINSTRING 'DZM23'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 33 sha1:88921e4828cbbf11dc61ca6fbaf6595a88fe5076
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e1.9'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad31111180 " "
+user "user1.10"
+description "step 1.10"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieO'
+     17: U        SHORT_BINSTRING 'EIGHL'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 34 sha1:70fe501d55fc4052b73f5e3473262a48555f375f
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a1.10'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad35c28fcc " "
+user "user1.11"
+description "step 1.11"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie2'
+     17: U        SHORT_BINSTRING 'Z9RFC'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 34 sha1:f1550b205f2cec40b8716673663fb6e446568772
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c1.11'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad3a740e19 " "
+user "user1.12"
+description "step 1.12"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie7'
+     17: U        SHORT_BINSTRING 'WGO4E'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 34 sha1:e4587785ac67a316d288d89a2ecf5f7548804416
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e1.12'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad3f258c66 " "
+user "user1.13"
+description "step 1.13"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie5'
+     17: U        SHORT_BINSTRING '757DJ'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:c40d417ad5140d3c0a76b8119e1bc3f77924851f
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.13'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad43d70ab3 " "
+user "user1.14"
+description "step 1.14"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieX'
+     17: U        SHORT_BINSTRING '5EOVH'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:141ee9a480f2e04c1c2b9fab6cab263010ab32cd
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.14'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad48888900 " "
+user "user1.15"
+description "step 1.15"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieC'
+     17: U        SHORT_BINSTRING 'HO7L7'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:ffd9e2447b4d6230d8e4c6584967ebd45bdb69cd
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd1.15'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad4d3a074c " "
+user "user1.16"
+description "step 1.16"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieU'
+     17: U        SHORT_BINSTRING 'T159S'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:e320d84b1e6f9b5507665684c57938c97fb8707a
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.16'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad51eb8599 " "
+user "user1.17"
+description "step 1.17"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie8'
+     17: U        SHORT_BINSTRING 'T23V1'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 34 sha1:a64a2fa4d8de13124ad15958bb44e93bb50be691
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f1.17'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad569d03e6 " "
+user "user1.18"
+description "step 1.18"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieY'
+     17: U        SHORT_BINSTRING 'UB55N'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 34 sha1:1a13c223b1e3c4336157bd9ea48bcebbf2bfeb83
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a1.18'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad5b4e8233 " "
+user "user1.19"
+description "step 1.19"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieZ'
+     17: U        SHORT_BINSTRING 'IKOSR'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:a0b9f323870e42230530e88c3d0df4d0ff53d169
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.19'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad60000080 " "
+user "user1.20"
+description "step 1.20"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieS'
+     17: U        SHORT_BINSTRING '7JLTH'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:9d877b2756905d307e10300aa81428ea05c630d2
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g1.20'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad64b17ecc " "
+user "user1.21"
+description "step 1.21"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieI'
+     17: U        SHORT_BINSTRING 'USN06'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 34 sha1:4087f3ba62712e5c29b0d861d65bcc9904f0828e
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e1.21'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad6962fd19 " "
+user "user1.22"
+description "step 1.22"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie2'
+     17: U        SHORT_BINSTRING 'UXAET'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 34 sha1:7f234b2ebf6c51bbc2acf55bc481b8ca0912b088
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a1.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad6e147b66 " "
+user "user1.23"
+description "step 1.23"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieH'
+     17: U        SHORT_BINSTRING 'AT11F'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 34 sha1:b54c8d6f9415eef59c5e4598d4ea459c7def7ae5
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a1.23'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad72c5f9b3 " "
+user "user1.24"
+description "step 1.24"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieD'
+     17: U        SHORT_BINSTRING 'O5ZEM'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 34 sha1:fc513f6a915be326a3d1212b12b389f284a329b2
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f1.24'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad77777800 " "
+user "root1.0\nYour\nMagesty "
+description "undo 1.0\nmore detailed description\n\nzzz ...\t"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie3'
+     17: U        SHORT_BINSTRING 'G51MM'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrW4Ue2Y=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 from 0285cbad6962fd19
+
+txn 0285cbad7c28f64c " "
+user "root1.1\nYour\nMagesty "
+description "undo 1.1\nmore detailed description\n\nzzz ...\t\t"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieL'
+     17: U        SHORT_BINSTRING 'CDRHV'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrXLF+bM=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 from 0285cbad51eb8599
+
+txn 0285cbad80da7499 " "
+user "user"
+description "cyclic reference"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie4'
+     17: U        SHORT_BINSTRING 'C4OMS'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (cycle)'
+     57: u        SETITEMS   (MARK at 5)
+     58: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 39 sha1:baf12eac4d077427f66ff902f64d44a2a141bfd6
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: C    SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x06'
+     34: h    BINGET     1
+     36: \x86 TUPLE2
+     37: Q    BINPERSID
+     38: .    STOP
+  highest protocol among opcodes = 3
+
+
+txn 0285cbad858bf2e6 " "
+user ""
+description "predelete 6"
+extension ""
+obj 0000000000000000 199 sha1:eaa0f1b643468f33c6b87a875d67eb3b349be5dd
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'a'
+     63: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x05'
+     73: c        GLOBAL     '__main__ Object'
+     90: q        BINPUT     5
+     92: \x86     TUPLE2
+     93: Q        BINPERSID
+     94: U        SHORT_BINSTRING 'c'
+     97: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x07'
+    107: h        BINGET     5
+    109: \x86     TUPLE2
+    110: Q        BINPERSID
+    111: U        SHORT_BINSTRING 'b'
+    114: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x08'
+    124: h        BINGET     5
+    126: \x86     TUPLE2
+    127: Q        BINPERSID
+    128: U        SHORT_BINSTRING 'e'
+    131: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\t'
+    141: h        BINGET     5
+    143: \x86     TUPLE2
+    144: Q        BINPERSID
+    145: U        SHORT_BINSTRING 'd'
+    148: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x02'
+    158: h        BINGET     5
+    160: \x86     TUPLE2
+    161: Q        BINPERSID
+    162: U        SHORT_BINSTRING 'g'
+    165: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x03'
+    175: h        BINGET     5
+    177: \x86     TUPLE2
+    178: Q        BINPERSID
+    179: U        SHORT_BINSTRING 'f'
+    182: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x01'
+    192: h        BINGET     5
+    194: \x86     TUPLE2
+    195: Q        BINPERSID
+    196: u        SETITEMS   (MARK at 59)
+    197: s    SETITEM
+    198: .    STOP
+  highest protocol among opcodes = 3
+
+obj 0000000000000009 32 sha1:c10d44876cbf78e49f7cc633d985206f51ecc278
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e1*'
+     29: q    BINPUT     2
+     31: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbad8a3d7133 " "
+user "root1\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 1\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieS'
+     17: U        SHORT_BINSTRING 'XVOTI'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (delete 6)'
+     60: u        SETITEMS   (MARK at 5)
+     61: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000006 delete
+
+txn 0285cbadc740db19 " "
+user "user2.0"
+description "step 2.0"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie1'
+     17: U        SHORT_BINSTRING 'GRGS2'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 33 sha1:118c46c51bb0f08ce76d8f4f3b5d923b81abdd46
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f2.0'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadcbf25966 " "
+user "user2.1"
+description "step 2.1"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie3'
+     17: U        SHORT_BINSTRING 'WYNK7'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 33 sha1:89ff5e4440585130863b518c044d35e0154daecc
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.1'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadd0a3d7b3 " "
+user "user2.2"
+description "step 2.2"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieF'
+     17: U        SHORT_BINSTRING 'SPFA4'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 33 sha1:e0470e3dee47625819f9bfe8085c1bce2a7a4a42
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g2.2'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadd5555600 " "
+user "user2.3"
+description "step 2.3"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie1'
+     17: U        SHORT_BINSTRING 'XE3RQ'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 33 sha1:b1a3740b05c6cae5f6c851b715c76dd7348228a9
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g2.3'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadda06d44c " "
+user "user2.4"
+description "step 2.4"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie2'
+     17: U        SHORT_BINSTRING '1XYQ2'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 33 sha1:d0368e87213747ab68d8e4f7a87ff1ea959ea579
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.4'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbaddeb85299 " "
+user "user2.5"
+description "step 2.5"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieW'
+     17: U        SHORT_BINSTRING 'C0ZT2'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (a)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000005 33 sha1:e5af7f0b8e157926739f657e729594908d188a3d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'a2.5'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbade369d0e6 " "
+user "user2.6"
+description "step 2.6"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie0'
+     17: U        SHORT_BINSTRING 'OX40D'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (b)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000008 33 sha1:dc70c3b1413c79d75bcfdcc50c3e803273f857ef
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'b2.6'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbade81b4f33 " "
+user "user2.7"
+description "step 2.7"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieY'
+     17: U        SHORT_BINSTRING '64CY4'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 33 sha1:35892bc2c71edb022b029aa1e4bf8201ccab4b0c
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g2.7'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadeccccd80 " "
+user "user2.8"
+description "step 2.8"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieZ'
+     17: U        SHORT_BINSTRING 'AXYM6'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 33 sha1:b2da174266d0f0e0b58c214e6d79851f4a18b554
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.8'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadf17e4bcc " "
+user "user2.9"
+description "step 2.9"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie8'
+     17: U        SHORT_BINSTRING '5WYSB'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 33 sha1:92cf61eb5855d3b25fecbe7a458f1b21946f5ba3
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.9'
+     30: q    BINPUT     2
+     32: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadf62fca19 " "
+user "user2.10"
+description "step 2.10"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie2'
+     17: U        SHORT_BINSTRING 'F1402'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 34 sha1:f737655162c594cf8296b38f7c435a5e8e06d6d7
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c2.10'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadfae14866 " "
+user "user2.11"
+description "step 2.11"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieG'
+     17: U        SHORT_BINSTRING 'Q5FM3'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:032d8305ea9de2ec785fc77c1743a37bb64553cd
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.11'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbadff92c6b3 " "
+user "user2.12"
+description "step 2.12"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie7'
+     17: U        SHORT_BINSTRING '2EFQB'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (g)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000003 34 sha1:975fd7ef6350b6543495a800852969f1d7833c83
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'g2.12'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae04444500 " "
+user "user2.13"
+description "step 2.13"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieS'
+     17: U        SHORT_BINSTRING 'YS9KO'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:d09e49d753b8183ba5e0fa042a239f103d54c873
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.13'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae08f5c34c " "
+user "user2.14"
+description "step 2.14"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie5'
+     17: U        SHORT_BINSTRING 'RF8GX'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (c)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000007 34 sha1:109581582c53bf400e56780c331410e5195d19e0
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'c2.14'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae0da74199 " "
+user "user2.15"
+description "step 2.15"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie0'
+     17: U        SHORT_BINSTRING 'H70PM'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 34 sha1:e67485cd99587ee9e98158db69ed668fb233093d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.15'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae1258bfe6 " "
+user "user2.16"
+description "step 2.16"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-generator'
+     19: q        BINPUT     2
+     21: U        SHORT_BINSTRING 'zodb/py2 (f)'
+     35: U        SHORT_BINSTRING 'x-cookieO'
+     46: U        SHORT_BINSTRING 'MJ5PG'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000001 34 sha1:b9f373fb2097836edf1c9ffbf0ca55d1d2b2168f
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'f2.16'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae170a3e33 " "
+user "user2.17"
+description "step 2.17"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie1'
+     17: U        SHORT_BINSTRING 'RAZ4V'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (b)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000008 34 sha1:698e7a066839a9436339747fe7a85f475095af67
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'b2.17'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae1bbbbc80 " "
+user "user2.18"
+description "step 2.18"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieR'
+     17: U        SHORT_BINSTRING 'KE39A'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:0d2f350bbfeb38c85466b05b336f9414b9e91f77
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.18'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae206d3acc " "
+user "user2.19"
+description "step 2.19"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie8'
+     17: U        SHORT_BINSTRING '1SBCJ'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 34 sha1:471ca065c05720073421a0aeab549cb1e58cf99f
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.19'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae251eb919 " "
+user "user2.20"
+description "step 2.20"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieJ'
+     17: U        SHORT_BINSTRING 'EAIKM'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (b)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000008 34 sha1:3b543565ce78028b7118f322a8d1faf2439d70e4
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'b2.20'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae29d03766 " "
+user "user2.21"
+description "step 2.21"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieM'
+     17: U        SHORT_BINSTRING 'ESSAD'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 34 sha1:79714405c7319c5800c2fe5f192a8a1e8a33d873
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.21'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae2e81b5b3 " "
+user "user2.22"
+description "step 2.22"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieH'
+     17: U        SHORT_BINSTRING 'DL5OC'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 34 sha1:fb3f01b3470c5dcf9b4ce613bdd3821f2b9a3576
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae33333400 " "
+user "user2.23"
+description "step 2.23"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieQ'
+     17: U        SHORT_BINSTRING 'PBN2A'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (d)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 34 sha1:2a646981c19fe36d62d89df7e1fd344eb648f9b8
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2.23'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae37e4b24c " "
+user "user2.24"
+description "step 2.24"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookie2'
+     17: U        SHORT_BINSTRING '0GV0I'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (e)'
+     53: u        SETITEMS   (MARK at 5)
+     54: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 34 sha1:8b769601aed2ebd9f3cc8fe1e63b2cd8975f9f2d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'e2.24'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae3c963099 " "
+user "root2.0\nYour\nMagesty "
+description "undo 2.0\nmore detailed description\n\nzzz ...\t\t"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieM'
+     17: U        SHORT_BINSTRING 'OQO01'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrjMzNAA=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 from 0285cbae1bbbbc80
+
+txn 0285cbae4147aee6 " "
+user "root2.1\nYour\nMagesty "
+description "undo 2.1\nmore detailed description\n\nzzz ...\t\t\t"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieA'
+     17: U        SHORT_BINSTRING 'VPQ8R'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (undo AoXLrjfkskw=)'
+     69: u        SETITEMS   (MARK at 5)
+     70: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000009 from 0285cbae2e81b5b3
+
+txn 0285cbae45f92d33 " "
+user "user"
+description "cyclic reference"
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-generator'
+     19: q        BINPUT     2
+     21: U        SHORT_BINSTRING 'zodb/py2 (cycle)'
+     39: U        SHORT_BINSTRING 'x-cookieG'
+     50: U        SHORT_BINSTRING 'B6FWF'
+     57: u        SETITEMS   (MARK at 5)
+     58: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 39 sha1:f44b22761c7e1df86ed61823eb1404e463378a32
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: C    SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x02'
+     34: h    BINGET     1
+     36: \x86 TUPLE2
+     37: Q    BINPERSID
+     38: .    STOP
+  highest protocol among opcodes = 3
+
+
+txn 0285cbae4aaaab80 " "
+user ""
+description "predelete 2"
+extension ""
+obj 0000000000000000 199 sha1:a51d894c29856c2e8b8194e714cd84a0a23d03b8
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     1
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     2
+     48: U    SHORT_BINSTRING 'data'
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: (    MARK
+     60: U        SHORT_BINSTRING 'a'
+     63: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x05'
+     73: c        GLOBAL     '__main__ Object'
+     90: q        BINPUT     5
+     92: \x86     TUPLE2
+     93: Q        BINPERSID
+     94: U        SHORT_BINSTRING 'c'
+     97: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x07'
+    107: h        BINGET     5
+    109: \x86     TUPLE2
+    110: Q        BINPERSID
+    111: U        SHORT_BINSTRING 'b'
+    114: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x08'
+    124: h        BINGET     5
+    126: \x86     TUPLE2
+    127: Q        BINPERSID
+    128: U        SHORT_BINSTRING 'e'
+    131: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\t'
+    141: h        BINGET     5
+    143: \x86     TUPLE2
+    144: Q        BINPERSID
+    145: U        SHORT_BINSTRING 'd'
+    148: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\n'
+    158: h        BINGET     5
+    160: \x86     TUPLE2
+    161: Q        BINPERSID
+    162: U        SHORT_BINSTRING 'g'
+    165: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x03'
+    175: h        BINGET     5
+    177: \x86     TUPLE2
+    178: Q        BINPERSID
+    179: U        SHORT_BINSTRING 'f'
+    182: C        SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\x01'
+    192: h        BINGET     5
+    194: \x86     TUPLE2
+    195: Q        BINPERSID
+    196: u        SETITEMS   (MARK at 59)
+    197: s    SETITEM
+    198: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000a 32 sha1:25364c8085cd5e554eb4756133186e5cf386032b
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: U    SHORT_BINSTRING 'd2*'
+     29: q    BINPUT     2
+     31: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae4f5c29cc " "
+user "root2\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 2\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+extension
+      0: \x80 PROTO      3
+      2: }    EMPTY_DICT
+      3: q    BINPUT     1
+      5: (    MARK
+      6: U        SHORT_BINSTRING 'x-cookieT'
+     17: U        SHORT_BINSTRING '4WFSD'
+     24: U        SHORT_BINSTRING 'x-generator'
+     37: q        BINPUT     2
+     39: U        SHORT_BINSTRING 'zodb/py2 (delete 2)'
+     60: u        SETITEMS   (MARK at 5)
+     61: .    STOP
+  highest protocol among opcodes = 2
+obj 0000000000000002 delete
+

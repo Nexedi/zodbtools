@@ -67,11 +67,16 @@ from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRan
         storageFromURL, hashRegistry, asbinstream
 from ZODB._compat import loads, _protocol, BytesIO
 from zodbpickle.slowpickle import Pickler as pyPickler
-import pickletools
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
 import sys
+if sys.version_info.major < 3:
+    from zodbpickle import pickletools_2 as zpickletools
+else:
+    from zodbpickle import pickletools_3 as zpickletools
+
+
 import logging as log
 import re
 from golang.gcompat import qq
@@ -124,7 +129,7 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
                 out.write(b"extension\n")
                 extf = BytesIO(rawext)
                 disf = StringIO()
-                pickletools.dis(extf, disf)
+                zpickletools.dis(extf, disf)
                 out.write(b(indent(disf.getvalue(), "  ")))
                 extra = extf.read()
                 if len(extra) > 0:
@@ -165,8 +170,8 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
                         dataf = BytesIO(obj.data)
                         disf  = StringIO()
                         memo = {} # memo is shared in between class and state
-                        pickletools.dis(dataf, disf, memo) # class
-                        pickletools.dis(dataf, disf, memo) # state
+                        zpickletools.dis(dataf, disf, memo) # class
+                        zpickletools.dis(dataf, disf, memo) # state
                         out.write(b(indent(disf.getvalue(), "  ")))
                         extra = dataf.read()
                         if len(extra) > 0:
@@ -265,7 +270,7 @@ def serializeext(ext):
     p = XPickler(buf, _protocol)
     p.dump(ext)
     out = buf.getvalue()
-    #out = pickletools.optimize(out) # remove unneeded PUT opcodes
+    #out = zpickletools.optimize(out) # remove unneeded PUT opcodes
     assert loads(out) == ext
     return out
 

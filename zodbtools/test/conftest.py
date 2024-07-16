@@ -40,7 +40,7 @@ testdir = dirname(__file__)
         # NOTE keep in sync with run_with_all_zodb_pickle_kinds
         for name    in ('1',)
         for zext    in (False, True)
-        for zkind   in ('py2_pickle1', 'py2_pickle2')
+        for zkind   in ('py2_pickle1', 'py2_pickle2', 'py2_pickle3')
     ],
     ids = lambda _: '%s%s/%s' % (_[0], '' if _[1] else '_!zext', _[2]),
 )
