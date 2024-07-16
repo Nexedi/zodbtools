@@ -177,9 +177,12 @@ def gen_testdb(outfs_path, zext=True):
 def _gen_testdb(outfs_path, zext):
     xtime_reset()
 
-    ext = ext4subj
-    if not zext:
-        def ext(subj): return {}
+    def ext(subj):
+        # invoke ext4subj for both zext and !zext so that PRNG is left in the same state for both cases
+        e = ext4subj(subj)
+        if not zext:
+            e = {}
+        return e
 
     logging.basicConfig()
 
