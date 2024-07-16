@@ -23,7 +23,7 @@ setup(
     install_requires = ['ZODB', 'zodbpickle', 'zodburi', 'zope.interface', 'pygolang >= 0.0.0.dev6', 'six', 'dateparser'],
 
     extras_require = {
-                  'test': ['pytest', 'freezegun', 'pytz', 'mock;python_version<="2.7"', 'random2'],
+                  'test': ['pytest', 'freezegun', 'pytz', 'mock;python_version<="2.7"', 'random2', 'ZEO[test]'],
     },
 
     entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
