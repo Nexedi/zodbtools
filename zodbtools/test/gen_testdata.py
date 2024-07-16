@@ -166,7 +166,7 @@ def ext4subj(subj):
     xcookie = "x-cookie" + rand.choice(alnum)
     d[xcookie] = cookie
 
-    # shufle extension dict randomly - to likely trigger different ordering on save
+    # shuffle extension dict randomly - to likely trigger different ordering on save
     keyv = keys(d)
     rand.shuffle(keyv)
     ext = {}
@@ -323,7 +323,7 @@ def gen_testdb(outfs_path, zext=True):
 
         # create a cyclic object -> object reference
         # pretty=zpickledis used not to handle this well because in ZODB pickle the reference
-        # referes to referred type by GET that is prepared by PUT in class part of the pickle.
+        # refers to referred type by GET that is prepared by PUT in class part of the pickle.
         name = rand.choice(keys(root))
         obj = root[name]
         obj.value = obj

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (C) 2019-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
