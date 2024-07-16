@@ -66,6 +66,23 @@ obj 0000000000000002 34 sha1:009174c1f01142f24495fa13738749ff528fd82c
   highest protocol among opcodes = 2
 
 
+txn 0285cbacada74119 "p"
+user "root0.0\nYour\nMagesty "
+description "undo 0.0\nmore detailed description\n\nzzz ..."
+extension ""
+obj 0000000000000007 34 sha1:688eb65eab5e4c5ee5242b027bb9bfa5e1087598
+      0: \x80 PROTO      2
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     1
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      2
+     24: U    SHORT_BINSTRING 'c0.22'
+     31: q    BINPUT     2
+     33: .    STOP
+  highest protocol among opcodes = 2
+
+
 txn 0285cbacb258bf66 "p"
 user "root0.1\nYour\nMagesty "
 description "undo 0.1\nmore detailed description\n\nzzz ...\t"
@@ -83,31 +100,11 @@ obj 0000000000000003 34 sha1:484358413b2746e8a05b1e3173051abedd28e1fa
   highest protocol among opcodes = 2
 
 
-txn 0285cbacb70a3db3 "p"
-user "user"
-description "cyclic reference"
-extension ""
-obj 0000000000000004 41 sha1:08190c422b49eb59f44043860a25e3916965aa35
-      0: \x80 PROTO      2
-      2: c    GLOBAL     '__main__ Object'
-     19: q    BINPUT     1
-     21: .    STOP
-  highest protocol among opcodes = 2
-     22: \x80 PROTO      2
-     24: U    SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
-     34: q    BINPUT     2
-     36: h    BINGET     1
-     38: \x86 TUPLE2
-     39: Q    BINPERSID
-     40: .    STOP
-  highest protocol among opcodes = 2
-
-
 txn 0285cbacbbbbbc00 "p"
 user ""
-description "predelete 7"
+description "predelete 4"
 extension ""
-obj 0000000000000000 213 sha1:9eba67326a7fd2393c39966bfc7d7be2a8035dfa
+obj 0000000000000000 213 sha1:a6e70638fafd4619841032356ae93a4da7b539c5
       0: \x80 PROTO      2
       2: c    GLOBAL     'persistent.mapping PersistentMapping'
      40: q    BINPUT     1
@@ -129,13 +126,13 @@ obj 0000000000000000 213 sha1:9eba67326a7fd2393c39966bfc7d7be2a8035dfa
      94: \x86     TUPLE2
      95: Q        BINPERSID
      96: U        SHORT_BINSTRING 'c'
-     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
     109: q        BINPUT     7
     111: h        BINGET     6
     113: \x86     TUPLE2
     114: Q        BINPERSID
     115: U        SHORT_BINSTRING 'b'
-    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
     128: q        BINPUT     8
     130: h        BINGET     6
     132: \x86     TUPLE2
@@ -169,14 +166,14 @@ obj 0000000000000000 213 sha1:9eba67326a7fd2393c39966bfc7d7be2a8035dfa
     212: .    STOP
   highest protocol among opcodes = 2
 
-obj 0000000000000008 32 sha1:c0517df3bfc49dcda73c2797fb957c92bc651888
+obj 0000000000000008 32 sha1:936674657cf846998d27356363832827fa612092
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
      21: .    STOP
   highest protocol among opcodes = 2
      22: \x80 PROTO      2
-     24: U    SHORT_BINSTRING 'c0*'
+     24: U    SHORT_BINSTRING 'b0*'
      29: q    BINPUT     2
      31: .    STOP
   highest protocol among opcodes = 2
@@ -203,7 +200,7 @@ txn 0285cbad06d3a0cc " "
 user "user1.1"
 description "step 1.1"
 extension ""
-obj 0000000000000004 33 sha1:c37e1d2350c8fc4e18cdbc53b432dba50e5196ba
+obj 0000000000000008 33 sha1:c37e1d2350c8fc4e18cdbc53b432dba50e5196ba
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -254,7 +251,7 @@ txn 0285cbad14e81bb3 " "
 user "user1.4"
 description "step 1.4"
 extension ""
-obj 0000000000000008 33 sha1:90b0ffa657df9de708913a2cbbd454126fd9de15
+obj 0000000000000007 33 sha1:90b0ffa657df9de708913a2cbbd454126fd9de15
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -305,7 +302,7 @@ txn 0285cbad22fc9699 " "
 user "user1.7"
 description "step 1.7"
 extension ""
-obj 0000000000000008 33 sha1:0cd3f4b725517a5371429e2ef2f56ea54fe405fb
+obj 0000000000000007 33 sha1:0cd3f4b725517a5371429e2ef2f56ea54fe405fb
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -322,7 +319,7 @@ txn 0285cbad27ae14e6 " "
 user "user1.8"
 description "step 1.8"
 extension ""
-obj 0000000000000008 33 sha1:13e366fb1d15d36a62099e6b835638407718229f
+obj 0000000000000007 33 sha1:13e366fb1d15d36a62099e6b835638407718229f
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -373,7 +370,7 @@ txn 0285cbad35c28fcc " "
 user "user1.11"
 description "step 1.11"
 extension ""
-obj 0000000000000008 34 sha1:88ab1add11652101077535c03b04e83fe4ddb88b
+obj 0000000000000007 34 sha1:88ab1add11652101077535c03b04e83fe4ddb88b
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -641,9 +638,9 @@ obj 0000000000000006 41 sha1:863d327e4b795efff7dff75bb73c0d20ea3981aa
 
 txn 0285cbad858bf2e6 " "
 user ""
-description "predelete 1"
+description "predelete 6"
 extension ""
-obj 0000000000000000 213 sha1:39b8d9a34d973ab8bef66f1e12eb0acde72ce9a3
+obj 0000000000000000 213 sha1:7247042925f5c18f3695d860eeb2759b78109a55
       0: \x80 PROTO      2
       2: c    GLOBAL     'persistent.mapping PersistentMapping'
      40: q    BINPUT     1
@@ -665,19 +662,19 @@ obj 0000000000000000 213 sha1:39b8d9a34d973ab8bef66f1e12eb0acde72ce9a3
      94: \x86     TUPLE2
      95: Q        BINPERSID
      96: U        SHORT_BINSTRING 'c'
-     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
     109: q        BINPUT     7
     111: h        BINGET     6
     113: \x86     TUPLE2
     114: Q        BINPERSID
     115: U        SHORT_BINSTRING 'b'
-    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
     128: q        BINPUT     8
     130: h        BINGET     6
     132: \x86     TUPLE2
     133: Q        BINPERSID
     134: U        SHORT_BINSTRING 'e'
-    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
     147: q        BINPUT     9
     149: h        BINGET     6
     151: \x86     TUPLE2
@@ -695,7 +692,7 @@ obj 0000000000000000 213 sha1:39b8d9a34d973ab8bef66f1e12eb0acde72ce9a3
     189: \x86     TUPLE2
     190: Q        BINPERSID
     191: U        SHORT_BINSTRING 'f'
-    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
     204: q        BINPUT     12
     206: h        BINGET     6
     208: \x86     TUPLE2
@@ -705,14 +702,14 @@ obj 0000000000000000 213 sha1:39b8d9a34d973ab8bef66f1e12eb0acde72ce9a3
     212: .    STOP
   highest protocol among opcodes = 2
 
-obj 0000000000000009 32 sha1:9bf07787029e3c7e95d4dd0058537926aed033d1
+obj 0000000000000009 32 sha1:1a43b55bc4a19245cce9eb5aa5ad411006f06afe
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
      21: .    STOP
   highest protocol among opcodes = 2
      22: \x80 PROTO      2
-     24: U    SHORT_BINSTRING 'f1*'
+     24: U    SHORT_BINSTRING 'e1*'
      29: q    BINPUT     2
      31: .    STOP
   highest protocol among opcodes = 2
@@ -722,13 +719,13 @@ txn 0285cbad8a3d7133 " "
 user "root1\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
 description "delete 1\nalpha beta gamma'delta\"lambda\n\nqqq ..."
 extension ""
-obj 0000000000000001 delete
+obj 0000000000000006 delete
 
 txn 0285cbadc740db19 " "
 user "user2.0"
 description "step 2.0"
 extension ""
-obj 0000000000000009 33 sha1:7b5599bdbf192e2d33e2597b52c8a72a751ddd13
+obj 0000000000000001 33 sha1:7b5599bdbf192e2d33e2597b52c8a72a751ddd13
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -796,7 +793,7 @@ txn 0285cbadda06d44c " "
 user "user2.4"
 description "step 2.4"
 extension ""
-obj 0000000000000006 33 sha1:55a37439e3dc66552d680833af332b8be83bfc2a
+obj 0000000000000009 33 sha1:55a37439e3dc66552d680833af332b8be83bfc2a
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -830,7 +827,7 @@ txn 0285cbade369d0e6 " "
 user "user2.6"
 description "step 2.6"
 extension ""
-obj 0000000000000004 33 sha1:2a3221e27ac8fbf15ab75b38a9a65e727d237355
+obj 0000000000000008 33 sha1:2a3221e27ac8fbf15ab75b38a9a65e727d237355
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -881,7 +878,7 @@ txn 0285cbadf17e4bcc " "
 user "user2.9"
 description "step 2.9"
 extension ""
-obj 0000000000000006 33 sha1:f1d87ba386f57291ecc925020a05df06caedb278
+obj 0000000000000009 33 sha1:f1d87ba386f57291ecc925020a05df06caedb278
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -898,7 +895,7 @@ txn 0285cbadf62fca19 " "
 user "user2.10"
 description "step 2.10"
 extension ""
-obj 0000000000000008 34 sha1:6696fa0434fadb645687c74c8561f0f55fce1fd6
+obj 0000000000000007 34 sha1:6696fa0434fadb645687c74c8561f0f55fce1fd6
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -966,7 +963,7 @@ txn 0285cbae08f5c34c " "
 user "user2.14"
 description "step 2.14"
 extension ""
-obj 0000000000000008 34 sha1:c3eabecf360015b4b7555abc3a0dc0cea77fe7ed
+obj 0000000000000007 34 sha1:c3eabecf360015b4b7555abc3a0dc0cea77fe7ed
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -983,7 +980,7 @@ txn 0285cbae0da74199 " "
 user "user2.15"
 description "step 2.15"
 extension ""
-obj 0000000000000006 34 sha1:25ffaeb6090581d72bce075a765d3cf4198af90f
+obj 0000000000000009 34 sha1:25ffaeb6090581d72bce075a765d3cf4198af90f
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1000,7 +997,7 @@ txn 0285cbae1258bfe6 " "
 user "user2.16"
 description "step 2.16"
 extension ""
-obj 0000000000000009 34 sha1:e934438dede49d14ee2d1d2afa8fa18774547764
+obj 0000000000000001 34 sha1:e934438dede49d14ee2d1d2afa8fa18774547764
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1017,7 +1014,7 @@ txn 0285cbae170a3e33 " "
 user "user2.17"
 description "step 2.17"
 extension ""
-obj 0000000000000004 34 sha1:9961f82b3f01204f80efbb3b62a2b98d9d3202fa
+obj 0000000000000008 34 sha1:9961f82b3f01204f80efbb3b62a2b98d9d3202fa
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1051,7 +1048,7 @@ txn 0285cbae206d3acc " "
 user "user2.19"
 description "step 2.19"
 extension ""
-obj 0000000000000006 34 sha1:523ec17c6d74016e3464d52bb7c7b7baa4b82a20
+obj 0000000000000009 34 sha1:523ec17c6d74016e3464d52bb7c7b7baa4b82a20
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1068,7 +1065,7 @@ txn 0285cbae251eb919 " "
 user "user2.20"
 description "step 2.20"
 extension ""
-obj 0000000000000004 34 sha1:14b17f0e944432782cb270205b2e96948d112619
+obj 0000000000000008 34 sha1:14b17f0e944432782cb270205b2e96948d112619
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1085,7 +1082,7 @@ txn 0285cbae29d03766 " "
 user "user2.21"
 description "step 2.21"
 extension ""
-obj 0000000000000006 34 sha1:27744ea516240e0d00be75f26af9698f842bdda5
+obj 0000000000000009 34 sha1:27744ea516240e0d00be75f26af9698f842bdda5
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1102,7 +1099,7 @@ txn 0285cbae2e81b5b3 " "
 user "user2.22"
 description "step 2.22"
 extension ""
-obj 0000000000000006 34 sha1:a3f303ddd4f2fb9369f6fbbb38ae8030f7f8188d
+obj 0000000000000009 34 sha1:a3f303ddd4f2fb9369f6fbbb38ae8030f7f8188d
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1136,7 +1133,7 @@ txn 0285cbae37e4b24c " "
 user "user2.24"
 description "step 2.24"
 extension ""
-obj 0000000000000006 34 sha1:8804c60dc27b2e2f6908e2a099a5c5d4b5abc843
+obj 0000000000000009 34 sha1:8804c60dc27b2e2f6908e2a099a5c5d4b5abc843
       0: \x80 PROTO      2
       2: c    GLOBAL     '__main__ Object'
      19: q    BINPUT     1
@@ -1159,7 +1156,7 @@ txn 0285cbae4147aee6 " "
 user "root2.1\nYour\nMagesty "
 description "undo 2.1\nmore detailed description\n\nzzz ...\t\t\t"
 extension ""
-obj 0000000000000006 from 0285cbae2e81b5b3
+obj 0000000000000009 from 0285cbae2e81b5b3
 
 txn 0285cbae45f92d33 " "
 user "user"
@@ -1185,7 +1182,7 @@ txn 0285cbae4aaaab80 " "
 user ""
 description "predelete 2"
 extension ""
-obj 0000000000000000 213 sha1:418df67fa7f268f2f4e66392e9cdf19b2029b113
+obj 0000000000000000 213 sha1:ee7932656b49c1a3f6271c9b58786f85a29179a2
       0: \x80 PROTO      2
       2: c    GLOBAL     'persistent.mapping PersistentMapping'
      40: q    BINPUT     1
@@ -1207,19 +1204,19 @@ obj 0000000000000000 213 sha1:418df67fa7f268f2f4e66392e9cdf19b2029b113
      94: \x86     TUPLE2
      95: Q        BINPERSID
      96: U        SHORT_BINSTRING 'c'
-     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+     99: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
     109: q        BINPUT     7
     111: h        BINGET     6
     113: \x86     TUPLE2
     114: Q        BINPERSID
     115: U        SHORT_BINSTRING 'b'
-    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x04'
+    118: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
     128: q        BINPUT     8
     130: h        BINGET     6
     132: \x86     TUPLE2
     133: Q        BINPERSID
     134: U        SHORT_BINSTRING 'e'
-    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x06'
+    137: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
     147: q        BINPUT     9
     149: h        BINGET     6
     151: \x86     TUPLE2
@@ -1237,7 +1234,7 @@ obj 0000000000000000 213 sha1:418df67fa7f268f2f4e66392e9cdf19b2029b113
     189: \x86     TUPLE2
     190: Q        BINPERSID
     191: U        SHORT_BINSTRING 'f'
-    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    194: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
     204: q        BINPUT     12
     206: h        BINGET     6
     208: \x86     TUPLE2

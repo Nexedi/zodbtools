@@ -37,6 +37,8 @@
 # NOTE as of 14 Mar 2017 FileStorage cannot commit transactions with non-ASCII
 #      metadata - so it is not tested
 
+# NOTE besides zodbtools this module is also used in ZODB/go and in Wendelin.core .
+
 from ZODB.FileStorage import FileStorage
 from ZODB import DB
 from ZODB.Connection import TransactionMetaData
@@ -216,6 +218,7 @@ def _gen_testdb(outfs_path, zext):
 
     namev = [_ for _ in "abcdefg"]
     Niter = 3
+    nameobj1 = None  # name used when adding first object
     for i in range(Niter):
         stor = FileStorage(outfs_path, create=(i == 0))
         db   = DB(stor)
@@ -237,6 +240,10 @@ def _gen_testdb(outfs_path, zext):
             obj.value = "%s%i.%i" % (name, i, j)
 
             commit(u"user%i.%i" % (i,j), u"step %i.%i" % (i, j), ext(name))
+
+            if nameobj1 is None:
+                nameobj1 = name
+                assert obj._p_oid == p64(1), repr(obj._p_oid)
 
         # undo a transaction one step before a latest one a couple of times
         for j in range(2):
@@ -267,7 +274,8 @@ def _gen_testdb(outfs_path, zext):
         commit(u"user", u"cyclic reference", ext("cycle"))
 
         # delete an object
-        name = rand.choice(keys(root))
+        _ = keys(root);  _.remove(nameobj1)  # preserve the first obj not to go
+        name = rand.choice(_)
         obj = root[name]
         root[name] = Object("%s%i*" % (name, i))
         # NOTE user/ext are kept empty on purpose - to also test this case
