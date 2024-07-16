@@ -18,7 +18,10 @@
 #
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
-"""generate reference database and index for tests"""
+"""generate reference database and index for tests
+
+Golden zodbdump & zodbanalyze outputs are also generated besides database itself.
+"""
 
 # NOTE result of this script must be saved in version control and should not be
 # generated at the time when tests are run. This is because even though we make
@@ -306,6 +309,7 @@ def _gen_testdb(outfs_path, zext):
 # ----------------------------------------
 
 from zodbtools.zodbdump import zodbdump
+from zodbtools import zodbanalyze
 from zodbtools.test.testutil import zext_supported
 
 def main():
@@ -321,10 +325,23 @@ def main():
         for f in glob.glob(dbname + '.*'):
             os.remove(f)
         gen_testdb("%s.fs" % dbname, zext=zext)
+
+        # prepare zdump.ok for generated database
         stor = FileStorage("%s.fs" % dbname, read_only=True)
         for pretty in ('raw', 'zpickledis'):
             with open("%s.zdump.%s.ok" % (dbname, pretty), "wb") as f:
                 zodbdump(stor, None, None, pretty=pretty, out=f)
+
+        # prepare zanalyze.csv.ok
+        sys_stdout = sys.stdout
+        sys.stdout = open("%s.zanalyze.csv.ok" % dbname, "w")
+        zodbanalyze.report(
+            zodbanalyze.analyze("%s.fs" % dbname, use_dbm=False, delta_fs=False, tidmin=None, tidmax=None),
+            csv=True,
+        )
+        sys.stdout.close()
+        sys.stdout = sys_stdout
+
 
 if __name__ == '__main__':
     main()
