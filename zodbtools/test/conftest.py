@@ -70,7 +70,7 @@ class ZTestData(object):
 # - when ZODB does not have txn.extension_bytes support
 # - when ZODB might have    txn.extension_bytes support
 #
-# in a test, zext should be used as as follows:
+# in a test, zext should be used as follows:
 #
 #   def test_something(zext):
 #       # bytes for an extension dict
