@@ -49,7 +49,7 @@ import glob
 import sys
 import struct
 import time
-import random
+import random2
 import logging
 
 # convert numeric oid to/from str
@@ -102,8 +102,20 @@ class Object(Persistent):
 
 # rand is our private PRNG.
 # It is made independent to stay predictable even if third-party code uses random as well.
-rand = random.Random()
-del random
+# It also provides the same behaviour for both py2 and py3 so that generated
+# test data closely match each other where possible on all python versions.
+rand = random2.Random()
+del random2
+def _():  # assert that rand behaviour is predictable
+    rand.seed(0)
+    R = lambda: rand.randint(0, 99)
+    v = list(R() for _ in range(10))
+    assert v == [84, 75, 42, 25, 51, 40, 78, 30, 47, 58],   v
+    rand.shuffle(v)
+    assert v == [84, 47, 30, 78, 75, 25, 40, 42, 51, 58],   v
+    y = list(rand.choice(v) for _ in v)
+    assert y == [58, 78, 42, 51, 40, 75, 47, 75, 40, 58],   y
+_()
 
 # keys returns list of obj.keys() in predictable order independent of python version.
 def keys(obj):
