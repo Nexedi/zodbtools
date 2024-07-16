@@ -44,6 +44,8 @@ from ZODB.POSException import UndoError
 from persistent import Persistent
 import transaction
 
+import os
+import glob
 import sys
 import struct
 import time
@@ -285,6 +287,8 @@ def main():
         dbname = out
         if not zext:
             dbname += "_!zext"
+        for f in glob.glob(dbname + '.*'):
+            os.remove(f)
         gen_testdb("%s.fs" % dbname, zext=zext)
         stor = FileStorage("%s.fs" % dbname, read_only=True)
         for pretty in ('raw', 'zpickledis'):
