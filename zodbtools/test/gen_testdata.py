@@ -100,6 +100,11 @@ class Object(Persistent):
     def __setstate__(self, state):
         self.value = state
 
+# rand is our private PRNG.
+# It is made independent to stay predictable even if third-party code uses random as well.
+rand = random.Random()
+del random
+
 # prepare extension dictionary for subject
 alnum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 def ext4subj(subj):
@@ -109,14 +114,14 @@ def ext4subj(subj):
     cooklen = 5
     cookie = ""
     for _ in range(cooklen):
-        cookie += random.choice(alnum)
+        cookie += rand.choice(alnum)
 
-    xcookie = "x-cookie" + random.choice(alnum)
+    xcookie = "x-cookie" + rand.choice(alnum)
     d[xcookie] = cookie
 
     # shufle extension dict randomly - to likely trigger different ordering on save
     keyv = list(d.keys())
-    random.shuffle(keyv)
+    rand.shuffle(keyv)
     ext = {}
     for key in keyv:
         ext[key] = d[key]
@@ -189,7 +194,7 @@ def _gen_testdb(outfs_path, zext):
     logging.basicConfig()
 
     # generate random changes to objects hooked to top-level root by a/b/c/... key
-    random.seed(0)
+    rand.seed(0)
 
     namev = [_ for _ in "abcdefg"]
     Niter = 3
@@ -205,7 +210,7 @@ def _gen_testdb(outfs_path, zext):
         assert root._p_oid == p64(0), repr(root._p_oid)
 
         for j in range(25):
-            name = random.choice(namev)
+            name = rand.choice(namev)
             if name in root:
                 obj = root[name]
             else:
@@ -238,13 +243,13 @@ def _gen_testdb(outfs_path, zext):
         # create a cyclic object -> object reference
         # pretty=zpickledis used not to handle this well because in ZODB pickle the reference
         # referes to referred type by GET that is prepared by PUT in class part of the pickle.
-        name = random.choice(list(root.keys()))
+        name = rand.choice(list(root.keys()))
         obj = root[name]
         obj.value = obj
         commit(u"user", u"cyclic reference", ext("cycle"))
 
         # delete an object
-        name = random.choice(list(root.keys()))
+        name = rand.choice(list(root.keys()))
         obj = root[name]
         root[name] = Object("%s%i*" % (name, i))
         # NOTE user/ext are kept empty on purpose - to also test this case
