@@ -1,0 +1,87 @@
+#!/bin/bash -e
+
+# Copyright (C) 2024  Nexedi SA and Contributors.
+#                     Kirill Smelkov <kirr@nexedi.com>
+#
+# This program is free software: you can Use, Study, Modify and Redistribute
+# it under the terms of the GNU General Public License version 3, or (at your
+# option) any later version, as published by the Free Software Foundation.
+#
+# You can also Link and Combine this program with other software covered by
+# the terms of any of the Free Software licenses or any of the Open Source
+# Initiative approved licenses and Convey the resulting work. Corresponding
+# source of such a combination shall include the source code for all other
+# software used.
+#
+# This program is distributed WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See COPYING file for full licensing terms.
+# See https://www.nexedi.com/licensing for rationale and options.
+
+# py2py3-venv combines two virtual environments into one.
+#
+# The first virtual environment should be created with python2, and the second with python3.
+# In the destination environment:
+#
+# - program python2 becomes python interpreter with access to eggs from py2 environment.
+# - program python3 becomes python interpreter with access to eggs from py3 environment.
+#
+# Similarly programs pip2 and pip3 refer to pip in py2 and py3 environment correspondingly.
+#
+# Default programs python and pip without version suffix point to python2 and pip2 correspondingly.
+
+if test $# != 3; then
+    echo "Usage: py2py3-venv <py2-venv> <py3-venv> <py2py3-venv>" 1>&2
+    exit 1
+fi
+
+py2_venv="$1"
+py3_venv="$2"
+py2py3_venv="$3"
+
+# die <msg>
+die() {
+    echo "$@" 1>&2; exit 1
+}
+
+test -e "$py2_venv"    || die "E: $py2_venv does not exist"
+test -e "$py3_venv"    || die "E: $py3_venv does not exist"
+test -e "$py2py3_venv" && die "E: $py2py3_venv already exists"
+
+test -e "$py2_venv/bin/python2" || die "E: $py2_venv is not a python2 venv"
+test -e "$py3_venv/bin/python3" || die "E: $py3_venv is not a python3 venv"
+
+py2_venv=$(cd "$py2_venv" && pwd)   # abspath
+py3_venv=$(cd "$py3_venv" && pwd)   # abspath
+
+mkdir "$py2py3_venv"
+
+# python2/python3 do not correctly activate their environments when symlinked
+cat > "$py2py3_venv/python2" <<EOF
+#!/bin/sh
+exec "$py2_venv/bin/python2" "\$@"
+EOF
+cat > "$py2py3_venv/python3" <<EOF
+#!/bin/sh
+exec "$py3_venv/bin/python3" "\$@"
+EOF
+chmod a+x "$py2py3_venv/python2"
+chmod a+x "$py2py3_venv/python3"
+
+# for pip it is ok to symlink as pip itself is a program referring to abspath of underlying python
+ln -s -T "$py2_venv/bin/pip2"    "$py2py3_venv/pip2"
+ln -s -T "$py3_venv/bin/pip3"    "$py2py3_venv/pip3"
+
+# default python / pip
+ln -sT python2 "$py2py3_venv/python"
+ln -sT pip2    "$py2py3_venv/pip"
+
+# env.sh
+cat > "$py2py3_venv/env.sh" <<EOF
+X=\${1:-\${BASH_SOURCE[0]}}       # path to original env.sh is explicitly passed
+X=\$(cd \$(dirname \$X) && pwd)    # when there is other env.sh wrapping us
+
+export PATH="\$X:\$PATH"
+export PS1="(\$(basename \$X)) \$PS1"
+EOF
