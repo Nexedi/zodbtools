@@ -31,6 +31,8 @@ from io import BytesIO
 from zodbtools.test.testutil import fs1_testdata_py23
 from pytest import mark, raises, xfail
 
+from six import PY3
+
 
 # verify zodbdump output against golden
 @mark.parametrize('pretty', ('raw', 'zpickledis'))
@@ -40,6 +42,13 @@ def test_zodbdump(tmpdir, ztestdata, pretty):
 
     with open('%s/zdump.%s.ok' % (ztestdata.prefix, pretty), 'rb') as f:
         dumpok = f.read()
+
+    # normalize zpickledis.ok to current python:
+    # bytes   comes as *BYTES '...    on py2 and *BYTES b'...  on py3
+    if pretty == 'zpickledis':
+        if PY3:
+            dumpok = dumpok.replace(b"BYTES '",    b"BYTES b'")
+            dumpok = dumpok.replace(b'BYTES "',    b'BYTES b"')
 
     out = BytesIO()
     zodbdump(stor, None, None, pretty=pretty, out=out)
