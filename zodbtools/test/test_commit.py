@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018-2022  Nexedi SA and Contributors.
+# Copyright (C) 2018-2024  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -25,17 +25,12 @@ from zodbtools.util import storageFromURL, sha1
 from ZODB.utils import p64, u64, z64
 from ZODB._compat import BytesIO, dumps, _protocol   # XXX can't yet commit with arbitrary ext.bytes
 
-from tempfile import mkdtemp
-from shutil import rmtree
 from golang import func, defer, b
 
 # verify zodbcommit.
 @func
-def test_zodbcommit(zext):
-    tmpd = mkdtemp('', 'zodbcommit.')
-    defer(lambda: rmtree(tmpd))
-
-    stor = storageFromURL('%s/2.fs' % tmpd)
+def test_zodbcommit(zsrv, zext):
+    stor = storageFromURL(zsrv.zurl)
     defer(stor.close)
 
     head = stor.lastTransaction()
