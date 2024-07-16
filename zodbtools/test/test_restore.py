@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2021-2022  Nexedi SA and Contributors.
+# Copyright (C) 2021-2024  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -24,22 +24,16 @@ from zodbtools.zodbrestore import zodbrestore
 from zodbtools.util import storageFromURL, readfile
 from zodbtools.test.testutil import fs1_testdata_py23
 
-from os.path import dirname
-from tempfile import mkdtemp
-from shutil import rmtree
 from golang import func, defer
 
 # verify zodbrestore.
 @func
-def test_zodbrestore(tmpdir, zext):
-    zkind = '_!zext' if zext.disabled else ''
-
-    # restore from testdata/1.zdump.ok and verify it gives result that is
-    # bit-to-bit identical to testdata/1.fs
-    tdata = dirname(__file__) + "/testdata"
+def test_zodbrestore(tmpdir, ztestdata):
+    # restore from zdump.ok and verify it gives result that is
+    # bit-to-bit identical to data.fs
     @func
     def _():
-        zdump = open("%s/1%s.zdump.raw.ok" % (tdata, zkind), 'rb')
+        zdump = open("%s/zdump.raw.ok" % ztestdata.prefix, 'rb')
         defer(zdump.close)
 
         stor = storageFromURL('%s/2.fs' % tmpdir)
@@ -48,6 +42,6 @@ def test_zodbrestore(tmpdir, zext):
         zodbrestore(stor, zdump)
     _()
 
-    zfs1 = readfile(fs1_testdata_py23(tmpdir, "%s/1%s.fs" % (tdata, zkind)))
+    zfs1 = readfile(fs1_testdata_py23(tmpdir, "%s/data.fs" % ztestdata.prefix))
     zfs2 = readfile("%s/2.fs" % tmpdir)
     assert zfs1 == zfs2
