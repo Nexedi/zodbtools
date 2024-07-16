@@ -29,7 +29,7 @@ from ZODB.utils import p64
 from io import BytesIO
 
 from zodbtools.test.testutil import fs1_testdata_py23
-from pytest import mark, raises, xfail
+from pytest import mark, raises
 
 from six import PY3
 
