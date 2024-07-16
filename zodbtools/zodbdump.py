@@ -491,11 +491,19 @@ class Transaction(object):
     # .extension_bytes  bytes       transaction extension
     # .objv             []Object*   objects changed by transaction
     def __init__(self, tid, status, user, description, extension, objv):
-        self.tid                = tid
-        self.status             = status
-        self.user               = user
-        self.description        = description
-        self.extension_bytes    = extension
+        # NOTE we convert fields covered by IStorageTransactionInformation to
+        # exact types specified by that interface to stay 100% compatible with
+        # users of the interface because on py3 e.g. (b' ' == ' ') returns
+        # False and so we need to be careful to provide .status as exactly str
+        # instead bytes, and do the similar for other fields. It also would be
+        # generally incorrect to use bstr/ustr for the fields, because e.g. ZEO
+        # rejects messages with golang.bstr/ustr objects on the basis that they
+        # do not come from allowed list of modules.
+        self.tid                = _exactly_bytes(tid)
+        self.status             = _exactly_str(status)
+        self.user               = _exactly_bytes(user)
+        self.description        = _exactly_bytes(description)
+        self.extension_bytes    = _exactly_bytes(extension)
         self.objv               = objv
 
     # ZODB wants to work with extension as {} - try to convert it on the fly.
@@ -593,3 +601,28 @@ class HashOnly(object):
 
     def __eq__(a, b):
         return isinstance(b, HashOnly) and a.size == b.size
+
+
+# _exactly_bytes returns obj as an instance of exactly type bytes.
+#
+# obj must be initially an instance of bytes, e.g. bstr.
+def _exactly_bytes(obj): # -> bytes
+    assert isinstance(obj, bytes),  type(obj)
+    if type(obj) is not bytes:
+        obj = b(obj)        # bstr
+        obj = obj.encode()  # bytes
+    assert type(obj) is bytes,  type(obj)
+    return obj
+
+
+# _exactly_str returns obj as an instance of exactly type str.
+#
+# obj must be initially an instance of bytes or str/unicode, e.g. bstr or ustr.
+def _exactly_str(obj): # -> str
+    if type(obj) is not str:
+        obj = b(obj)        # bstr
+        obj = obj.encode()  # bytes
+        if str is not bytes:
+            obj = obj.decode('UTF-8')
+    assert type(obj) is str,  type(obj)
+    return obj
