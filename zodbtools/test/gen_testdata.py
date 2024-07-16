@@ -105,6 +105,12 @@ class Object(Persistent):
 rand = random.Random()
 del random
 
+# keys returns list of obj.keys() in predictable order independent of python version.
+def keys(obj):
+    vk = list(obj.keys())
+    vk.sort()
+    return vk
+
 # prepare extension dictionary for subject
 alnum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 def ext4subj(subj):
@@ -120,7 +126,7 @@ def ext4subj(subj):
     d[xcookie] = cookie
 
     # shufle extension dict randomly - to likely trigger different ordering on save
-    keyv = list(d.keys())
+    keyv = keys(d)
     rand.shuffle(keyv)
     ext = {}
     for key in keyv:
@@ -243,13 +249,13 @@ def _gen_testdb(outfs_path, zext):
         # create a cyclic object -> object reference
         # pretty=zpickledis used not to handle this well because in ZODB pickle the reference
         # referes to referred type by GET that is prepared by PUT in class part of the pickle.
-        name = rand.choice(list(root.keys()))
+        name = rand.choice(keys(root))
         obj = root[name]
         obj.value = obj
         commit(u"user", u"cyclic reference", ext("cycle"))
 
         # delete an object
-        name = rand.choice(list(root.keys()))
+        name = rand.choice(keys(root))
         obj = root[name]
         root[name] = Object("%s%i*" % (name, i))
         # NOTE user/ext are kept empty on purpose - to also test this case
