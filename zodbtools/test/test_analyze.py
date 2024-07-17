@@ -24,9 +24,9 @@ import os.path
 from golang import b
 
 
-def test_zodbanalyze(tmpdir, capsys):
+def test_zodbanalyze(tmpdir, ztestdata, capsys):
     tfs1 = fs1_testdata_py23(tmpdir,
-                    os.path.join(os.path.dirname(__file__), "testdata", "1.fs"))
+                    os.path.join(ztestdata.prefix, "data.fs"))
 
     for use_dbm in (False, True):
         report(
@@ -55,13 +55,11 @@ def test_zodbanalyze(tmpdir, capsys):
         csv=True,
     )
     captured = capsys.readouterr()
-    assert (
-        """Class Name,T.Count,T.Bytes,Pct,AvgSize,C.Count,C.Bytes,O.Count,O.Bytes
-persistent.mapping.PersistentMapping,3,639,22.468354%,213.000000,1,213,2,426
-__main__.Object,65,2205,77.531646%,33.923077,9,310,56,1895
-"""
-        == captured.out
-    )
+
+    with open('%s/zanalyze.csv.ok' % ztestdata.prefix, 'r') as f:
+        zanalyze_csv_ok = f.read()
+
+    assert captured.out == zanalyze_csv_ok
     assert captured.err == ""
 
     # empty range
