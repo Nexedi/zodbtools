@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (C) 2019-2022  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
@@ -72,9 +71,10 @@ def _zext_supported():
 def fs1_testdata_py23(tmpdir, path):
     data  = readfile(path)
     index = readfile(path + ".index")
-    assert data[:4] == b"FS21"      # FileStorage magic for Python2
-    if PY3:
-        data = b"FS30" + data[4:]   # FileStorage magic for Python3
+    head  = data[:4]
+    assert head in (b"FS21", b"FS30")   # FileStorage magics for Python2 and Python3
+    head = b"FS30" if PY3 else b"FS21"
+    data = head + data[4:]
 
     path_ = "%s/%s" % (tmpdir, basename(path))
 

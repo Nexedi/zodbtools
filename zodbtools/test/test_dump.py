@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2022  Nexedi SA and Contributors.
+# Copyright (C) 2017-2024  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #                          Jérome Perrin <jerome@nexedi.com>
 #
@@ -28,21 +28,35 @@ from ZODB.FileStorage import FileStorage
 from ZODB.utils import p64
 from io import BytesIO
 
-from os.path import dirname
+from zodbtools.test.testutil import fs1_testdata_py23
+from pytest import mark, raises
 
-from zodbtools.test.testutil import zext_supported, fs1_testdata_py23
-from pytest import mark, raises, xfail
+from six import PY3
+
 
 # verify zodbdump output against golden
 @mark.parametrize('pretty', ('raw', 'zpickledis'))
-def test_zodbdump(tmpdir, zext, pretty):
-    tdir  = dirname(__file__)
-    zkind = '_!zext' if zext.disabled else ''
-    tfs1  = fs1_testdata_py23(tmpdir, '%s/testdata/1%s.fs' % (tdir, zkind))
+def test_zodbdump(tmpdir, ztestdata, pretty):
+    tfs1  = fs1_testdata_py23(tmpdir, '%s/data.fs' % ztestdata.prefix)
     stor  = FileStorage(tfs1, read_only=True)
 
-    with open('%s/testdata/1%s.zdump.%s.ok' % (tdir, zkind, pretty), 'rb') as f:
+    with open('%s/zdump.%s.ok' % (ztestdata.prefix, pretty), 'rb') as f:
         dumpok = f.read()
+
+    # normalize zpickledis.ok to current python:
+    # unicode comes as *UNICODE u'... on py2 and *UNICODE '... on py3
+    # bytes   comes as *BYTES '...    on py2 and *BYTES b'...  on py3
+    if pretty == 'zpickledis':
+        if PY3:
+            dumpok = dumpok.replace(b"UNICODE u'", b"UNICODE '")
+            dumpok = dumpok.replace(b'UNICODE u"', b'UNICODE "')
+            dumpok = dumpok.replace(b"BYTES '",    b"BYTES b'")
+            dumpok = dumpok.replace(b'BYTES "',    b'BYTES b"')
+        else:
+            dumpok = dumpok.replace(b"UNICODE '",  b"UNICODE u'")
+            dumpok = dumpok.replace(b'UNICODE "',  b'UNICODE u"')
+            dumpok = dumpok.replace(b"BYTES b'",   b"BYTES '")
+            dumpok = dumpok.replace(b'BYTES b"',   b'BYTES "')
 
     out = BytesIO()
     zodbdump(stor, None, None, pretty=pretty, out=out)
