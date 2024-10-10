@@ -21,9 +21,9 @@
 
 from zodbtools.zodbcommit import zodbcommit
 from zodbtools.zodbdump import zodbdump, Transaction, ObjectData, ObjectDelete, ObjectCopy
-from zodbtools.util import storageFromURL, sha1, ashex, fromhex
+from zodbtools.util import storageFromURL, sha1, ashex, fromhex, BytesIO
 from ZODB.utils import p64, u64, z64
-from ZODB._compat import BytesIO, dumps, _protocol   # XXX can't yet commit with arbitrary ext.bytes
+from ZODB._compat import dumps, _protocol   # XXX can't yet commit with arbitrary ext.bytes
 
 from golang import func, defer, b
 from golang.gcompat import qq

@@ -64,8 +64,8 @@ TODO also protect txn record by hash.
 
 from __future__ import print_function
 from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL, hashRegistry, asbinstream
-from ZODB._compat import loads, _protocol, BytesIO
+        storageFromURL, hashRegistry, asbinstream, BytesIO
+from ZODB._compat import loads, _protocol
 from zodbpickle.slowpickle import Pickler as pyPickler
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer

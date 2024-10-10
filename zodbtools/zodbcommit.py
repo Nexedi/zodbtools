@@ -40,11 +40,10 @@ can query current database head (last_tid) with `zodb info <stor> last_tid`.
 
 from __future__ import print_function
 from zodbtools import zodbdump
-from zodbtools.util import ashex, fromhex, storageFromURL, asbinstream
+from zodbtools.util import ashex, fromhex, storageFromURL, asbinstream, BytesIO
 from ZODB.interfaces import IStorageRestoreable
 from ZODB.utils import p64, u64, z64
 from ZODB.POSException import POSKeyError
-from ZODB._compat import BytesIO
 from golang import func, defer, panic, b
 import warnings
 
