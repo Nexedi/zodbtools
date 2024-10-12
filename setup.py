@@ -26,7 +26,7 @@ setup(
                   'test': ['pytest', 'freezegun', 'pytz', 'mock;python_version<="2.7"', 'random2', 'ZEO[test]'],
     },
 
-    entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main']},
+    entry_points= {'console_scripts': ['zodb = zodbtools.zodb:main', 'incpozo = zodbtools.incpozo:main']},
 
     # FIXME restore py3 support
     classifiers = [_.strip() for _ in """\
