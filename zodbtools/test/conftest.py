@@ -142,7 +142,11 @@ class TestZEOSrv(TestZSrv):
         self.tmpd = mkdtemp('', 'test_zeo.')
         self.log  = '%s/zeo.log' % self.tmpd
         port  = self.zeo_forker.get_port()
-        zconf = self.zeo_forker.ZEOConfig(('', port), log=self.log)
+        if self.z5:
+            zconf = self.zeo_forker.ZEOConfig(('', port), log=self.log)
+        else:
+            zconf = self.zeo_forker.ZEOConfig(('', port))
+            zconf.logpath = self.log
         _ = self.zeo_forker.start_zeo_server(path='%s/1.fs' % self.tmpd, zeo_conf=zconf, port=port)
         if self.z5:
             self.addr, self.stop = _
