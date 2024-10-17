@@ -92,6 +92,8 @@ def hex64(packed):
     return '0x%016x' % unpack64(packed)
 
 # make time.time() predictable
+os.environ['TZ'] = 'GMT-3'
+time.tzset()
 _xtime0 = time.mktime(time.strptime("04 Jan 1979", "%d %b %Y"))
 def xtime_reset():
     global _xtime
