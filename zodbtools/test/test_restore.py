@@ -24,9 +24,11 @@ from zodbtools.zodbrestore import zodbrestore
 from zodbtools.util import storageFromURL, readfile
 from zodbtools.test.testutil import fs1_testdata_py23
 
+from pytest import mark
 from golang import func, defer
 
 # verify zodbrestore.
+@mark.need_zext_support
 @func
 def test_zodbrestore(tmpdir, ztestdata):
     # restore from zdump.ok and verify it gives result that is

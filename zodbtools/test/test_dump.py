@@ -35,6 +35,7 @@ from six import PY3
 
 
 # verify zodbdump output against golden
+@mark.need_zext_support
 @mark.parametrize('pretty', ('raw', 'zpickledis'))
 def test_zodbdump(tmpdir, ztestdata, pretty):
     tfs1  = fs1_testdata_py23(tmpdir, '%s/data.fs' % ztestdata.prefix)
