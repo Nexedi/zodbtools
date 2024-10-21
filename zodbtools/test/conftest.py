@@ -50,6 +50,8 @@ def ztestdata(request): # -> ZTestData
     _.name  = name
     _.zext  = zext
     _.zkind = zkind
+    if zext and request.node.get_closest_marker("need_zext_support"):
+        _xfail_if_zext_unsupported(request)
     return _
 
 class ZTestData(object):
@@ -96,10 +98,14 @@ def zext(request):
         def _(ext):
             return ext
         _.disabled = False
-        if not zext_supported():
-            request.applymarker(pytest.mark.xfail(reason='ZODB does not have txn.extension_bytes support'))
+        _xfail_if_zext_unsupported(request)
         return _
 
+
+# _xfail_if_zext_unsupported applies xfail marker to request if zext is not supported by ZODB.
+def _xfail_if_zext_unsupported(request):
+    if not zext_supported():
+        request.applymarker(pytest.mark.xfail(reason='ZODB does not have txn.extension_bytes support'))
 
 
 # TestZSrv is base class for all test ZODB storages.
