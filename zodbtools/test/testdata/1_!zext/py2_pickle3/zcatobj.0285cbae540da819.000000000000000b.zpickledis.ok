@@ -1,0 +1,15 @@
+    0: \x80 PROTO      3
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     1
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      3
+   24: }    EMPTY_DICT
+   25: q    BINPUT     2
+   27: U    SHORT_BINSTRING 'state'
+   34: q    BINPUT     3
+   36: U    SHORT_BINSTRING 'initial'
+   45: q    BINPUT     4
+   47: s    SETITEM
+   48: .    STOP
+highest protocol among opcodes = 2

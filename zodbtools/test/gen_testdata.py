@@ -97,9 +97,6 @@ def p64(num):
 def unpack64(packed):
     return struct.unpack('>Q', packed)[0]
 
-def hex64(packed):
-    return '0x%016x' % unpack64(packed)
-
 # make time.time() predictable
 os.environ['TZ'] = 'GMT-3'
 time.tzset()
@@ -139,6 +136,22 @@ class Object(Persistent):
 
     def __setstate__(self, state):
         self.value = state
+
+
+class NonPersistentObject:
+    # .value
+    def __init__(self, value):
+        self.value = value
+
+
+class NonPersistentObjectWithReduce(object):
+    # .value
+    def __init__(self, value):
+        self.value = value
+
+    def __reduce__(self):
+        return self.__class__, (self.value, )
+
 
 # rand is our private PRNG.
 # It is made independent to stay predictable even if third-party code uses random as well.
@@ -268,7 +281,11 @@ def _run_with_zodb4py2_compat(f, protocol):
 # gen_testdb generates test FileStorage database @ outfs_path.
 #
 # zext indicates whether or not to include non-empty extension into transactions.
+#
+# The returned value is a list of (transaction id, object id) to generate reference outputs
+# for sub-commands working with object states.
 def gen_testdb(outfs_path, zext=True):
+    xids = []
     xtime_reset()
 
     def ext(subj):
@@ -364,25 +381,50 @@ def gen_testdb(outfs_path, zext=True):
         stor.tpc_vote(txn_stormeta)
         stor.tpc_finish(txn_stormeta)
 
+        if (i + 1) == Niter:
+            # add some objects in the end to verify "zodb catobj"
+            def xcommit(description, *objv):
+                commit(u"user", description, {})
+                head = stor.lastTransaction()
+                for obj in objv:
+                    xids.append((head, obj._p_oid))
+
+            root["obj1"] = obj1 = Object({"state": "initial"})
+            xcommit(u"simple persistent object, initial state", obj1)
+
+            obj3 = Object("persistent_reference target")
+            root["persistent_reference"] = obj2 = Object(obj3)
+            xcommit(u"persistent reference", obj2, obj3)
+
+            root["obj4"] = obj4 = Object(NonPersistentObject((1, 'two')))
+            xcommit(u"instance of user class", obj4)
+
+            root["obj5"] = obj5 = Object(NonPersistentObjectWithReduce("value"))
+            xcommit(u"instance of user class using __reduce__", obj5)
+
+            obj1.value = {"state": "updated"}
+            xcommit(u"simple persistent object, updated state", obj1)
+
         # close db & rest not to get conflict errors after we touched stor
         # directly a bit. everything will be reopened on next iteration.
         conn.close()
         db.close()
         stor.close()
+    return xids
 
 # ----------------------------------------
-
+from zodbtools.zodbcatobj import zodbcatobj, zodbdumpobj
 from zodbtools.zodbdump import zodbdump
 from zodbtools import zodbanalyze
 from zodbtools.test.testutil import zext_supported
-from zodbtools.util import prettyPrintRegistry
+from zodbtools.util import ashex, prettyPrintRegistry, Xid
 
 def main():
     # check that ZODB supports txn.extension_bytes; refuse to work if not.
     if not zext_supported():
         raise RuntimeError("gen_testdata must be used with ZODB that supports txn.extension_bytes")
 
-    top = "testdata/1"
+    top = "%s/testdata/1" % os.path.dirname(__file__)
     def _():
         for zext in [True, False]:
             prefix = "%s%s/%s" % (top, "" if zext else "_!zext", current_zkind())
@@ -391,13 +433,18 @@ def main():
             os.makedirs(prefix)
 
             outfs = "%s/data.fs" % prefix
-            gen_testdb(outfs, zext=zext)
+            xids = gen_testdb(outfs, zext=zext)
 
-            # prepare zdump.ok for generated database
+            # prepare zdump.ok and zcatobj.ok for generated database
             stor = FileStorage(outfs, read_only=True)
             for pretty in prettyPrintRegistry:
                 with open("%s/zdump.%s.ok" % (prefix, pretty), "wb") as f:
                     zodbdump(stor, None, None, pretty=pretty, out=f)
+                for tid, oid in xids:
+                    with open("%s/zcatobj.%s.%s.%s.ok" % (prefix, ashex(tid), ashex(oid), pretty), "wb") as f:
+                        zodbcatobj(stor, Xid(tid, oid), pretty=pretty, out=f)
+                    with open("%s/zcatobj-raw.%s.%s.%s.ok" % (prefix, ashex(tid), ashex(oid), pretty), "wb") as f:
+                        zodbdumpobj(stor, Xid(tid, oid), pretty=pretty, out=f)
 
             # prepare zanalyze.csv.ok
             sys_stdout = sys.stdout
