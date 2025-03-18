@@ -1,0 +1,24 @@
+    0: \x80 PROTO      3
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     0
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      3
+   24: c    GLOBAL     '__main__ NonPersistentObject'
+   54: q    BINPUT     1
+   56: )    EMPTY_TUPLE
+   57: \x81 NEWOBJ
+   58: q    BINPUT     2
+   60: }    EMPTY_DICT
+   61: q    BINPUT     3
+   63: X    BINUNICODE 'value'
+   73: q    BINPUT     4
+   75: K    BININT1    1
+   77: X    BINUNICODE 'two'
+   85: q    BINPUT     5
+   87: \x86 TUPLE2
+   88: q    BINPUT     6
+   90: s    SETITEM
+   91: b    BUILD
+   92: .    STOP
+highest protocol among opcodes = 2

@@ -1,0 +1,12 @@
+    0: \x80 PROTO      3
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     1
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      3
+   24: C    SHORT_BINBYTES '\x00\x00\x00\x00\x00\x00\x00\r'
+   34: h    BINGET     1
+   36: \x86 TUPLE2
+   37: Q    BINPERSID
+   38: .    STOP
+highest protocol among opcodes = 3

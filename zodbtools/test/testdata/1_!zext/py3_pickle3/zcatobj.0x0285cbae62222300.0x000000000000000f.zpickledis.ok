@@ -1,0 +1,16 @@
+    0: \x80 PROTO      3
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     0
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      3
+   24: c    GLOBAL     '__main__ NonPersistentObjectWithReduce'
+   64: q    BINPUT     1
+   66: X    BINUNICODE 'value'
+   76: q    BINPUT     2
+   78: \x85 TUPLE1
+   79: q    BINPUT     3
+   81: R    REDUCE
+   82: q    BINPUT     4
+   84: .    STOP
+highest protocol among opcodes = 2
