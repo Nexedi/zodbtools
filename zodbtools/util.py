@@ -89,6 +89,13 @@ def txnobjv(txn):
     objv.sort(key = lambda obj: obj.oid)    # in canonical order
     return objv
 
+
+# loadAt loads oid state as of give at revision.
+def loadAt(stor, oid, at): # -> (data, serial) | POSKeyError
+    data, serial, _ = stor.loadBefore(oid, at2before(at))  # raises POSKeyError if oid not found
+    return (data, serial)
+
+
 # "tidmin..tidmax" -> (tidmin, tidmax)
 class TidInvalid(ValueError):
     pass

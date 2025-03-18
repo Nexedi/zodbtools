@@ -1,0 +1,14 @@
+    0: c    GLOBAL     '__main__ Object'
+   17: q    BINPUT     1
+   19: .    STOP
+highest protocol among opcodes = 1
+   20: c    GLOBAL     '__main__ NonPersistentObjectWithReduce'
+   60: q    BINPUT     2
+   62: (    MARK
+   63: U        SHORT_BINSTRING 'value'
+   70: q        BINPUT     3
+   72: t        TUPLE      (MARK at 62)
+   73: R    REDUCE
+   74: q    BINPUT     4
+   76: .    STOP
+highest protocol among opcodes = 1

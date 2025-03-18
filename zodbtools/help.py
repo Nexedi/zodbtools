@@ -125,6 +125,13 @@ default format.
 
 This displays the output of `pickletools.dis` on record data. This is useful to
 inspect the pickle data with annotations.
+
+    --pretty=pprint
+
+This displays the representation of python objects serialized in the record are
+loaded and displayed using `pprint` module. Note that this only load "standard"
+objects but does not load actual user classes, as they may not be available in
+the enviromment running zodb command.
 """
 
 
