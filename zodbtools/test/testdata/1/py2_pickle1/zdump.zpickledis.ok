@@ -1862,3 +1862,452 @@ extension
   highest protocol among opcodes = 1
 obj 0000000000000002 delete
 
+txn 0285cbae540da819 " "
+user "obj1"
+description "obj1"
+extension ""
+obj 0000000000000000 241 sha1:88496d99540cf083fcc50e04fb706cbeca61962b
+      0: c    GLOBAL     'persistent.mapping PersistentMapping'
+     38: q    BINPUT     1
+     40: .    STOP
+  highest protocol among opcodes = 1
+     41: }    EMPTY_DICT
+     42: q    BINPUT     2
+     44: U    SHORT_BINSTRING 'data'
+     50: q    BINPUT     3
+     52: }    EMPTY_DICT
+     53: q    BINPUT     4
+     55: (    MARK
+     56: U        SHORT_BINSTRING 'a'
+     59: (        MARK
+     60: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+     70: q            BINPUT     5
+     72: c            GLOBAL     '__main__ Object'
+     89: q            BINPUT     6
+     91: t            TUPLE      (MARK at 59)
+     92: Q        BINPERSID
+     93: U        SHORT_BINSTRING 'obj1'
+     99: q        BINPUT     7
+    101: (        MARK
+    102: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0b'
+    112: q            BINPUT     8
+    114: h            BINGET     6
+    116: t            TUPLE      (MARK at 101)
+    117: Q        BINPERSID
+    118: U        SHORT_BINSTRING 'c'
+    121: (        MARK
+    122: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    132: q            BINPUT     9
+    134: h            BINGET     6
+    136: t            TUPLE      (MARK at 121)
+    137: Q        BINPERSID
+    138: U        SHORT_BINSTRING 'b'
+    141: (        MARK
+    142: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+    152: q            BINPUT     10
+    154: h            BINGET     6
+    156: t            TUPLE      (MARK at 141)
+    157: Q        BINPERSID
+    158: U        SHORT_BINSTRING 'e'
+    161: (        MARK
+    162: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    172: q            BINPUT     11
+    174: h            BINGET     6
+    176: t            TUPLE      (MARK at 161)
+    177: Q        BINPERSID
+    178: U        SHORT_BINSTRING 'd'
+    181: (        MARK
+    182: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\n'
+    192: q            BINPUT     12
+    194: h            BINGET     6
+    196: t            TUPLE      (MARK at 181)
+    197: Q        BINPERSID
+    198: U        SHORT_BINSTRING 'g'
+    201: (        MARK
+    202: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    212: q            BINPUT     13
+    214: h            BINGET     6
+    216: t            TUPLE      (MARK at 201)
+    217: Q        BINPERSID
+    218: U        SHORT_BINSTRING 'f'
+    221: (        MARK
+    222: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    232: q            BINPUT     14
+    234: h            BINGET     6
+    236: t            TUPLE      (MARK at 221)
+    237: Q        BINPERSID
+    238: u        SETITEMS   (MARK at 55)
+    239: s    SETITEM
+    240: .    STOP
+  highest protocol among opcodes = 1
+
+obj 000000000000000b 51 sha1:f39545cf285a565fc6015c42db456bbda1a2762b
+      0: c    GLOBAL     '__main__ Object'
+     17: q    BINPUT     1
+     19: .    STOP
+  highest protocol among opcodes = 1
+     20: }    EMPTY_DICT
+     21: q    BINPUT     2
+     23: U    SHORT_BINSTRING 'state'
+     30: q    BINPUT     3
+     32: U    SHORT_BINSTRING 'simple object'
+     47: q    BINPUT     4
+     49: s    SETITEM
+     50: .    STOP
+  highest protocol among opcodes = 1
+
+
+txn 0285cbae58bf2666 " "
+user "obj2"
+description "obj2"
+extension ""
+obj 0000000000000000 282 sha1:1b0dd6923c43922277d973374ed041cb16ace1d2
+      0: c    GLOBAL     'persistent.mapping PersistentMapping'
+     38: q    BINPUT     1
+     40: .    STOP
+  highest protocol among opcodes = 1
+     41: }    EMPTY_DICT
+     42: q    BINPUT     2
+     44: U    SHORT_BINSTRING 'data'
+     50: q    BINPUT     3
+     52: }    EMPTY_DICT
+     53: q    BINPUT     4
+     55: (    MARK
+     56: U        SHORT_BINSTRING 'a'
+     59: (        MARK
+     60: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+     70: q            BINPUT     5
+     72: c            GLOBAL     '__main__ Object'
+     89: q            BINPUT     6
+     91: t            TUPLE      (MARK at 59)
+     92: Q        BINPERSID
+     93: U        SHORT_BINSTRING 'obj1'
+     99: q        BINPUT     7
+    101: (        MARK
+    102: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0b'
+    112: q            BINPUT     8
+    114: h            BINGET     6
+    116: t            TUPLE      (MARK at 101)
+    117: Q        BINPERSID
+    118: U        SHORT_BINSTRING 'c'
+    121: (        MARK
+    122: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    132: q            BINPUT     9
+    134: h            BINGET     6
+    136: t            TUPLE      (MARK at 121)
+    137: Q        BINPERSID
+    138: U        SHORT_BINSTRING 'b'
+    141: (        MARK
+    142: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+    152: q            BINPUT     10
+    154: h            BINGET     6
+    156: t            TUPLE      (MARK at 141)
+    157: Q        BINPERSID
+    158: U        SHORT_BINSTRING 'e'
+    161: (        MARK
+    162: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    172: q            BINPUT     11
+    174: h            BINGET     6
+    176: t            TUPLE      (MARK at 161)
+    177: Q        BINPERSID
+    178: U        SHORT_BINSTRING 'd'
+    181: (        MARK
+    182: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\n'
+    192: q            BINPUT     12
+    194: h            BINGET     6
+    196: t            TUPLE      (MARK at 181)
+    197: Q        BINPERSID
+    198: U        SHORT_BINSTRING 'g'
+    201: (        MARK
+    202: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    212: q            BINPUT     13
+    214: h            BINGET     6
+    216: t            TUPLE      (MARK at 201)
+    217: Q        BINPERSID
+    218: U        SHORT_BINSTRING 'f'
+    221: (        MARK
+    222: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    232: q            BINPUT     14
+    234: h            BINGET     6
+    236: t            TUPLE      (MARK at 221)
+    237: Q        BINPERSID
+    238: U        SHORT_BINSTRING 'persistent_reference'
+    260: q        BINPUT     15
+    262: (        MARK
+    263: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0c'
+    273: q            BINPUT     16
+    275: h            BINGET     6
+    277: t            TUPLE      (MARK at 262)
+    278: Q        BINPERSID
+    279: u        SETITEMS   (MARK at 55)
+    280: s    SETITEM
+    281: .    STOP
+  highest protocol among opcodes = 1
+
+obj 000000000000000c 38 sha1:dd3f2ea73358987da49c09c7ad5e3d59bba53f95
+      0: c    GLOBAL     '__main__ Object'
+     17: q    BINPUT     1
+     19: .    STOP
+  highest protocol among opcodes = 1
+     20: (    MARK
+     21: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\r'
+     31: q        BINPUT     2
+     33: h        BINGET     1
+     35: t        TUPLE      (MARK at 20)
+     36: Q    BINPERSID
+     37: .    STOP
+  highest protocol among opcodes = 1
+
+obj 000000000000000d 45 sha1:e70ff68891fe969a3dd298c8c0c082c1daeeb0e6
+      0: c    GLOBAL     '__main__ Object'
+     17: q    BINPUT     1
+     19: .    STOP
+  highest protocol among opcodes = 1
+     20: U    SHORT_BINSTRING 'persistent_reference'
+     42: q    BINPUT     2
+     44: .    STOP
+  highest protocol among opcodes = 1
+
+
+txn 0285cbae5d70a4b3 " "
+user "obj4"
+description "obj4"
+extension ""
+obj 0000000000000000 307 sha1:6fc9433259ded4f67f5612dc99995367e299f48c
+      0: c    GLOBAL     'persistent.mapping PersistentMapping'
+     38: q    BINPUT     1
+     40: .    STOP
+  highest protocol among opcodes = 1
+     41: }    EMPTY_DICT
+     42: q    BINPUT     2
+     44: U    SHORT_BINSTRING 'data'
+     50: q    BINPUT     3
+     52: }    EMPTY_DICT
+     53: q    BINPUT     4
+     55: (    MARK
+     56: U        SHORT_BINSTRING 'a'
+     59: (        MARK
+     60: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+     70: q            BINPUT     5
+     72: c            GLOBAL     '__main__ Object'
+     89: q            BINPUT     6
+     91: t            TUPLE      (MARK at 59)
+     92: Q        BINPERSID
+     93: U        SHORT_BINSTRING 'obj1'
+     99: q        BINPUT     7
+    101: (        MARK
+    102: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0b'
+    112: q            BINPUT     8
+    114: h            BINGET     6
+    116: t            TUPLE      (MARK at 101)
+    117: Q        BINPERSID
+    118: U        SHORT_BINSTRING 'c'
+    121: (        MARK
+    122: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    132: q            BINPUT     9
+    134: h            BINGET     6
+    136: t            TUPLE      (MARK at 121)
+    137: Q        BINPERSID
+    138: U        SHORT_BINSTRING 'b'
+    141: (        MARK
+    142: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+    152: q            BINPUT     10
+    154: h            BINGET     6
+    156: t            TUPLE      (MARK at 141)
+    157: Q        BINPERSID
+    158: U        SHORT_BINSTRING 'e'
+    161: (        MARK
+    162: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    172: q            BINPUT     11
+    174: h            BINGET     6
+    176: t            TUPLE      (MARK at 161)
+    177: Q        BINPERSID
+    178: U        SHORT_BINSTRING 'd'
+    181: (        MARK
+    182: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\n'
+    192: q            BINPUT     12
+    194: h            BINGET     6
+    196: t            TUPLE      (MARK at 181)
+    197: Q        BINPERSID
+    198: U        SHORT_BINSTRING 'g'
+    201: (        MARK
+    202: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    212: q            BINPUT     13
+    214: h            BINGET     6
+    216: t            TUPLE      (MARK at 201)
+    217: Q        BINPERSID
+    218: U        SHORT_BINSTRING 'f'
+    221: (        MARK
+    222: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    232: q            BINPUT     14
+    234: h            BINGET     6
+    236: t            TUPLE      (MARK at 221)
+    237: Q        BINPERSID
+    238: U        SHORT_BINSTRING 'persistent_reference'
+    260: q        BINPUT     15
+    262: (        MARK
+    263: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0c'
+    273: q            BINPUT     16
+    275: h            BINGET     6
+    277: t            TUPLE      (MARK at 262)
+    278: Q        BINPERSID
+    279: U        SHORT_BINSTRING 'obj4'
+    285: q        BINPUT     17
+    287: (        MARK
+    288: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0e'
+    298: q            BINPUT     18
+    300: h            BINGET     6
+    302: t            TUPLE      (MARK at 287)
+    303: Q        BINPERSID
+    304: u        SETITEMS   (MARK at 55)
+    305: s    SETITEM
+    306: .    STOP
+  highest protocol among opcodes = 1
+
+obj 000000000000000e 84 sha1:c2ef1b683d06b8065b3c9daf626997181345302a
+      0: c    GLOBAL     '__main__ Object'
+     17: q    BINPUT     1
+     19: .    STOP
+  highest protocol among opcodes = 1
+     20: (    MARK
+     21: c        GLOBAL     '__main__ NonPersistentObject'
+     51: q        BINPUT     2
+     53: o        OBJ        (MARK at 20)
+     54: q    BINPUT     3
+     56: }    EMPTY_DICT
+     57: q    BINPUT     4
+     59: U    SHORT_BINSTRING 'value'
+     66: q    BINPUT     5
+     68: (    MARK
+     69: K        BININT1    1
+     71: U        SHORT_BINSTRING 'two'
+     76: q        BINPUT     6
+     78: t        TUPLE      (MARK at 68)
+     79: q    BINPUT     7
+     81: s    SETITEM
+     82: b    BUILD
+     83: .    STOP
+  highest protocol among opcodes = 1
+
+
+txn 0285cbae62222300 " "
+user "obj5"
+description "obj5"
+extension ""
+obj 0000000000000000 332 sha1:ea61035b7c8aa936810575c0688d73e174036727
+      0: c    GLOBAL     'persistent.mapping PersistentMapping'
+     38: q    BINPUT     1
+     40: .    STOP
+  highest protocol among opcodes = 1
+     41: }    EMPTY_DICT
+     42: q    BINPUT     2
+     44: U    SHORT_BINSTRING 'data'
+     50: q    BINPUT     3
+     52: }    EMPTY_DICT
+     53: q    BINPUT     4
+     55: (    MARK
+     56: U        SHORT_BINSTRING 'a'
+     59: (        MARK
+     60: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x05'
+     70: q            BINPUT     5
+     72: c            GLOBAL     '__main__ Object'
+     89: q            BINPUT     6
+     91: t            TUPLE      (MARK at 59)
+     92: Q        BINPERSID
+     93: U        SHORT_BINSTRING 'obj1'
+     99: q        BINPUT     7
+    101: (        MARK
+    102: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0b'
+    112: q            BINPUT     8
+    114: h            BINGET     6
+    116: t            TUPLE      (MARK at 101)
+    117: Q        BINPERSID
+    118: U        SHORT_BINSTRING 'c'
+    121: (        MARK
+    122: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x07'
+    132: q            BINPUT     9
+    134: h            BINGET     6
+    136: t            TUPLE      (MARK at 121)
+    137: Q        BINPERSID
+    138: U        SHORT_BINSTRING 'b'
+    141: (        MARK
+    142: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x08'
+    152: q            BINPUT     10
+    154: h            BINGET     6
+    156: t            TUPLE      (MARK at 141)
+    157: Q        BINPERSID
+    158: U        SHORT_BINSTRING 'e'
+    161: (        MARK
+    162: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\t'
+    172: q            BINPUT     11
+    174: h            BINGET     6
+    176: t            TUPLE      (MARK at 161)
+    177: Q        BINPERSID
+    178: U        SHORT_BINSTRING 'd'
+    181: (        MARK
+    182: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\n'
+    192: q            BINPUT     12
+    194: h            BINGET     6
+    196: t            TUPLE      (MARK at 181)
+    197: Q        BINPERSID
+    198: U        SHORT_BINSTRING 'g'
+    201: (        MARK
+    202: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x03'
+    212: q            BINPUT     13
+    214: h            BINGET     6
+    216: t            TUPLE      (MARK at 201)
+    217: Q        BINPERSID
+    218: U        SHORT_BINSTRING 'f'
+    221: (        MARK
+    222: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x01'
+    232: q            BINPUT     14
+    234: h            BINGET     6
+    236: t            TUPLE      (MARK at 221)
+    237: Q        BINPERSID
+    238: U        SHORT_BINSTRING 'obj5'
+    244: q        BINPUT     15
+    246: (        MARK
+    247: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0f'
+    257: q            BINPUT     16
+    259: h            BINGET     6
+    261: t            TUPLE      (MARK at 246)
+    262: Q        BINPERSID
+    263: U        SHORT_BINSTRING 'persistent_reference'
+    285: q        BINPUT     17
+    287: (        MARK
+    288: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0c'
+    298: q            BINPUT     18
+    300: h            BINGET     6
+    302: t            TUPLE      (MARK at 287)
+    303: Q        BINPERSID
+    304: U        SHORT_BINSTRING 'obj4'
+    310: q        BINPUT     19
+    312: (        MARK
+    313: U            SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\x0e'
+    323: q            BINPUT     20
+    325: h            BINGET     6
+    327: t            TUPLE      (MARK at 312)
+    328: Q        BINPERSID
+    329: u        SETITEMS   (MARK at 55)
+    330: s    SETITEM
+    331: .    STOP
+  highest protocol among opcodes = 1
+
+obj 000000000000000f 49 sha1:ccfad5c432e7df7a1948a09271cd34b800292860
+      0: c    GLOBAL     '__main__ Object'
+     17: q    BINPUT     1
+     19: .    STOP
+  highest protocol among opcodes = 1
+     20: c    GLOBAL     're _compile'
+     33: q    BINPUT     2
+     35: (    MARK
+     36: U        SHORT_BINSTRING '.*'
+     40: q        BINPUT     3
+     42: K        BININT1    0
+     44: t        TUPLE      (MARK at 35)
+     45: R    REDUCE
+     46: q    BINPUT     4
+     48: .    STOP
+  highest protocol among opcodes = 1
+
+
