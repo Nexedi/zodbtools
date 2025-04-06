@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2017-2024  Nexedi SA and Contributors.
+# Copyright (C) 2017-2025  Nexedi SA and Contributors.
 #                          Kirill Smelkov <kirr@nexedi.com>
 #
 # This program is free software: you can Use, Study, Modify and Redistribute
@@ -64,6 +64,15 @@ Golden zodbdump & zodbanalyze outputs are also generated besides databases thems
 #      metadata - so it is not tested
 
 # NOTE besides zodbtools this module is also used in ZODB/go and in Wendelin.core .
+
+# NOTE this script requires ZODB ≥ 5 to run correctly
+def _():
+    import pkg_resources
+    dzodb = pkg_resources.working_set.find(pkg_resources.Requirement.parse('ZODB'))
+    vzodb = dzodb.parsed_version
+    zmajor = int(vzodb.public.split('.')[0])  # 5.2.x -> 5
+    assert zmajor >= 5, zmajor
+_()
 
 from ZODB.FileStorage import FileStorage
 from ZODB import DB
