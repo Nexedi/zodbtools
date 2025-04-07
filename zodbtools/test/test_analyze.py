@@ -40,7 +40,7 @@ def test_zodbanalyze(tmpdir, ztestdata, capsys):
             csv=False,
         )
         captured = capsys.readouterr()
-        assert "Processed 70 records in 67 transactions" in captured.out
+        assert "Processed 79 records in 71 transactions" in captured.out
         assert captured.err == ""
 
     # csv output

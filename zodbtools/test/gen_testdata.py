@@ -83,6 +83,7 @@ import transaction
 
 import os
 import os.path
+import re
 import sys
 import shutil
 import struct
@@ -139,6 +140,13 @@ class Object(Persistent):
 
     def __setstate__(self, state):
         self.value = state
+
+
+class NonPersistentObject:
+    # .value
+    def __init__(self, value):
+        self.value = value
+
 
 # rand is our private PRNG.
 # It is made independent to stay predictable even if third-party code uses random as well.
@@ -363,6 +371,24 @@ def gen_testdb(outfs_path, zext=True):
         stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn_stormeta)
         stor.tpc_vote(txn_stormeta)
         stor.tpc_finish(txn_stormeta)
+
+        if (i + 1) == Niter:
+            # add some objects at the end, to verify "zodb show"
+            root["obj1"] = obj1 = Object({"state": "simple object"})
+            commit(u"obj1", u"obj1", {})
+            assert obj1._p_oid == p64(11), repr(obj1._p_oid)
+            obj3 = Object("persistent_reference")
+            root["persistent_reference"] = obj2 = Object(obj3)
+            commit(u"obj2", u"obj2", {})
+            assert obj2._p_oid == p64(12), repr(obj2._p_oid)
+            assert obj3._p_oid == p64(13), repr(obj3._p_oid)
+            commit(u"obj2", u"obj2", {})
+            root["obj4"] = obj4 = Object(NonPersistentObject((1, 'two')))
+            commit(u"obj4", u"obj4", {})
+            assert obj4._p_oid == p64(14), repr(obj4._p_oid)
+            root["obj5"] = obj5 = Object(re.compile(".*"))
+            commit(u"obj5", u"obj5", {})
+            assert obj5._p_oid == p64(15), repr(obj5._p_oid)
 
         # close db & rest not to get conflict errors after we touched stor
         # directly a bit. everything will be reopened on next iteration.
