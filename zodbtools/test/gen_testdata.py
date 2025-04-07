@@ -76,7 +76,8 @@ _()
 
 from ZODB.FileStorage import FileStorage
 from ZODB import DB
-from ZODB.Connection import TransactionMetaData
+import ZODB.Connection
+TransactionMetaData = getattr(ZODB.Connection, 'TransactionMetaData', None) # not on ZODB4
 from ZODB.POSException import UndoError
 from persistent import Persistent
 import transaction
@@ -358,7 +359,10 @@ def gen_testdb(outfs_path, zext=True):
                         u"delete %i\nalpha beta gamma'delta\"lambda\n\nqqq ..." % i,
                         ext("delete %s" % unpack64(obj._p_oid)))
         # at low level stor requires ZODB.IStorageTransactionMetaData not txn (ITransaction)
-        txn_stormeta = TransactionMetaData(txn.user, txn.description, txn.extension)
+        if TransactionMetaData is not None:
+            txn_stormeta = TransactionMetaData(txn.user, txn.description, txn.extension)
+        else:
+            txn_stormeta = txn # ZODB4
         stor.tpc_begin(txn_stormeta)
         stor.deleteObject(obj._p_oid, obj_tid_lastchange, txn_stormeta)
         stor.tpc_vote(txn_stormeta)
