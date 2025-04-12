@@ -89,5 +89,28 @@ In commands <tidrange> is optional - if it is not given at all, it defaults to
 0..+∞, i.e. to whole database history.
 """
 
+help_xid = """\
+An object address for loading from ZODB should be specified as follows:
+
+	- tid
+	- ":"
+	- oid
+
+tid follows the same specification as in tidrange ( see zodb help tidrange )
+
+oid can be specified as follows:
+
+    - a 16-digit hex number specifying object ID, e.g. 0000000000001234
+    - a hex number with 0x prefix specifying the oid in the format
+      from ZODB.util.oid_repr, which is generally used in ZODB logs or error
+      messages, e.g. 0x01234
+
+for example
+
+	0285cbac258bf266:0000000000000001	- oid 1 at first newest transaction changing it with tid <= 0285cbac258bf266
+
+"""
+
 topic_dict['zurl']      = "specifying database URL",    help_zurl
 topic_dict['tidrange']  = "specifying history range",   help_tidrange
+topic_dict['xid']       = "specifying object address",  help_xid
