@@ -25,6 +25,7 @@ import zodburi
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
+from ZODB.utils import repr_to_oid
 import dateparser
 
 
@@ -92,14 +93,14 @@ def parse_tid(tid_string, raw_only=False):
 
     # If it "looks like a TID", don't try to parse it as time,
     # because parsing is slow.
-    if len(tid_string) == 16:
+    if len(tid_string) == 16 or b(tid_string)[:2] == b('0x'):
         try:
-            return fromhex(tid_string)
+            return repr_to_oid(tid_string)
         except ValueError:
             pass
 
     if raw_only:
-        # either it was not 16-char string or hex decoding failed
+        # either it was not 16-char string or repr_to_oid failed
         raise TidInvalid(tid_string)
 
     # preprocess to support `1.day.ago` style formats like git log does.

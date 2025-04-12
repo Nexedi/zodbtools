@@ -67,6 +67,9 @@ inclusive. Both tidmin and tidmax are optional and default to
 If a tid (tidmin or tidmax) is given, it has to be specified as follows:
 
     - a 16-digit hex number specifying transaction ID, e.g. 0285cbac258bf266
+    - a hex number with 0x prefix specifying the transaction ID in the format
+      from ZODB.util.tid_repr, which is generally used in ZODB logs or error
+      messages, e.g. 0x0285cbac258bf266
     - absolute timestamp, in RFC3339 or RFC822 formats
     - relative timestamp, e.g. yesterday, 1 week ago
 
