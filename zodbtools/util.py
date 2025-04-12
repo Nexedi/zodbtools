@@ -20,13 +20,24 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib, struct, codecs, io
+import collections, hashlib, struct, codecs, io
 import zodburi
+import six
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
-from ZODB.utils import repr_to_oid
+from ZODB.utils import oid_repr, repr_to_oid, tid_repr
 import dateparser
+
+
+if six.PY2:
+    # BBB backport at2before
+    def at2before(at):  # -> before
+        """at2before converts `at` TID to corresponding `before`."""
+        from ZODB.utils import p64, u64
+        return p64(u64(at) + 1)
+else:
+    from ZODB.utils import at2before
 
 
 from golang import b
@@ -125,6 +136,48 @@ def parse_tid(tid_string, raw_only=False):
             parsed_time.hour,
             parsed_time.minute,
             parsed_time.second + parsed_time.microsecond / 1000000.).raw()
+
+
+class Xid(collections.namedtuple('Xid', ('tid', 'oid'))):
+    """Xid represents an object reference: a tid and an oid
+    """
+    __slots__ = ()
+
+    def __str__(self):
+        return '%s:%s' % (tid_repr(self.tid), oid_repr(self.oid))
+
+    def __repr__(self):
+        return "Xid('%s')" % str(self)
+
+    @property
+    def next_tid(self):
+        """Returns next tid, for use with ZODB.interfaces.IStorage.loadBefore.
+        """
+        return at2before(self.tid)
+
+
+class XidInvalid(ValueError):
+    pass
+
+
+def parse_xid(xid_string):
+    """Parse a string as a Xid
+    """
+    try:
+        tid_string, oid_string = xid_string.rsplit(":", 1)
+    except ValueError:
+        raise XidInvalid(xid_string)
+
+    try:
+        oid = repr_to_oid(oid_string)
+    except (ValueError, TypeError):
+        # '\x00\x00\x00\x00\x00\x124V' from dump --pretty zpickledis
+        oid = codecs.decode(oid_string, 'unicode_escape').encode()
+
+    if len(oid) != 8:
+        raise XidInvalid(xid_string)
+
+    return Xid(parse_tid(tid_string), oid)
 
 
 # parse_tidrange parses a string into (tidmin, tidmax).

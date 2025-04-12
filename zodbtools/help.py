@@ -86,5 +86,19 @@ In commands <tidrange> is optional - if it is not given at all, it defaults to
 0..+∞, i.e. to whole database history.
 """
 
+help_xid = """\
+An object address for loading from ZODB should be specified as follows:
+
+	- tid
+	- ":"
+	- oid
+
+for example
+
+	0285cbac258bf266:0000000000000001	- oid 1 at first newest transaction changing it with tid <= 0285cbac258bf266
+
+"""
+
 topic_dict['zurl']      = "specifying database URL",    help_zurl
 topic_dict['tidrange']  = "specifying history range",   help_tidrange
+topic_dict['xid']       = "specifying object address",  help_xid
