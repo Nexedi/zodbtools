@@ -23,20 +23,18 @@ from zodbtools.zodbdump import (
         zodbdump, DumpReader, Transaction, ObjectDelete, ObjectCopy,
         ObjectData, HashOnly
     )
-from zodbtools.util import fromhex
+from zodbtools.util import fromhex, prettyPrintRegistry
 from ZODB.FileStorage import FileStorage
 from ZODB.utils import p64
 from io import BytesIO
 
-from zodbtools.test.testutil import fs1_testdata_py23
+from zodbtools.test.testutil import fs1_testdata_py23, normalize_zpickledis
 from pytest import mark, raises
-
-from six import PY3
 
 
 # verify zodbdump output against golden
 @mark.need_zext_support
-@mark.parametrize('pretty', ('raw', 'zpickledis'))
+@mark.parametrize('pretty', prettyPrintRegistry.keys())
 def test_zodbdump(tmpdir, ztestdata, pretty):
     tfs1  = fs1_testdata_py23(tmpdir, '%s/data.fs' % ztestdata.prefix)
     stor  = FileStorage(tfs1, read_only=True)
@@ -44,20 +42,8 @@ def test_zodbdump(tmpdir, ztestdata, pretty):
     with open('%s/zdump.%s.ok' % (ztestdata.prefix, pretty), 'rb') as f:
         dumpok = f.read()
 
-    # normalize zpickledis.ok to current python:
-    # unicode comes as *UNICODE u'... on py2 and *UNICODE '... on py3
-    # bytes   comes as *BYTES '...    on py2 and *BYTES b'...  on py3
     if pretty == 'zpickledis':
-        if PY3:
-            dumpok = dumpok.replace(b"UNICODE u'", b"UNICODE '")
-            dumpok = dumpok.replace(b'UNICODE u"', b'UNICODE "')
-            dumpok = dumpok.replace(b"BYTES '",    b"BYTES b'")
-            dumpok = dumpok.replace(b'BYTES "',    b'BYTES b"')
-        else:
-            dumpok = dumpok.replace(b"UNICODE '",  b"UNICODE u'")
-            dumpok = dumpok.replace(b'UNICODE "',  b'UNICODE u"')
-            dumpok = dumpok.replace(b"BYTES b'",   b"BYTES '")
-            dumpok = dumpok.replace(b'BYTES b"',   b'BYTES "')
+        dumpok = normalize_zpickledis(dumpok)
 
     out = BytesIO()
     zodbdump(stor, None, None, pretty=pretty, out=out)

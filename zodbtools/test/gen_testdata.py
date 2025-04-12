@@ -375,6 +375,8 @@ def gen_testdb(outfs_path, zext=True):
 from zodbtools.zodbdump import zodbdump
 from zodbtools import zodbanalyze
 from zodbtools.test.testutil import zext_supported
+from zodbtools.util import prettyPrintRegistry
+
 
 def main():
     # check that ZODB supports txn.extension_bytes; refuse to work if not.
@@ -394,7 +396,7 @@ def main():
 
             # prepare zdump.ok for generated database
             stor = FileStorage(outfs, read_only=True)
-            for pretty in ('raw', 'zpickledis'):
+            for pretty in prettyPrintRegistry:
                 with open("%s/zdump.%s.ok" % (prefix, pretty), "wb") as f:
                     zodbdump(stor, None, None, pretty=pretty, out=f)
 

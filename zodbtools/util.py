@@ -20,6 +20,7 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
+from io import BytesIO
 import collections, hashlib, struct, codecs, io
 import zodburi
 import six
@@ -36,11 +37,16 @@ if six.PY2:
         """at2before converts `at` TID to corresponding `before`."""
         from ZODB.utils import p64, u64
         return p64(u64(at) + 1)
+    from zodbpickle import pickletools_2 as zpickletools
 else:
     from ZODB.utils import at2before
+    from zodbpickle import pickletools_3 as zpickletools
+
+from six import StringIO  # io.StringIO does not accept non-unicode strings on py2
 
 
 from golang import b
+from golang.gcompat import qq
 
 
 def ashex(s):
@@ -305,3 +311,62 @@ def readfile(path): # -> data(bytes)
 def writefile(path, data):
     with open(path, 'wb') as _:
         _.write(data)
+
+
+# ---- Pretty Printing ----
+
+# indent returns text with each line of it indented with prefix.
+def indent(text, prefix): # -> text
+    textv = text.splitlines(True)
+    textv = [prefix+_ for _ in textv]
+    text  = ''.join(textv)
+    return text
+
+
+class RawPrettyPrinter:
+    """return raw data.
+    """
+    def format_extension(self, rawext):
+        return b"extension %s\n" % qq(rawext)
+
+    def format_record(self, data, prefix=''):
+        return data
+
+
+class ZPickleDisPrettyPrinter:
+    """format data with pickle disassembler.
+    """
+    def format_extension(self, rawext):
+        if not rawext:
+            return b'extension ""\n'
+
+        extf = BytesIO(rawext)
+        disf = StringIO()
+        zpickletools.dis(extf, disf)
+        out = b"extension\n" + b(indent(disf.getvalue(), "  "))
+        extra = extf.read()
+        if len(extra) > 0:
+            out += b"  + extra data %s\n" % qq(extra)
+        return out
+
+    def format_record(self, data, prefix=''):
+        dataf = BytesIO(data)
+
+        # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
+        # https://github.com/zopefoundation/ZODB/blob/5.8.1-0-g72cebe6bc/src/ZODB/serialize.py#L436-L443
+        disf  = StringIO()
+        memo = {} # memo is shared in between class and state
+        zpickletools.dis(dataf, disf, memo) # class
+        zpickletools.dis(dataf, disf, memo) # state
+        out = b(indent(disf.getvalue(), prefix))
+        extra = dataf.read()
+        if len(extra) > 0:
+            out += b"%s+ extra data %s\n" % (prefix, qq(extra))
+        return out
+
+
+prettyPrintRegistry = {
+    'raw': RawPrettyPrinter(),
+    'zpickledis': ZPickleDisPrettyPrinter(),
+}
+
