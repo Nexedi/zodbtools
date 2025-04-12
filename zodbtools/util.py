@@ -91,7 +91,7 @@ def parse_tid(tid_string, raw_only=False):
     corresponding raw TID.
     If `tid_string` cannot be parsed as a time, assume it was
     already a TID.
-    This function also raise TidRangeInvalid when `tid_string`
+    This function also raise TidInvalid when `tid_string`
     is invalid.
     """
     assert isinstance(tid_string, (str, bytes))
