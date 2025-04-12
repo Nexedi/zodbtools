@@ -111,6 +111,24 @@ for example
 
 """
 
+
+help_pretty = """\
+Several subcommands support --pretty=<format> option to output records in a
+different format. The following formats are available:
+
+    --pretty=raw
+
+This displays the bytes of the record data, in binary format. This is the
+default format.
+
+    --pretty=zpickledis
+
+This displays the output of `pickletools.dis` on record data. This is useful to
+inspect the pickle data with annotations.
+"""
+
+
 topic_dict['zurl']      = "specifying database URL",    help_zurl
 topic_dict['tidrange']  = "specifying history range",   help_tidrange
 topic_dict['xid']       = "specifying object address",  help_xid
+topic_dict['pretty']    = "choosing output format",     help_pretty

@@ -34,8 +34,8 @@ data is printed without content.
 
 Alternatively, the dump can be produced in other "pretty" formats, that zodb
 restore will not be able to restore, but that are more suitable for analysis.
-The output format can be selected with --pretty "format" option. The following
-formats are available:
+The output format can be selected with --pretty "format" option, as described
+in `zodb help pretty`.
 
   raw           default zodb dump format
   zpickledis    display the disassembled pickles, using pickletools.dis.
@@ -64,24 +64,19 @@ TODO also protect txn record by hash.
 
 from __future__ import print_function
 from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL, hashRegistry, asbinstream
+        storageFromURL, hashRegistry, asbinstream, prettyPrintRegistry
 from ZODB._compat import loads, _protocol
 from zodbpickle.slowpickle import Pickler as pyPickler
 from ZODB.interfaces import IStorageTransactionInformation
 from zope.interface import implementer
 
-import sys
-if sys.version_info.major < 3:
-    from zodbpickle import pickletools_2 as zpickletools
-else:
-    from zodbpickle import pickletools_3 as zpickletools
 
 from io import BytesIO
 import logging as log
 import re
+import sys
 from golang.gcompat import qq
 from golang import func, defer, strconv, b
-from six import StringIO  # io.StringIO does not accept non-unicode strings on py2
 
 # txn_raw_extension returns raw extension from txn metadata
 def txn_raw_extension(stor, txn):
@@ -107,9 +102,7 @@ _already_warned_notxnraw = set()
 # zodbdump dumps content of a ZODB storage to a file.
 # please see module doc-string for dump format and details
 def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream(sys.stdout)):
-    def badpretty():
-        raise ValueError("invalid pretty format %s" % pretty)
-
+    pretty_printer = prettyPrintRegistry[pretty]
     for txn in stor.iterator(tidmin, tidmax):
         # XXX .status not covered by IStorageTransactionInformation
         # XXX but covered by BaseStorage.TransactionRecord
@@ -120,68 +113,42 @@ def zodbdump(stor, tidmin, tidmax, hashonly=False, pretty='raw', out=asbinstream
 
         # extension is saved by ZODB as either empty or as pickle dump of an object
         rawext = txn_raw_extension(stor, txn)
-        if pretty == 'raw':
-            out.write(b"extension %s\n" % qq(rawext))
-        elif pretty == 'zpickledis':
-            if len(rawext) == 0:
-                out.write(b'extension ""\n')
-            else:
-                out.write(b"extension\n")
-                extf = BytesIO(rawext)
-                disf = StringIO()
-                zpickletools.dis(extf, disf)
-                out.write(b(indent(disf.getvalue(), "  ")))
-                extra = extf.read()
-                if len(extra) > 0:
-                    out.write(b"  + extra data %s\n" % qq(extra))
-        else:
-            badpretty()
+        out.write(b"extension %s\n" % pretty_printer.format_extension(rawext))
 
         objv = txnobjv(txn)
 
         for obj in objv:
-            entry = b"obj %s " % ashex(obj.oid)
-            write_data = False
-
-            if obj.data is None:
-                entry += b"delete"
-
-            # was undo and data taken from obj.data_txn
-            elif obj.data_txn is not None:
-                entry += b"from %s" % ashex(obj.data_txn)
-
-            else:
-                # XXX sha1 is hardcoded for now. Dump format allows other hashes.
-                entry += b"%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
-                write_data = True
-
-            out.write(b(entry))
-
-            if write_data:
-                if hashonly:
-                    out.write(b" -")
-                else:
-                    out.write(b"\n")
-                    if pretty == 'raw':
-                        out.write(obj.data)
-                    elif pretty == 'zpickledis':
-                        # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
-                        # https://github.com/zopefoundation/ZODB/blob/5.8.1-0-g72cebe6bc/src/ZODB/serialize.py#L436-L443
-                        dataf = BytesIO(obj.data)
-                        disf  = StringIO()
-                        memo = {} # memo is shared in between class and state
-                        zpickletools.dis(dataf, disf, memo) # class
-                        zpickletools.dis(dataf, disf, memo) # state
-                        out.write(b(indent(disf.getvalue(), "  ")))
-                        extra = dataf.read()
-                        if len(extra) > 0:
-                            out.write(b"  + extra data %s\n" % qq(extra))
-                    else:
-                        badpretty()
-
-            out.write(b"\n")
-
+            _dumpobj(obj, hashonly, pretty, out)
         out.write(b"\n")
+
+
+def _dumpobj(obj, hashonly, pretty, out):
+    pretty_printer = prettyPrintRegistry[pretty]
+
+    entry = b"obj %s " % ashex(obj.oid)
+    write_data = False
+
+    if obj.data is None:
+        entry += b"delete"
+
+    # was undo and data taken from obj.data_txn
+    elif obj.data_txn is not None:
+        entry += b"from %s" % ashex(obj.data_txn)
+
+    else:
+        # XXX sha1 is hardcoded for now. Dump format allows other hashes.
+        entry += b"%i sha1:%s" % (len(obj.data), ashex(sha1(obj.data)))
+        write_data = True
+
+    out.write(b(entry))
+
+    if write_data:
+        if hashonly:
+            out.write(b" -")
+        else:
+            out.write(b"\n")
+            out.write(pretty_printer.format_record(obj.data))
+    out.write(b"\n")
 
 # ----------------------------------------
 # XPickler is Pickler that tries to save objects stably
@@ -274,16 +241,10 @@ def serializeext(ext):
     assert loads(out) == ext
     return out
 
-# indent returns text with each line of it indented with prefix.
-def indent(text, prefix): # -> text
-    textv = text.splitlines(True)
-    textv = [prefix+_ for _ in textv]
-    text  = ''.join(textv)
-    return text
 
 
 # ----------------------------------------
-import sys, getopt
+import getopt
 
 summary = "dump content of a ZODB database"
 
@@ -297,8 +258,7 @@ Dump content of a ZODB database.
 
 Options:
 
-        --pretty=<format> output in a given format, where <format> can be one
-                          of raw, zpickledis
+        --pretty=<format> output in a given format (see 'zodb help pretty')
         --hashonly        dump only hashes of objects without content
     -h  --help            show this help
 """, file=out)
@@ -306,7 +266,7 @@ Options:
 @func
 def main(argv):
     hashonly = False
-    pretty   = 'raw';  prettyok = {'raw', 'zpickledis'}
+    pretty   = 'raw'
 
     try:
         optv, argv = getopt.getopt(argv[1:], "h", ["help", "hashonly", "pretty="])
@@ -323,7 +283,7 @@ def main(argv):
             hashonly = True
         if opt in ("--pretty"):
             pretty = arg
-            if pretty not in prettyok:
+            if pretty not in prettyPrintRegistry:
                 print("E: unsupported pretty format: %s" % pretty, file=sys.stderr)
                 sys.exit(2)
 
