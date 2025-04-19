@@ -82,6 +82,7 @@ def fs1_testdata_py23(tmpdir, path):
     writefile("%s.index" % path_, index)
     return path_
 
+
 # normalize_zpickledis normalizes the output of pretty=zpickledis between python versions:
 #   unicode comes as *UNICODE u'... on py2 and *UNICODE '... on py3
 #   bytes   comes as *BYTES '...    on py2 and *BYTES b'...  on py3

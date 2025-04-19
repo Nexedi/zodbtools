@@ -38,6 +38,8 @@ The output format can be selected with --pretty "format" option. The following
 formats are available:
 
   raw           default zodb dump format
+  pprint        loads the objects and displays their reprensentations using
+                pprint.pformat. ⚠ Only use on trusted database content ⚠
   zpickledis    display the disassembled pickles, using pickletools.dis.
 
 Raw dump format:

@@ -53,7 +53,7 @@ Print a record stored in a ZODB database.
 
 Options:
         --pretty=<format> output in a given format, where <format> can be one
-                          of raw, zpickledis
+                          of pprint, raw, zpickledis
         --hashonly        dump only hashes of record without content
     -h  --help            show this help
 

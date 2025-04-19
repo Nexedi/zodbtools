@@ -21,13 +21,14 @@
 # See https://www.nexedi.com/licensing for rationale and options.
 
 from io import BytesIO
-import collections, hashlib, struct, codecs, io
+import collections, hashlib, pprint, struct, codecs, io
 import zodburi
 import six
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 from ZODB.utils import oid_repr, repr_to_oid, tid_repr
+from ZODB._compat import PersistentUnpickler
 import dateparser
 
 
@@ -365,8 +366,76 @@ class ZPickleDisPrettyPrinter:
         return out
 
 
+class PyPrettyPrinter:
+    """Format data by loading objects from pickle and using their native representations.
+    """
+    def format_extension(self, rawext):
+        if not rawext:
+            return b""
+        return self._pprint_objects(rawext, 1)
+
+    def format_record(self, data, prefix=''):
+        return self._pprint_objects(data, 2)
+
+    def _pprint_objects(self, data, object_count):
+        unpickler = self._get_unpickler(BytesIO(data))
+        outf = StringIO()
+        for _ in range(object_count):
+            pprint.pprint(unpickler.load(), stream=outf)
+        return b(outf.getvalue())
+
+    def _get_unpickler(self, f):
+        def load_persistent(pid):
+            PersistentReference = collections.namedtuple(
+                'PersistentReference', ['p_oid', 'class_meta'])
+            try:
+                p_oid, class_meta = pid
+                p_oid = str(oid_repr(b(p_oid)))
+            except ValueError:
+                p_oid = pid
+                class_meta = '?'
+            return PersistentReference(p_oid, class_meta)
+
+        def find_global(module, name):
+            class Instance(object):
+                _mode = 'state'
+                def __init__(self, *state):
+                    self._state = state
+                    if state:
+                        self._mode = 'reduce'
+                def __setstate__(self, state):
+                    self._state = state
+                def __repr__(self):
+                    return 'Instance(class=%s, %s=%s)' % (
+                        self.__class__,
+                        self._mode,
+                        pprint.pformat(self._state)
+                    )
+            return type(name, (Instance,), {'__module__': module})
+
+        if six.PY2:
+            import zodbpickle.pickle_2
+            import marshal
+            class StrUnpickler(zodbpickle.pickle_2.Unpickler):
+                """Unpickler that loads python3 BINUNICODE as str.
+
+                This is mostly for stable output in the tests.
+                """
+                dispatch = zodbpickle.pickle_2.Unpickler.dispatch.copy()
+                def load_binunicode(self):
+                    len = marshal.loads('i' + self.read(4))
+                    self.append(self.read(len))
+                dispatch[zodbpickle.pickle_2.BINUNICODE] = load_binunicode
+            unpickler = StrUnpickler(f)
+            unpickler.find_class = find_global
+            unpickler.persistent_load = load_persistent
+            return unpickler
+
+        return PersistentUnpickler(find_global, load_persistent, f)
+
+
 prettyPrintRegistry = {
     'raw': RawPrettyPrinter(),
     'zpickledis': ZPickleDisPrettyPrinter(),
+    'pprint': PyPrettyPrinter(),
 }
-
