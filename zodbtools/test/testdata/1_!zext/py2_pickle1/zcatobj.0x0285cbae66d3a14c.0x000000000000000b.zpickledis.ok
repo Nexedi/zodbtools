@@ -1,0 +1,13 @@
+    0: c    GLOBAL     '__main__ Object'
+   17: q    BINPUT     1
+   19: .    STOP
+highest protocol among opcodes = 1
+   20: }    EMPTY_DICT
+   21: q    BINPUT     2
+   23: U    SHORT_BINSTRING 'state'
+   30: q    BINPUT     3
+   32: U    SHORT_BINSTRING 'updated'
+   41: q    BINPUT     4
+   43: s    SETITEM
+   44: .    STOP
+highest protocol among opcodes = 1

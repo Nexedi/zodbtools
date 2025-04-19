@@ -1,0 +1,642 @@
+txn 0285cbac70a3d733 "p"
+user "user0.12"
+description "step 0.12"
+obj 0000000000000001 34 sha1:9fae782fe3e33273b520c954925704856ca90dc6
+<class '__main__.Object'>
+'f0.12'
+
+
+txn 0285cbac7eb85219 "p"
+user "user0.15"
+description "step 0.15"
+obj 0000000000000006 34 sha1:5dbf26359289e5a25f9755f832ea91cc8ee76686
+<class '__main__.Object'>
+'e0.15'
+
+
+txn 0285cbac917e4b4c "p"
+user "user0.19"
+description "step 0.19"
+obj 0000000000000005 34 sha1:9e0a8797eb8f60498563703b1961126fba35be9b
+<class '__main__.Object'>
+'a0.19'
+
+
+txn 0285cbac9ae147e6 "p"
+user "user0.21"
+description "step 0.21"
+obj 0000000000000002 34 sha1:009174c1f01142f24495fa13738749ff528fd82c
+<class '__main__.Object'>
+'d0.21'
+
+
+txn 0285cbacada74119 "p"
+user "root0.0\nYour\nMagesty "
+description "undo 0.0\nmore detailed description\n\nzzz ..."
+obj 0000000000000007 34 sha1:688eb65eab5e4c5ee5242b027bb9bfa5e1087598
+<class '__main__.Object'>
+'c0.22'
+
+
+txn 0285cbacb258bf66 "p"
+user "root0.1\nYour\nMagesty "
+description "undo 0.1\nmore detailed description\n\nzzz ...\t"
+obj 0000000000000003 34 sha1:484358413b2746e8a05b1e3173051abedd28e1fa
+<class '__main__.Object'>
+'g0.11'
+
+
+txn 0285cbacbbbbbc00 "p"
+user ""
+description "predelete 4"
+obj 0000000000000000 213 sha1:a6e70638fafd4619841032356ae93a4da7b539c5
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x02', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x06', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>)}}
+
+obj 0000000000000008 32 sha1:936674657cf846998d27356363832827fa612092
+<class '__main__.Object'>
+'b0*'
+
+
+txn 0285cbad02222280 " "
+user "user1.0"
+description "step 1.0"
+obj 0000000000000006 33 sha1:f18e991b87b63cf1f9486d74d70020ff8d573eec
+<class '__main__.Object'>
+'e1.0'
+
+
+txn 0285cbad06d3a0cc " "
+user "user1.1"
+description "step 1.1"
+obj 0000000000000008 33 sha1:c37e1d2350c8fc4e18cdbc53b432dba50e5196ba
+<class '__main__.Object'>
+'b1.1'
+
+
+txn 0285cbad0b851f19 " "
+user "user1.2"
+description "step 1.2"
+obj 0000000000000003 33 sha1:28e9880fc0f50a9fea5c4a9e861adc1fe44c9f5c
+<class '__main__.Object'>
+'g1.2'
+
+
+txn 0285cbad10369d66 " "
+user "user1.3"
+description "step 1.3"
+obj 0000000000000003 33 sha1:5fb466e36ea6f847b73ad7976def8ad60e00e766
+<class '__main__.Object'>
+'g1.3'
+
+
+txn 0285cbad14e81bb3 " "
+user "user1.4"
+description "step 1.4"
+obj 0000000000000007 33 sha1:90b0ffa657df9de708913a2cbbd454126fd9de15
+<class '__main__.Object'>
+'c1.4'
+
+
+txn 0285cbad19999a00 " "
+user "user1.5"
+description "step 1.5"
+obj 0000000000000001 33 sha1:70b0a88b7652b82b82539800484dc7788277f32a
+<class '__main__.Object'>
+'f1.5'
+
+
+txn 0285cbad1e4b184c " "
+user "user1.6"
+description "step 1.6"
+obj 0000000000000002 33 sha1:e9018b0bc67c9de08becf1f1fe1a548ed263fb29
+<class '__main__.Object'>
+'d1.6'
+
+
+txn 0285cbad22fc9699 " "
+user "user1.7"
+description "step 1.7"
+obj 0000000000000007 33 sha1:0cd3f4b725517a5371429e2ef2f56ea54fe405fb
+<class '__main__.Object'>
+'c1.7'
+
+
+txn 0285cbad27ae14e6 " "
+user "user1.8"
+description "step 1.8"
+obj 0000000000000007 33 sha1:13e366fb1d15d36a62099e6b835638407718229f
+<class '__main__.Object'>
+'c1.8'
+
+
+txn 0285cbad2c5f9333 " "
+user "user1.9"
+description "step 1.9"
+obj 0000000000000006 33 sha1:3ac37991a56061c7407cc093ee2a71eef4379131
+<class '__main__.Object'>
+'e1.9'
+
+
+txn 0285cbad31111180 " "
+user "user1.10"
+description "step 1.10"
+obj 0000000000000005 34 sha1:407cc5710a22f6c387df45aab613aa3673b221c6
+<class '__main__.Object'>
+'a1.10'
+
+
+txn 0285cbad35c28fcc " "
+user "user1.11"
+description "step 1.11"
+obj 0000000000000007 34 sha1:88ab1add11652101077535c03b04e83fe4ddb88b
+<class '__main__.Object'>
+'c1.11'
+
+
+txn 0285cbad3a740e19 " "
+user "user1.12"
+description "step 1.12"
+obj 0000000000000006 34 sha1:4808aef147f8ded08ffaae2ce04265506385e7f7
+<class '__main__.Object'>
+'e1.12'
+
+
+txn 0285cbad3f258c66 " "
+user "user1.13"
+description "step 1.13"
+obj 0000000000000003 34 sha1:a9f47880096587b359fa7ea6a0fd213e800a24a4
+<class '__main__.Object'>
+'g1.13'
+
+
+txn 0285cbad43d70ab3 " "
+user "user1.14"
+description "step 1.14"
+obj 0000000000000003 34 sha1:e5b3820378e102a61be2b5998ded3182c106c7db
+<class '__main__.Object'>
+'g1.14'
+
+
+txn 0285cbad48888900 " "
+user "user1.15"
+description "step 1.15"
+obj 0000000000000002 34 sha1:f136bac1befa0fbd1ebd50218f8d9afe00b9b0a5
+<class '__main__.Object'>
+'d1.15'
+
+
+txn 0285cbad4d3a074c " "
+user "user1.16"
+description "step 1.16"
+obj 0000000000000003 34 sha1:778621ce5c5e97b65343b1ab0cc1a3ce5702fbc8
+<class '__main__.Object'>
+'g1.16'
+
+
+txn 0285cbad51eb8599 " "
+user "user1.17"
+description "step 1.17"
+obj 0000000000000001 34 sha1:eb6d2d192f3d8fe47a1b2e8119d390ed580c3fb4
+<class '__main__.Object'>
+'f1.17'
+
+
+txn 0285cbad569d03e6 " "
+user "user1.18"
+description "step 1.18"
+obj 0000000000000005 34 sha1:921682b323eb62f109d052bc1dfd4ffe0dbf79db
+<class '__main__.Object'>
+'a1.18'
+
+
+txn 0285cbad5b4e8233 " "
+user "user1.19"
+description "step 1.19"
+obj 0000000000000003 34 sha1:b0b31eb0b48548119153628eb3c6711d959e9f9b
+<class '__main__.Object'>
+'g1.19'
+
+
+txn 0285cbad60000080 " "
+user "user1.20"
+description "step 1.20"
+obj 0000000000000003 34 sha1:6bfd3298d0bea74cfa3d1f01bb722e958e3f1520
+<class '__main__.Object'>
+'g1.20'
+
+
+txn 0285cbad64b17ecc " "
+user "user1.21"
+description "step 1.21"
+obj 0000000000000006 34 sha1:0d4b4837500e84b190ea2f92b16ab8ec0c486db5
+<class '__main__.Object'>
+'e1.21'
+
+
+txn 0285cbad6962fd19 " "
+user "user1.22"
+description "step 1.22"
+obj 0000000000000005 34 sha1:eacbd02d0d78eece9d784da7f3fd0b2738ca6ce0
+<class '__main__.Object'>
+'a1.22'
+
+
+txn 0285cbad6e147b66 " "
+user "user1.23"
+description "step 1.23"
+obj 0000000000000005 34 sha1:1b443228d5a434ddd9616ecb5aa90672c0ce9ba2
+<class '__main__.Object'>
+'a1.23'
+
+
+txn 0285cbad72c5f9b3 " "
+user "user1.24"
+description "step 1.24"
+obj 0000000000000001 34 sha1:b35a1826cc6cb71b9ddff043f0e8f88b4d90281f
+<class '__main__.Object'>
+'f1.24'
+
+
+txn 0285cbad77777800 " "
+user "root1.0\nYour\nMagesty "
+description "undo 1.0\nmore detailed description\n\nzzz ...\t"
+obj 0000000000000005 from 0285cbad6962fd19
+
+txn 0285cbad7c28f64c " "
+user "root1.1\nYour\nMagesty "
+description "undo 1.1\nmore detailed description\n\nzzz ...\t\t"
+obj 0000000000000001 from 0285cbad51eb8599
+
+txn 0285cbad80da7499 " "
+user "user"
+description "cyclic reference"
+obj 0000000000000006 41 sha1:863d327e4b795efff7dff75bb73c0d20ea3981aa
+<class '__main__.Object'>
+PersistentReference(p_oid='0x06', class_meta=<class '__main__.Object'>)
+
+
+txn 0285cbad858bf2e6 " "
+user ""
+description "predelete 6"
+obj 0000000000000000 213 sha1:7247042925f5c18f3695d860eeb2759b78109a55
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x02', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>)}}
+
+obj 0000000000000009 32 sha1:1a43b55bc4a19245cce9eb5aa5ad411006f06afe
+<class '__main__.Object'>
+'e1*'
+
+
+txn 0285cbad8a3d7133 " "
+user "root1\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 1\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+obj 0000000000000006 delete
+
+txn 0285cbadc740db19 " "
+user "user2.0"
+description "step 2.0"
+obj 0000000000000001 33 sha1:7b5599bdbf192e2d33e2597b52c8a72a751ddd13
+<class '__main__.Object'>
+'f2.0'
+
+
+txn 0285cbadcbf25966 " "
+user "user2.1"
+description "step 2.1"
+obj 0000000000000002 33 sha1:50b0cf792f2fdc3fbfc5f47f148784924350e31c
+<class '__main__.Object'>
+'d2.1'
+
+
+txn 0285cbadd0a3d7b3 " "
+user "user2.2"
+description "step 2.2"
+obj 0000000000000003 33 sha1:71f1255a9751e0f223f079552e182cf26b27c0a6
+<class '__main__.Object'>
+'g2.2'
+
+
+txn 0285cbadd5555600 " "
+user "user2.3"
+description "step 2.3"
+obj 0000000000000003 33 sha1:e6236b8f0a4a2201c0c2375a8f360905108eff2d
+<class '__main__.Object'>
+'g2.3'
+
+
+txn 0285cbadda06d44c " "
+user "user2.4"
+description "step 2.4"
+obj 0000000000000009 33 sha1:55a37439e3dc66552d680833af332b8be83bfc2a
+<class '__main__.Object'>
+'e2.4'
+
+
+txn 0285cbaddeb85299 " "
+user "user2.5"
+description "step 2.5"
+obj 0000000000000005 33 sha1:6beb5d1ca083744ff1e8a13c0bee70c2df54a05c
+<class '__main__.Object'>
+'a2.5'
+
+
+txn 0285cbade369d0e6 " "
+user "user2.6"
+description "step 2.6"
+obj 0000000000000008 33 sha1:2a3221e27ac8fbf15ab75b38a9a65e727d237355
+<class '__main__.Object'>
+'b2.6'
+
+
+txn 0285cbade81b4f33 " "
+user "user2.7"
+description "step 2.7"
+obj 0000000000000003 33 sha1:408fddc8c7255c5e2ed94c239ac57c211ab94b6d
+<class '__main__.Object'>
+'g2.7'
+
+
+txn 0285cbadeccccd80 " "
+user "user2.8"
+description "step 2.8"
+obj 0000000000000002 33 sha1:72eda0cdae0addbec9472e28b5a9a91ecdf41bbf
+<class '__main__.Object'>
+'d2.8'
+
+
+txn 0285cbadf17e4bcc " "
+user "user2.9"
+description "step 2.9"
+obj 0000000000000009 33 sha1:f1d87ba386f57291ecc925020a05df06caedb278
+<class '__main__.Object'>
+'e2.9'
+
+
+txn 0285cbadf62fca19 " "
+user "user2.10"
+description "step 2.10"
+obj 0000000000000007 34 sha1:6696fa0434fadb645687c74c8561f0f55fce1fd6
+<class '__main__.Object'>
+'c2.10'
+
+
+txn 0285cbadfae14866 " "
+user "user2.11"
+description "step 2.11"
+obj 0000000000000002 34 sha1:14e8b27b3bc8bf5b4d86ca162cc1c912a29a1c05
+<class '__main__.Object'>
+'d2.11'
+
+
+txn 0285cbadff92c6b3 " "
+user "user2.12"
+description "step 2.12"
+obj 0000000000000003 34 sha1:db269b90a0df33aa7d411c672f93fb7d86bbdb87
+<class '__main__.Object'>
+'g2.12'
+
+
+txn 0285cbae04444500 " "
+user "user2.13"
+description "step 2.13"
+obj 0000000000000002 34 sha1:4b28f9e97ff4f61f3dfba30b9f7aceb4913215ce
+<class '__main__.Object'>
+'d2.13'
+
+
+txn 0285cbae08f5c34c " "
+user "user2.14"
+description "step 2.14"
+obj 0000000000000007 34 sha1:c3eabecf360015b4b7555abc3a0dc0cea77fe7ed
+<class '__main__.Object'>
+'c2.14'
+
+
+txn 0285cbae0da74199 " "
+user "user2.15"
+description "step 2.15"
+obj 0000000000000009 34 sha1:25ffaeb6090581d72bce075a765d3cf4198af90f
+<class '__main__.Object'>
+'e2.15'
+
+
+txn 0285cbae1258bfe6 " "
+user "user2.16"
+description "step 2.16"
+obj 0000000000000001 34 sha1:e934438dede49d14ee2d1d2afa8fa18774547764
+<class '__main__.Object'>
+'f2.16'
+
+
+txn 0285cbae170a3e33 " "
+user "user2.17"
+description "step 2.17"
+obj 0000000000000008 34 sha1:9961f82b3f01204f80efbb3b62a2b98d9d3202fa
+<class '__main__.Object'>
+'b2.17'
+
+
+txn 0285cbae1bbbbc80 " "
+user "user2.18"
+description "step 2.18"
+obj 0000000000000002 34 sha1:5294513e1e00c7de532f4f90068b2147bf87f673
+<class '__main__.Object'>
+'d2.18'
+
+
+txn 0285cbae206d3acc " "
+user "user2.19"
+description "step 2.19"
+obj 0000000000000009 34 sha1:523ec17c6d74016e3464d52bb7c7b7baa4b82a20
+<class '__main__.Object'>
+'e2.19'
+
+
+txn 0285cbae251eb919 " "
+user "user2.20"
+description "step 2.20"
+obj 0000000000000008 34 sha1:14b17f0e944432782cb270205b2e96948d112619
+<class '__main__.Object'>
+'b2.20'
+
+
+txn 0285cbae29d03766 " "
+user "user2.21"
+description "step 2.21"
+obj 0000000000000009 34 sha1:27744ea516240e0d00be75f26af9698f842bdda5
+<class '__main__.Object'>
+'e2.21'
+
+
+txn 0285cbae2e81b5b3 " "
+user "user2.22"
+description "step 2.22"
+obj 0000000000000009 34 sha1:a3f303ddd4f2fb9369f6fbbb38ae8030f7f8188d
+<class '__main__.Object'>
+'e2.22'
+
+
+txn 0285cbae33333400 " "
+user "user2.23"
+description "step 2.23"
+obj 0000000000000002 34 sha1:343bed4b31f4fe69a92ee51d28fd7b9cfd6ecb8b
+<class '__main__.Object'>
+'d2.23'
+
+
+txn 0285cbae37e4b24c " "
+user "user2.24"
+description "step 2.24"
+obj 0000000000000009 34 sha1:8804c60dc27b2e2f6908e2a099a5c5d4b5abc843
+<class '__main__.Object'>
+'e2.24'
+
+
+txn 0285cbae3c963099 " "
+user "root2.0\nYour\nMagesty "
+description "undo 2.0\nmore detailed description\n\nzzz ...\t\t"
+obj 0000000000000002 from 0285cbae1bbbbc80
+
+txn 0285cbae4147aee6 " "
+user "root2.1\nYour\nMagesty "
+description "undo 2.1\nmore detailed description\n\nzzz ...\t\t\t"
+obj 0000000000000009 from 0285cbae2e81b5b3
+
+txn 0285cbae45f92d33 " "
+user "user"
+description "cyclic reference"
+obj 0000000000000002 41 sha1:1e2e3ac81badec749c2082a08d205c06c6bb5119
+<class '__main__.Object'>
+PersistentReference(p_oid='0x02', class_meta=<class '__main__.Object'>)
+
+
+txn 0285cbae4aaaab80 " "
+user ""
+description "predelete 2"
+obj 0000000000000000 213 sha1:ee7932656b49c1a3f6271c9b58786f85a29179a2
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x0a', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>)}}
+
+obj 000000000000000a 32 sha1:c9a667705323348a209f8f3b22c1977dbcd3f7e9
+<class '__main__.Object'>
+'d2*'
+
+
+txn 0285cbae4f5c29cc " "
+user "root2\nYour\nRoyal\nMagesty' \x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+description "delete 2\nalpha beta gamma'delta\"lambda\n\nqqq ..."
+obj 0000000000000002 delete
+
+txn 0285cbae540da819 " "
+user "user"
+description "simple persistent object, initial state"
+obj 0000000000000000 237 sha1:e96e5b9d2e90bc92e606002c400dc4b0fe863173
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x0a', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>),
+          'obj1': PersistentReference(p_oid='0x0b', class_meta=<class '__main__.Object'>)}}
+
+obj 000000000000000b 49 sha1:d6bc11f59ffb15f34d28a1df6d3e3eabca15e721
+<class '__main__.Object'>
+{'state': 'initial'}
+
+
+txn 0285cbae58bf2666 " "
+user "user"
+description "persistent reference"
+obj 0000000000000000 277 sha1:8029dea117cad511680ad0bd6242d045485d4432
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x0a', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>),
+          'obj1': PersistentReference(p_oid='0x0b', class_meta=<class '__main__.Object'>),
+          'persistent_reference': PersistentReference(p_oid='0x0c', class_meta=<class '__main__.Object'>)}}
+
+obj 000000000000000c 41 sha1:be1c718e99b2fdb156d0e03519c94f181385161a
+<class '__main__.Object'>
+PersistentReference(p_oid='0x0d', class_meta=<class '__main__.Object'>)
+
+obj 000000000000000d 49 sha1:9c141c92fd0af6cd49b33d74db30696086049581
+<class '__main__.Object'>
+'persistent_reference'
+
+
+txn 0285cbae5d70a4b3 " "
+user "user"
+description "instance of user class"
+obj 0000000000000000 301 sha1:b27fcedce9d3e5270cd0129cdc892881cd5494e4
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x0a', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>),
+          'obj1': PersistentReference(p_oid='0x0b', class_meta=<class '__main__.Object'>),
+          'obj4': PersistentReference(p_oid='0x0e', class_meta=<class '__main__.Object'>),
+          'persistent_reference': PersistentReference(p_oid='0x0c', class_meta=<class '__main__.Object'>)}}
+
+obj 000000000000000e 87 sha1:852999f22a95eeb3c301012627162d8d1ed9648c
+<class '__main__.Object'>
+Instance(class=<class '__main__.NonPersistentObject'>, state={'value': (1, 'two')})
+
+
+txn 0285cbae62222300 " "
+user "user"
+description "instance of user class using __reduce__"
+obj 0000000000000000 325 sha1:3b5767c7b1fca8e410df7412e3088404b7d4e874
+<class 'persistent.mapping.PersistentMapping'>
+{'data': {'a': PersistentReference(p_oid='0x05', class_meta=<class '__main__.Object'>),
+          'b': PersistentReference(p_oid='0x08', class_meta=<class '__main__.Object'>),
+          'c': PersistentReference(p_oid='0x07', class_meta=<class '__main__.Object'>),
+          'd': PersistentReference(p_oid='0x0a', class_meta=<class '__main__.Object'>),
+          'e': PersistentReference(p_oid='0x09', class_meta=<class '__main__.Object'>),
+          'f': PersistentReference(p_oid='0x01', class_meta=<class '__main__.Object'>),
+          'g': PersistentReference(p_oid='0x03', class_meta=<class '__main__.Object'>),
+          'obj1': PersistentReference(p_oid='0x0b', class_meta=<class '__main__.Object'>),
+          'obj4': PersistentReference(p_oid='0x0e', class_meta=<class '__main__.Object'>),
+          'obj5': PersistentReference(p_oid='0x0f', class_meta=<class '__main__.Object'>),
+          'persistent_reference': PersistentReference(p_oid='0x0c', class_meta=<class '__main__.Object'>)}}
+
+obj 000000000000000f 80 sha1:0b12d8a3a9b6089f85292ced3c4b1dc9b3df5d59
+<class '__main__.Object'>
+Instance(class=<class '__main__.NonPersistentObjectWithReduce'>, reduce=('value',))
+
+
+txn 0285cbae66d3a14c " "
+user "user"
+description "simple persistent object, updated state"
+obj 000000000000000b 49 sha1:e094ea6598a1ef872b8b068bd09291a5a9162a95
+<class '__main__.Object'>
+{'state': 'updated'}
+
+

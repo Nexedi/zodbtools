@@ -1,0 +1,12 @@
+    0: c    GLOBAL     '__main__ Object'
+   17: q    BINPUT     1
+   19: .    STOP
+highest protocol among opcodes = 1
+   20: (    MARK
+   21: U        SHORT_BINSTRING '\x00\x00\x00\x00\x00\x00\x00\r'
+   31: q        BINPUT     2
+   33: h        BINGET     1
+   35: t        TUPLE      (MARK at 20)
+   36: Q    BINPERSID
+   37: .    STOP
+highest protocol among opcodes = 1

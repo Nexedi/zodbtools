@@ -20,21 +20,34 @@
 # See COPYING file for full licensing terms.
 # See https://www.nexedi.com/licensing for rationale and options.
 
-import hashlib, struct, codecs, io
+from io import BytesIO
+import collections, hashlib, pprint, struct, codecs, io
 import zodburi
 import six
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
+from ZODB.utils import oid_repr, repr_to_oid, tid_repr
+from ZODB._compat import PersistentUnpickler
 import dateparser
 
-# BBB Re-export BytesIO for PY2 compatibility
+
 if six.PY2:
-    from ZODB._compat import BytesIO
+    # BBB backport at2before
+    def at2before(at):  # -> before
+        """at2before converts `at` TID to corresponding `before`."""
+        from ZODB.utils import p64, u64
+        return p64(u64(at) + 1)
+    from zodbpickle import pickletools_2 as zpickletools
 else:
-    from io import BytesIO
+    from ZODB.utils import at2before
+    from zodbpickle import pickletools_3 as zpickletools
+
+from six import StringIO  # io.StringIO does not accept non-unicode strings on py2
+
 
 from golang import b
+from golang.gcompat import qq
 
 
 def ashex(s):
@@ -91,16 +104,16 @@ def parse_tid(tid_string, raw_only=False):
     corresponding raw TID.
     If `tid_string` cannot be parsed as a time, assume it was
     already a TID.
-    This function also raise TidRangeInvalid when `tid_string`
+    This function also raise TidInvalid when `tid_string`
     is invalid.
     """
     assert isinstance(tid_string, (str, bytes))
 
     # If it "looks like a TID", don't try to parse it as time,
     # because parsing is slow.
-    if len(tid_string) == 16:
+    if len(tid_string) in (16, 18):
         try:
-            return fromhex(tid_string)
+            return repr_to_oid(tid_string)
         except ValueError:
             pass
 
@@ -130,6 +143,48 @@ def parse_tid(tid_string, raw_only=False):
             parsed_time.hour,
             parsed_time.minute,
             parsed_time.second + parsed_time.microsecond / 1000000.).raw()
+
+
+class Xid(collections.namedtuple('Xid', ('tid', 'oid'))):
+    """Xid represents an object reference: a tid and an oid
+    """
+    __slots__ = ()
+
+    def __str__(self):
+        return '%s:%s' % (tid_repr(self.tid), oid_repr(self.oid))
+
+    def __repr__(self):
+        return "Xid('%s')" % str(self)
+
+    @property
+    def next_tid(self):
+        """Returns next tid, for use with ZODB.interfaces.IStorage.loadBefore.
+        """
+        return at2before(self.tid)
+
+
+class XidInvalid(ValueError):
+    pass
+
+
+def parse_xid(xid_string):
+    """Parse a string as a Xid
+    """
+    try:
+        tid_string, oid_string = xid_string.rsplit(":", 1)
+    except ValueError:
+        raise XidInvalid(xid_string)
+
+    try:
+        oid = repr_to_oid(oid_string)
+    except (ValueError, TypeError):
+        # '\x00\x00\x00\x00\x00\x124V' from dump --pretty zpickledis
+        oid = codecs.decode(oid_string, 'unicode_escape').encode()
+
+    if len(oid) != 8:
+        raise XidInvalid(xid_string)
+
+    return Xid(parse_tid(tid_string), oid)
 
 
 # parse_tidrange parses a string into (tidmin, tidmax).
@@ -257,3 +312,130 @@ def readfile(path): # -> data(bytes)
 def writefile(path, data):
     with open(path, 'wb') as _:
         _.write(data)
+
+
+# ---- Pretty Printing ----
+
+# indent returns text with each line of it indented with prefix.
+def indent(text, prefix): # -> text
+    textv = text.splitlines(True)
+    textv = [prefix+_ for _ in textv]
+    text  = ''.join(textv)
+    return text
+
+
+class RawPrettyPrinter:
+    """return raw data.
+    """
+    def format_extension(self, rawext):
+        return b"extension %s\n" % qq(rawext)
+
+    def format_record(self, data, prefix=''):
+        return data
+
+
+class ZPickleDisPrettyPrinter:
+    """format data with pickle disassembler.
+    """
+    def format_extension(self, rawext):
+        if not rawext:
+            return b'extension ""\n'
+
+        extf = BytesIO(rawext)
+        disf = StringIO()
+        zpickletools.dis(extf, disf)
+        out = b"extension\n" + b(indent(disf.getvalue(), "  "))
+        extra = extf.read()
+        if len(extra) > 0:
+            out += b"  + extra data %s\n" % qq(extra)
+        return out
+
+    def format_record(self, data, prefix=''):
+        dataf = BytesIO(data)
+
+        # https://github.com/zopefoundation/ZODB/blob/5.6.0-55-g1226c9d35/src/ZODB/serialize.py#L24-L29
+        # https://github.com/zopefoundation/ZODB/blob/5.8.1-0-g72cebe6bc/src/ZODB/serialize.py#L436-L443
+        disf  = StringIO()
+        memo = {} # memo is shared in between class and state
+        zpickletools.dis(dataf, disf, memo) # class
+        zpickletools.dis(dataf, disf, memo) # state
+        out = b(indent(disf.getvalue(), prefix))
+        extra = dataf.read()
+        if len(extra) > 0:
+            out += b"%s+ extra data %s\n" % (prefix, qq(extra))
+        return out
+
+
+class PyPrettyPrinter:
+    """Format data by loading objects from pickle and using their native representations.
+    """
+    def format_extension(self, rawext):
+        if not rawext:
+            return b""
+        return self._pprint_objects(rawext, 1)
+
+    def format_record(self, data, prefix=''):
+        return self._pprint_objects(data, 2)
+
+    def _pprint_objects(self, data, object_count):
+        unpickler = self._get_unpickler(BytesIO(data))
+        outf = StringIO()
+        for _ in range(object_count):
+            pprint.pprint(unpickler.load(), stream=outf)
+        return b(outf.getvalue())
+
+    def _get_unpickler(self, f):
+        def load_persistent(pid):
+            PersistentReference = collections.namedtuple(
+                'PersistentReference', ['p_oid', 'class_meta'])
+            try:
+                p_oid, class_meta = pid
+                p_oid = str(oid_repr(b(p_oid)))
+            except ValueError:
+                p_oid = pid
+                class_meta = '?'
+            return PersistentReference(p_oid, class_meta)
+
+        def find_global(module, name):
+            class Instance(object):
+                _mode = 'state'
+                def __init__(self, *state):
+                    self._state = state
+                    if state:
+                        self._mode = 'reduce'
+                def __setstate__(self, state):
+                    self._state = state
+                def __repr__(self):
+                    return 'Instance(class=%s, %s=%s)' % (
+                        self.__class__,
+                        self._mode,
+                        pprint.pformat(self._state)
+                    )
+            return type(name, (Instance,), {'__module__': module})
+
+        if six.PY2:
+            import zodbpickle.pickle_2
+            import marshal
+            class StrUnpickler(zodbpickle.pickle_2.Unpickler):
+                """Unpickler that loads python3 BINUNICODE as str.
+
+                This is mostly for stable output in the tests.
+                """
+                dispatch = zodbpickle.pickle_2.Unpickler.dispatch.copy()
+                def load_binunicode(self):
+                    len = marshal.loads('i' + self.read(4))
+                    self.append(self.read(len))
+                dispatch[zodbpickle.pickle_2.BINUNICODE] = load_binunicode
+            unpickler = StrUnpickler(f)
+            unpickler.find_class = find_global
+            unpickler.persistent_load = load_persistent
+            return unpickler
+
+        return PersistentUnpickler(find_global, load_persistent, f)
+
+
+prettyPrintRegistry = {
+    'raw': RawPrettyPrinter(),
+    'zpickledis': ZPickleDisPrettyPrinter(),
+    'pprint': PyPrettyPrinter(),
+}
