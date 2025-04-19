@@ -1,0 +1,4 @@
+obj 000000000000000e 87 sha1:852999f22a95eeb3c301012627162d8d1ed9648c
+<class '__main__.Object'>
+Instance(class=<class '__main__.NonPersistentObject'>, state={'value': (1, 'two')})
+
