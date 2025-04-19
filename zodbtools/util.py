@@ -22,17 +22,11 @@
 
 import hashlib, struct, codecs, io
 import zodburi
-import six
 from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 import dateparser
 
-# BBB Re-export BytesIO for PY2 compatibility
-if six.PY2:
-    from ZODB._compat import BytesIO
-else:
-    from io import BytesIO
 
 from golang import b
 

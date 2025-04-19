@@ -64,7 +64,7 @@ TODO also protect txn record by hash.
 
 from __future__ import print_function
 from zodbtools.util import ashex, fromhex, sha1, txnobjv, parse_tidrange, TidRangeInvalid,   \
-        storageFromURL, hashRegistry, asbinstream, BytesIO
+        storageFromURL, hashRegistry, asbinstream
 from ZODB._compat import loads, _protocol
 from zodbpickle.slowpickle import Pickler as pyPickler
 from ZODB.interfaces import IStorageTransactionInformation
@@ -76,7 +76,7 @@ if sys.version_info.major < 3:
 else:
     from zodbpickle import pickletools_3 as zpickletools
 
-
+from io import BytesIO
 import logging as log
 import re
 from golang.gcompat import qq
