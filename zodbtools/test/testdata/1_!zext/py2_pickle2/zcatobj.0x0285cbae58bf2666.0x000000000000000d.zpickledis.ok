@@ -1,0 +1,10 @@
+    0: \x80 PROTO      2
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     1
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      2
+   24: U    SHORT_BINSTRING 'persistent_reference'
+   46: q    BINPUT     2
+   48: .    STOP
+highest protocol among opcodes = 2

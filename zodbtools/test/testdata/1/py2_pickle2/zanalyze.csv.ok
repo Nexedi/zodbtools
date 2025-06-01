@@ -1,3 +1,3 @@
 Class Name,T.Count,T.Bytes,Pct,AvgSize,C.Count,C.Bytes,O.Count,O.Bytes
-persistent.mapping.PersistentMapping,3,639,22.523793%,213.000000,1,213,2,426
-__main__.Object,65,2198,77.476207%,33.815385,9,317,56,1881
+persistent.mapping.PersistentMapping,7,1779,41.066482%,254.142857,1,325,6,1454
+__main__.Object,71,2553,58.933518%,35.957746,14,623,57,1930

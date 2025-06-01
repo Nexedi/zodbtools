@@ -1307,3 +1307,518 @@ description "delete 2\nalpha beta gamma'delta\"lambda\n\nqqq ..."
 extension ""
 obj 0000000000000002 delete
 
+txn 0285cbae540da819 " "
+user "user"
+description "simple persistent object, initial state"
+extension ""
+obj 0000000000000000 294 sha1:8049c90588154f25fa1c0d6d9a4a84f9c39ccd6e
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     0
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     1
+     48: X    BINUNICODE 'data'
+     57: q    BINPUT     2
+     59: }    EMPTY_DICT
+     60: q    BINPUT     3
+     62: (    MARK
+     63: X        BINUNICODE 'f'
+     69: q        BINPUT     4
+     71: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x01'
+     81: q        BINPUT     5
+     83: c        GLOBAL     '__main__ Object'
+    100: q        BINPUT     6
+    102: \x86     TUPLE2
+    103: q        BINPUT     7
+    105: Q        BINPERSID
+    106: X        BINUNICODE 'd'
+    112: q        BINPUT     8
+    114: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\n'
+    124: q        BINPUT     9
+    126: h        BINGET     6
+    128: \x86     TUPLE2
+    129: q        BINPUT     10
+    131: Q        BINPERSID
+    132: X        BINUNICODE 'g'
+    138: q        BINPUT     11
+    140: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x03'
+    150: q        BINPUT     12
+    152: h        BINGET     6
+    154: \x86     TUPLE2
+    155: q        BINPUT     13
+    157: Q        BINPERSID
+    158: X        BINUNICODE 'b'
+    164: q        BINPUT     14
+    166: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x08'
+    176: q        BINPUT     15
+    178: h        BINGET     6
+    180: \x86     TUPLE2
+    181: q        BINPUT     16
+    183: Q        BINPERSID
+    184: X        BINUNICODE 'a'
+    190: q        BINPUT     17
+    192: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x05'
+    202: q        BINPUT     18
+    204: h        BINGET     6
+    206: \x86     TUPLE2
+    207: q        BINPUT     19
+    209: Q        BINPERSID
+    210: X        BINUNICODE 'e'
+    216: q        BINPUT     20
+    218: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\t'
+    228: q        BINPUT     21
+    230: h        BINGET     6
+    232: \x86     TUPLE2
+    233: q        BINPUT     22
+    235: Q        BINPERSID
+    236: X        BINUNICODE 'c'
+    242: q        BINPUT     23
+    244: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x07'
+    254: q        BINPUT     24
+    256: h        BINGET     6
+    258: \x86     TUPLE2
+    259: q        BINPUT     25
+    261: Q        BINPERSID
+    262: X        BINUNICODE 'obj1'
+    271: q        BINPUT     26
+    273: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0b'
+    283: q        BINPUT     27
+    285: h        BINGET     6
+    287: \x86     TUPLE2
+    288: q        BINPUT     28
+    290: Q        BINPERSID
+    291: u        SETITEMS   (MARK at 62)
+    292: s    SETITEM
+    293: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000b 55 sha1:e00b2489b9aa1597f16634f76bf8a244f0db067f
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: }    EMPTY_DICT
+     25: q    BINPUT     1
+     27: X    BINUNICODE 'state'
+     37: q    BINPUT     2
+     39: X    BINUNICODE 'initial'
+     51: q    BINPUT     3
+     53: s    SETITEM
+     54: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae58bf2666 " "
+user "user"
+description "persistent reference"
+extension ""
+obj 0000000000000000 339 sha1:3f715b12e79844d17f49e3c5806da0221fcaf083
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     0
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     1
+     48: X    BINUNICODE 'data'
+     57: q    BINPUT     2
+     59: }    EMPTY_DICT
+     60: q    BINPUT     3
+     62: (    MARK
+     63: X        BINUNICODE 'f'
+     69: q        BINPUT     4
+     71: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x01'
+     81: q        BINPUT     5
+     83: c        GLOBAL     '__main__ Object'
+    100: q        BINPUT     6
+    102: \x86     TUPLE2
+    103: q        BINPUT     7
+    105: Q        BINPERSID
+    106: X        BINUNICODE 'd'
+    112: q        BINPUT     8
+    114: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\n'
+    124: q        BINPUT     9
+    126: h        BINGET     6
+    128: \x86     TUPLE2
+    129: q        BINPUT     10
+    131: Q        BINPERSID
+    132: X        BINUNICODE 'g'
+    138: q        BINPUT     11
+    140: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x03'
+    150: q        BINPUT     12
+    152: h        BINGET     6
+    154: \x86     TUPLE2
+    155: q        BINPUT     13
+    157: Q        BINPERSID
+    158: X        BINUNICODE 'b'
+    164: q        BINPUT     14
+    166: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x08'
+    176: q        BINPUT     15
+    178: h        BINGET     6
+    180: \x86     TUPLE2
+    181: q        BINPUT     16
+    183: Q        BINPERSID
+    184: X        BINUNICODE 'a'
+    190: q        BINPUT     17
+    192: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x05'
+    202: q        BINPUT     18
+    204: h        BINGET     6
+    206: \x86     TUPLE2
+    207: q        BINPUT     19
+    209: Q        BINPERSID
+    210: X        BINUNICODE 'e'
+    216: q        BINPUT     20
+    218: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\t'
+    228: q        BINPUT     21
+    230: h        BINGET     6
+    232: \x86     TUPLE2
+    233: q        BINPUT     22
+    235: Q        BINPERSID
+    236: X        BINUNICODE 'c'
+    242: q        BINPUT     23
+    244: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x07'
+    254: q        BINPUT     24
+    256: h        BINGET     6
+    258: \x86     TUPLE2
+    259: q        BINPUT     25
+    261: Q        BINPERSID
+    262: X        BINUNICODE 'obj1'
+    271: q        BINPUT     26
+    273: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0b'
+    283: q        BINPUT     27
+    285: h        BINGET     6
+    287: \x86     TUPLE2
+    288: q        BINPUT     28
+    290: Q        BINPERSID
+    291: X        BINUNICODE 'persistent_reference'
+    316: q        BINPUT     29
+    318: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0c'
+    328: q        BINPUT     30
+    330: h        BINGET     6
+    332: \x86     TUPLE2
+    333: q        BINPUT     31
+    335: Q        BINPERSID
+    336: u        SETITEMS   (MARK at 62)
+    337: s    SETITEM
+    338: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000c 43 sha1:453a75405a1207611a469a4d1dcbe8501957a132
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: C    SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\r'
+     34: q    BINPUT     1
+     36: h    BINGET     0
+     38: \x86 TUPLE2
+     39: q    BINPUT     2
+     41: Q    BINPERSID
+     42: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000d 52 sha1:2902c2776b44bb6634cc5d3b9ff1667d61f31e76
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: X    BINUNICODE 'persistent_reference'
+     49: q    BINPUT     1
+     51: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae5d70a4b3 " "
+user "user"
+description "instance of user class"
+extension ""
+obj 0000000000000000 368 sha1:5bce518300d81b7402291b6eb6c50d9f30df53d8
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     0
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     1
+     48: X    BINUNICODE 'data'
+     57: q    BINPUT     2
+     59: }    EMPTY_DICT
+     60: q    BINPUT     3
+     62: (    MARK
+     63: X        BINUNICODE 'f'
+     69: q        BINPUT     4
+     71: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x01'
+     81: q        BINPUT     5
+     83: c        GLOBAL     '__main__ Object'
+    100: q        BINPUT     6
+    102: \x86     TUPLE2
+    103: q        BINPUT     7
+    105: Q        BINPERSID
+    106: X        BINUNICODE 'd'
+    112: q        BINPUT     8
+    114: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\n'
+    124: q        BINPUT     9
+    126: h        BINGET     6
+    128: \x86     TUPLE2
+    129: q        BINPUT     10
+    131: Q        BINPERSID
+    132: X        BINUNICODE 'g'
+    138: q        BINPUT     11
+    140: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x03'
+    150: q        BINPUT     12
+    152: h        BINGET     6
+    154: \x86     TUPLE2
+    155: q        BINPUT     13
+    157: Q        BINPERSID
+    158: X        BINUNICODE 'b'
+    164: q        BINPUT     14
+    166: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x08'
+    176: q        BINPUT     15
+    178: h        BINGET     6
+    180: \x86     TUPLE2
+    181: q        BINPUT     16
+    183: Q        BINPERSID
+    184: X        BINUNICODE 'a'
+    190: q        BINPUT     17
+    192: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x05'
+    202: q        BINPUT     18
+    204: h        BINGET     6
+    206: \x86     TUPLE2
+    207: q        BINPUT     19
+    209: Q        BINPERSID
+    210: X        BINUNICODE 'e'
+    216: q        BINPUT     20
+    218: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\t'
+    228: q        BINPUT     21
+    230: h        BINGET     6
+    232: \x86     TUPLE2
+    233: q        BINPUT     22
+    235: Q        BINPERSID
+    236: X        BINUNICODE 'c'
+    242: q        BINPUT     23
+    244: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x07'
+    254: q        BINPUT     24
+    256: h        BINGET     6
+    258: \x86     TUPLE2
+    259: q        BINPUT     25
+    261: Q        BINPERSID
+    262: X        BINUNICODE 'obj1'
+    271: q        BINPUT     26
+    273: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0b'
+    283: q        BINPUT     27
+    285: h        BINGET     6
+    287: \x86     TUPLE2
+    288: q        BINPUT     28
+    290: Q        BINPERSID
+    291: X        BINUNICODE 'persistent_reference'
+    316: q        BINPUT     29
+    318: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0c'
+    328: q        BINPUT     30
+    330: h        BINGET     6
+    332: \x86     TUPLE2
+    333: q        BINPUT     31
+    335: Q        BINPERSID
+    336: X        BINUNICODE 'obj4'
+    345: q        BINPUT     32
+    347: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0e'
+    357: q        BINPUT     33
+    359: h        BINGET     6
+    361: \x86     TUPLE2
+    362: q        BINPUT     34
+    364: Q        BINPERSID
+    365: u        SETITEMS   (MARK at 62)
+    366: s    SETITEM
+    367: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000e 93 sha1:e01b534e72687554b37201c112075e21a473d5cf
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: c    GLOBAL     '__main__ NonPersistentObject'
+     54: q    BINPUT     1
+     56: )    EMPTY_TUPLE
+     57: \x81 NEWOBJ
+     58: q    BINPUT     2
+     60: }    EMPTY_DICT
+     61: q    BINPUT     3
+     63: X    BINUNICODE 'value'
+     73: q    BINPUT     4
+     75: K    BININT1    1
+     77: X    BINUNICODE 'two'
+     85: q    BINPUT     5
+     87: \x86 TUPLE2
+     88: q    BINPUT     6
+     90: s    SETITEM
+     91: b    BUILD
+     92: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae62222300 " "
+user "user"
+description "instance of user class using __reduce__"
+extension ""
+obj 0000000000000000 397 sha1:3fbac105c47d4924d159bdab94c1b4ab056bcf4d
+      0: \x80 PROTO      3
+      2: c    GLOBAL     'persistent.mapping PersistentMapping'
+     40: q    BINPUT     0
+     42: .    STOP
+  highest protocol among opcodes = 2
+     43: \x80 PROTO      3
+     45: }    EMPTY_DICT
+     46: q    BINPUT     1
+     48: X    BINUNICODE 'data'
+     57: q    BINPUT     2
+     59: }    EMPTY_DICT
+     60: q    BINPUT     3
+     62: (    MARK
+     63: X        BINUNICODE 'f'
+     69: q        BINPUT     4
+     71: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x01'
+     81: q        BINPUT     5
+     83: c        GLOBAL     '__main__ Object'
+    100: q        BINPUT     6
+    102: \x86     TUPLE2
+    103: q        BINPUT     7
+    105: Q        BINPERSID
+    106: X        BINUNICODE 'd'
+    112: q        BINPUT     8
+    114: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\n'
+    124: q        BINPUT     9
+    126: h        BINGET     6
+    128: \x86     TUPLE2
+    129: q        BINPUT     10
+    131: Q        BINPERSID
+    132: X        BINUNICODE 'g'
+    138: q        BINPUT     11
+    140: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x03'
+    150: q        BINPUT     12
+    152: h        BINGET     6
+    154: \x86     TUPLE2
+    155: q        BINPUT     13
+    157: Q        BINPERSID
+    158: X        BINUNICODE 'b'
+    164: q        BINPUT     14
+    166: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x08'
+    176: q        BINPUT     15
+    178: h        BINGET     6
+    180: \x86     TUPLE2
+    181: q        BINPUT     16
+    183: Q        BINPERSID
+    184: X        BINUNICODE 'a'
+    190: q        BINPUT     17
+    192: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x05'
+    202: q        BINPUT     18
+    204: h        BINGET     6
+    206: \x86     TUPLE2
+    207: q        BINPUT     19
+    209: Q        BINPERSID
+    210: X        BINUNICODE 'e'
+    216: q        BINPUT     20
+    218: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\t'
+    228: q        BINPUT     21
+    230: h        BINGET     6
+    232: \x86     TUPLE2
+    233: q        BINPUT     22
+    235: Q        BINPERSID
+    236: X        BINUNICODE 'c'
+    242: q        BINPUT     23
+    244: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x07'
+    254: q        BINPUT     24
+    256: h        BINGET     6
+    258: \x86     TUPLE2
+    259: q        BINPUT     25
+    261: Q        BINPERSID
+    262: X        BINUNICODE 'obj1'
+    271: q        BINPUT     26
+    273: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0b'
+    283: q        BINPUT     27
+    285: h        BINGET     6
+    287: \x86     TUPLE2
+    288: q        BINPUT     28
+    290: Q        BINPERSID
+    291: X        BINUNICODE 'persistent_reference'
+    316: q        BINPUT     29
+    318: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0c'
+    328: q        BINPUT     30
+    330: h        BINGET     6
+    332: \x86     TUPLE2
+    333: q        BINPUT     31
+    335: Q        BINPERSID
+    336: X        BINUNICODE 'obj4'
+    345: q        BINPUT     32
+    347: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0e'
+    357: q        BINPUT     33
+    359: h        BINGET     6
+    361: \x86     TUPLE2
+    362: q        BINPUT     34
+    364: Q        BINPERSID
+    365: X        BINUNICODE 'obj5'
+    374: q        BINPUT     35
+    376: C        SHORT_BINBYTES b'\x00\x00\x00\x00\x00\x00\x00\x0f'
+    386: q        BINPUT     36
+    388: h        BINGET     6
+    390: \x86     TUPLE2
+    391: q        BINPUT     37
+    393: Q        BINPERSID
+    394: u        SETITEMS   (MARK at 62)
+    395: s    SETITEM
+    396: .    STOP
+  highest protocol among opcodes = 3
+
+obj 000000000000000f 85 sha1:01d07b377207c2a6f9b06a4447438098c4bf07a3
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: c    GLOBAL     '__main__ NonPersistentObjectWithReduce'
+     64: q    BINPUT     1
+     66: X    BINUNICODE 'value'
+     76: q    BINPUT     2
+     78: \x85 TUPLE1
+     79: q    BINPUT     3
+     81: R    REDUCE
+     82: q    BINPUT     4
+     84: .    STOP
+  highest protocol among opcodes = 2
+
+
+txn 0285cbae66d3a14c " "
+user "user"
+description "simple persistent object, updated state"
+extension ""
+obj 000000000000000b 55 sha1:1c003accb6db6ef37e4f00c7e7387ef75c4bdf30
+      0: \x80 PROTO      3
+      2: c    GLOBAL     '__main__ Object'
+     19: q    BINPUT     0
+     21: .    STOP
+  highest protocol among opcodes = 2
+     22: \x80 PROTO      3
+     24: }    EMPTY_DICT
+     25: q    BINPUT     1
+     27: X    BINUNICODE 'state'
+     37: q    BINPUT     2
+     39: X    BINUNICODE 'updated'
+     51: q    BINPUT     3
+     53: s    SETITEM
+     54: .    STOP
+  highest protocol among opcodes = 2
+
+

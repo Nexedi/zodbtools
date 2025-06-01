@@ -1,0 +1,8 @@
+    0: c    GLOBAL     '__main__ Object'
+   17: q    BINPUT     1
+   19: .    STOP
+highest protocol among opcodes = 1
+   20: U    SHORT_BINSTRING 'persistent_reference'
+   42: q    BINPUT     2
+   44: .    STOP
+highest protocol among opcodes = 1
