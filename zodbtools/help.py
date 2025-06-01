@@ -67,6 +67,9 @@ inclusive. Both tidmin and tidmax are optional and default to
 If a tid (tidmin or tidmax) is given, it has to be specified as follows:
 
     - a 16-digit hex number specifying transaction ID, e.g. 0285cbac258bf266
+    - a hex number with 0x prefix specifying the transaction ID in the format
+      from ZODB.util.tid_repr, which is generally used in ZODB logs or error
+      messages, e.g. 0x0285cbac258bf266
     - absolute timestamp, in RFC3339 or RFC822 formats
     - relative timestamp, e.g. yesterday, 1 week ago
 
@@ -86,5 +89,53 @@ In commands <tidrange> is optional - if it is not given at all, it defaults to
 0..+∞, i.e. to whole database history.
 """
 
+help_xid = """\
+An object address for loading from ZODB should be specified as follows:
+
+	- tid
+	- ":"
+	- oid
+
+tid follows the same specification as in tidrange ( see zodb help tidrange )
+
+oid can be specified as follows:
+
+    - a 16-digit hex number specifying object ID, e.g. 0000000000001234
+    - a hex number with 0x prefix specifying the oid in the format
+      from ZODB.util.oid_repr, which is generally used in ZODB logs or error
+      messages, e.g. 0x01234
+
+for example
+
+	0285cbac258bf266:0000000000000001	- oid 1 at first newest transaction changing it with tid <= 0285cbac258bf266
+
+"""
+
+
+help_pretty = """\
+Several subcommands support --pretty=<format> option to output records in a
+different format. The following formats are available:
+
+    --pretty=raw
+
+This displays the bytes of the record data, in binary format. This is the
+default format.
+
+    --pretty=zpickledis
+
+This displays the output of `pickletools.dis` on record data. This is useful to
+inspect the pickle data with annotations.
+
+    --pretty=pprint
+
+This displays the representation of python objects serialized in the record are
+loaded and displayed using `pprint` module. Note that this only load "standard"
+objects but does not load actual user classes, as they may not be available in
+the enviromment running zodb command.
+"""
+
+
 topic_dict['zurl']      = "specifying database URL",    help_zurl
 topic_dict['tidrange']  = "specifying history range",   help_tidrange
+topic_dict['xid']       = "specifying object address",  help_xid
+topic_dict['pretty']    = "choosing output format",     help_pretty

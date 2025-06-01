@@ -57,6 +57,11 @@ def test_tidrange_tid():
         b"\x00\x00\x00\x00\x00\x00\xbb\xbb",
     ) == parse_tidrange("000000000000aaaa..000000000000bbbb")
 
+    assert (
+        b'\x03\xff\x88\x94\x05u1\x00',
+        b'\x03\xff\x88\x95\xbds\x00\xee',
+    ) == parse_tidrange("0x03ff889405753100..0x03ff8895bd7300ee")
+
     assert (b"\x00\x00\x00\x00\x00\x00\xaa\xaa",
             None) == parse_tidrange("000000000000aaaa..")
 

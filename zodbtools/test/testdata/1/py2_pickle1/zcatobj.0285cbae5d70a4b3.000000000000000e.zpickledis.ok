@@ -1,0 +1,23 @@
+    0: c    GLOBAL     '__main__ Object'
+   17: q    BINPUT     1
+   19: .    STOP
+highest protocol among opcodes = 1
+   20: (    MARK
+   21: c        GLOBAL     '__main__ NonPersistentObject'
+   51: q        BINPUT     2
+   53: o        OBJ        (MARK at 20)
+   54: q    BINPUT     3
+   56: }    EMPTY_DICT
+   57: q    BINPUT     4
+   59: U    SHORT_BINSTRING 'value'
+   66: q    BINPUT     5
+   68: (    MARK
+   69: K        BININT1    1
+   71: U        SHORT_BINSTRING 'two'
+   76: q        BINPUT     6
+   78: t        TUPLE      (MARK at 68)
+   79: q    BINPUT     7
+   81: s    SETITEM
+   82: b    BUILD
+   83: .    STOP
+highest protocol among opcodes = 1
