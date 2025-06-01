@@ -1,0 +1,4 @@
+obj 000000000000000f 80 sha1:0b12d8a3a9b6089f85292ced3c4b1dc9b3df5d59
+<class '__main__.Object'>
+Instance(class=<class '__main__.NonPersistentObjectWithReduce'>, reduce=('value',))
+

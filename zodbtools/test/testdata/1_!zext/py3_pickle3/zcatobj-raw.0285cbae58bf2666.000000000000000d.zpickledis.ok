@@ -1,0 +1,12 @@
+obj 000000000000000d 59 sha1:9a59a5ae52648c77aff104f5293232992bbaf211
+    0: \x80 PROTO      3
+    2: c    GLOBAL     '__main__ Object'
+   19: q    BINPUT     0
+   21: .    STOP
+highest protocol among opcodes = 2
+   22: \x80 PROTO      3
+   24: X    BINUNICODE 'persistent_reference target'
+   56: q    BINPUT     1
+   58: .    STOP
+highest protocol among opcodes = 2
+
