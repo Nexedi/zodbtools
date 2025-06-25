@@ -26,7 +26,6 @@ from six.moves.urllib_parse import urlsplit, urlunsplit
 from zlib import crc32, adler32
 from ZODB.TimeStamp import TimeStamp
 import dateparser
-from datetime import datetime
 
 
 from golang import b
@@ -109,7 +108,6 @@ def parse_tid(tid_string, raw_only=False):
     parsed_time = dateparser.parse(
         tid_string,
         settings={
-            'TIMEZONE': datetime.now().astimezone().tzname(),
             'TO_TIMEZONE': 'UTC',
             'RETURN_AS_TIMEZONE_AWARE': True
         })
